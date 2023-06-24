@@ -9,9 +9,14 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-export default function Button(props: ButtonProps) {
-  const { type, text, color, width, isDisabled, onClick } = props;
-
+export default function Button({
+  type,
+  text,
+  color,
+  width,
+  isDisabled,
+  onClick,
+}: ButtonProps) {
   return (
     <StyledButton
       type={type}
@@ -26,7 +31,7 @@ export default function Button(props: ButtonProps) {
 }
 
 const BUTTON_WIDTH = {
-  full: "30.8rem",
+  full: "100%",
   half: "14.9rem",
 };
 
