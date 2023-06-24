@@ -1,5 +1,4 @@
 import React from "react";
-import mockData from "./mockData";
 import styled from "styled-components";
 import Icon from "./Icon";
 
@@ -20,7 +19,7 @@ interface ListProps {
 }
 
 function List({
-  listData = mockData,
+  listData,
   type = "likable",
   onClickClose,
   onClickEdit,
