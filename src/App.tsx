@@ -7,6 +7,7 @@ import Intro from "pages/Intro";
 import Gift from "pages/Gift";
 import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
+import ReactQuerySample from "pages/ReactQuerySample";
 
 const SayHello = styled.h1`
   background: linear-gradient(to right, #f12711, #f5af19);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Intro />} />
           <Route path="/gift" element={<Gift />} />
           <Route path="/recoil-sample" element={<RecoilSample />} />
+          <Route path="/react-query-sample" element={<ReactQuerySample />} />
         </Routes>
       </header>
     </div>
