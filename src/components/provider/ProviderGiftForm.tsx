@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Icon from "components/common/Icon";
 
 // interface LinkPreviewResponse {
 //   author: string | null;
@@ -20,6 +21,14 @@ const Input = styled.input`
   outline: none;
   border: none;
   padding-left: 5px;
+`;
+
+const AddBtn = styled.button`
+  width: 50px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #584392;
+  border: none;
 `;
 
 export default function ProviderGiftForm() {
@@ -55,7 +64,9 @@ export default function ProviderGiftForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Input id="url-input" type="text" onChange={handleUrlChange} />
-      <button type="submit">제출하기</button>
+      <AddBtn type="submit">
+        <Icon name="cart" width={20} height={20} />
+      </AddBtn>
     </form>
   );
 }
