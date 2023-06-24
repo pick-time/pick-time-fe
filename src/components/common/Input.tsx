@@ -37,12 +37,12 @@ const INPUT_STYLES = {
   center: {
     height: "4.6rem",
     fontSize: "1.8rem",
-    align: "center",
+    "text-align": "center",
   },
   left: {
     height: "4rem",
     fontSize: "1.4rem",
-    align: "left",
+    "text-align": "left",
   },
 };
 
