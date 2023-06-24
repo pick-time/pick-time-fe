@@ -24,7 +24,7 @@ const Input = styled.input`
 
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState();
 
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
