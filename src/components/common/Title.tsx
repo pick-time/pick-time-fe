@@ -6,6 +6,14 @@ interface TitleProps {
   align: "left" | "center";
 }
 
+/**
+ * @example
+ * <Title level={1} align="left">
+    미키님이 <br />
+    <span style={{ color: COLOR.PINK }}>미키님을</span> 위해 생각한
+    선물들이에요!
+  </Title>
+ */
 export default function Title({ children, level = 1, align }: TitleProps) {
   const tag = `h${level}` as keyof JSX.IntrinsicElements;
 

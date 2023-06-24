@@ -1,16 +1,20 @@
 import styled, { css } from "styled-components";
 
 interface ButtonProps {
-  type: "button" | "submit";
+  type?: "button" | "submit";
   text: string;
-  color: "pink" | "purple" | "navy";
+  color: string;
   width: "full" | "half";
   isDisabled?: boolean;
   onClick: () => void;
 }
 
+/**
+ * @example
+ * <Button text="완료" color={COLOR.NAVY} width="full" onClick={handleClick} />
+ */
 export default function Button({
-  type,
+  type = "button",
   text,
   color,
   width,
@@ -20,7 +24,7 @@ export default function Button({
   return (
     <StyledButton
       type={type}
-      color={BUTTON_COLOR[color]}
+      color={color}
       width={BUTTON_WIDTH[width]}
       disabled={isDisabled}
       onClick={onClick}
@@ -30,16 +34,7 @@ export default function Button({
   );
 }
 
-const BUTTON_WIDTH = {
-  full: "100%",
-  half: "14.9rem",
-};
-
-const BUTTON_COLOR = {
-  pink: "#E362A3",
-  purple: "#584392",
-  navy: "#24105E",
-};
+const BUTTON_WIDTH = { full: "100%", half: "14.9rem" };
 
 const StyledButton = styled.button<{
   width: string;

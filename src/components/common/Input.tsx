@@ -7,6 +7,15 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * @example
+ * <Input
+    value={value}
+    align="center"
+    placeholder="주는 사람"
+    onChange={handleChange}
+  />
+ */
 export default function Input({
   placeholder,
   align,
