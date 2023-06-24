@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
+import { useRecoilState } from "recoil";
+import { urlResponseState } from "stores/atom";
 
 // interface LinkPreviewResponse {
 //   author: string | null;
@@ -13,27 +15,9 @@ import Icon from "components/common/Icon";
 //   url: string | null;
 // }
 
-const Input = styled.input`
-  width: 250px;
-  height: 40px;
-  border-radius: 10px;
-  background-color: #f9f6ff;
-  outline: none;
-  border: none;
-  padding-left: 5px;
-`;
-
-const AddBtn = styled.button`
-  width: 50px;
-  height: 40px;
-  border-radius: 10px;
-  background-color: #584392;
-  border: none;
-`;
-
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useRecoilState(urlResponseState);
 
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
@@ -54,12 +38,10 @@ export default function ProviderGiftForm() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         setResponse(res);
       });
   };
-
-  console.log(response);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -70,3 +52,22 @@ export default function ProviderGiftForm() {
     </form>
   );
 }
+
+const Input = styled.input`
+  width: 250px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #f9f6ff;
+  outline: none;
+  border: none;
+  padding-left: 5px;
+`;
+
+const AddBtn = styled.button`
+  width: 50px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #584392;
+  border: none;
+  margin-left: 8px;
+`;
