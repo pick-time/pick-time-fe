@@ -3,16 +3,15 @@ import styled from "styled-components";
 interface CardTxtProps {
   cardInp: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
 }
 
-function CardTxt({ cardInp, onChange, placeholder }: CardTxtProps) {
+function CardTxt({ cardInp, onChange }: CardTxtProps) {
   return (
     <div>
       <CardInput
         type="text"
         value={cardInp}
-        placeholder={placeholder}
+        placeholder="마음을 전하고 싶은 분에게 메세지를 작성해 보세요!"
         onChange={onChange}
       />
     </div>

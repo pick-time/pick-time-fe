@@ -11,8 +11,11 @@ import {
   // useRecoilValue,
 } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 0 } },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -24,6 +27,7 @@ root.render(
         <Router>
           <App />
         </Router>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>,
