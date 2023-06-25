@@ -9,8 +9,8 @@ import RecoilSample from "pages/RecoilSample";
 import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
-// import Confirm from "pages/Confirm";
-// import GiftForConsumer from "pages/GiftForConsumer";
+import Confirm from "pages/Confirm";
+import GiftForConsumer from "pages/GiftForConsumer";
 
 function App() {
   return (

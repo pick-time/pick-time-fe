@@ -3,7 +3,7 @@ import Header from "components/common/Header";
 import List from "components/common/List";
 import Title from "components/common/Title";
 import { useParams, useNavigate } from "react-router-dom";
-import mockListData from "components/common/mockData";
+// import mockListData from "components/common/mockData";
 import COLOR from "style/color";
 import styled from "styled-components";
 
@@ -37,7 +37,7 @@ function GiftForConsumer() {
         </Title>
       </TitleWrapper>
       <List
-        listData={mockListData}
+        listData={[]}
         type="likable"
         onClickLike={() => console.log("liked")}
       />
