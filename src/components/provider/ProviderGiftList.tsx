@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
 import { GiftList } from "types/giftList.type";
+import EditGiftModal from "./EditGiftModal";
 
 interface ResponseData {
   title: string;
@@ -41,6 +42,7 @@ export default function ProviderGiftList() {
       {listData && (
         <List listData={listData} type="editable" onClickClose={handleDelete} />
       )}
+      <EditGiftModal />
     </>
   );
 }
