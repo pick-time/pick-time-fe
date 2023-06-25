@@ -9,6 +9,7 @@ import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
 import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
+// import createTodo from "api/todoApi";
 
 const SayHello = styled.h1`
   background: linear-gradient(to right, #f12711, #f5af19);
@@ -17,6 +18,13 @@ const SayHello = styled.h1`
 `;
 
 function App() {
+  // const todo = {
+  //   title: "test1",
+  //   description: "test1",
+  // };
+
+  // createTodo(todo).then(res => console.log(res));
+
   return (
     <div className="App">
       <IconLoader />
