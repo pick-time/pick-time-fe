@@ -24,6 +24,8 @@ export default function ProviderGiftList() {
   const [listData, setListData] = useState<ListData[] | undefined>(undefined);
   const [id, setId] = useState(1);
 
+  console.log(response);
+
   useEffect(() => {
     if (response.title !== "") {
       const newData: ListData = {

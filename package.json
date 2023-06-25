@@ -12,6 +12,12 @@
     "@types/react-dom": "^18.2.6",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "concurrently": "^8.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "open-graph-scraper": "^6.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
@@ -20,7 +26,9 @@
     "recoil": "^0.7.7",
     "styled-components": "^5.3.10",
     "styled-reset": "^4.4.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.32"
   },
   "scripts": {
     "start": "react-scripts start",

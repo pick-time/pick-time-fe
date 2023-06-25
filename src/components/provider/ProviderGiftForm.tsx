@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
+import axios from "axios";
 
 const urlPattern = new RegExp(
   "^(https?:\\/\\/)?" + // validate protocol
@@ -19,6 +20,7 @@ export default function ProviderGiftForm() {
   const [response, setResponse] = useRecoilState(urlResponseState);
   const [urlError, setUrlError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [result, setResult] = useState(null);
 
   const handleClearUrl = () => {
     if (inputRef.current) {
@@ -56,20 +58,32 @@ export default function ProviderGiftForm() {
         q: url,
       };
 
-      fetch("https://api.linkpreview.net", {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify(data),
-      })
-        // fetch(`https://rlp-proxy.herokuapp.com/v2?url=${url}`)
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
-          setResponse(res);
-        })
-        .catch(error => {
-          console.log("error", error);
-        });
+      // fetch("https://api.linkpreview.net", {
+      //   method: "POST",
+      //   mode: "cors",
+      //   body: JSON.stringify(data),
+      // })
+      //   // fetch(`https://rlp-proxy.herokuapp.com/v2?url=${url}`)
+      //   .then(res => res.json())
+      //   .then(res => {
+      //     console.log(res);
+      //     setResponse(res);
+      //   })
+      //   .catch(error => {
+      //     console.log("error", error);
+      //   });
+      axios({
+        url: "http://localhost:5000/scrape",
+        method: "post",
+        data: {
+          url,
+        },
+      }).then(res => {
+        console.log(res);
+        if (res.statusText === "OK") {
+          setResponse({ ...res.data, url });
+        }
+      });
     };
 
     if (urlError !== "") {
