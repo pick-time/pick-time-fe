@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "pages/NotFound";
 import Intro from "pages/Intro";
@@ -9,30 +8,37 @@ import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
 import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
-
-const SayHello = styled.h1`
-  background: linear-gradient(to right, #f12711, #f5af19);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-`;
+import styled from "styled-components";
+// import Confirm from "pages/Confirm";
+// import GiftForConsumer from "pages/GiftForConsumer";
 
 function App() {
   return (
-    <div className="App">
+    <Root className="App">
       <IconLoader />
       <GlobalStyle />
-      <header className="App-header">
-        <SayHello>Hello Pick Time</SayHello>
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<Intro />} />
-          <Route path="/gift" element={<Gift />} />
-          <Route path="/recoil-sample" element={<RecoilSample />} />
-          <Route path="/react-query-sample" element={<ReactQuerySample />} />
-        </Routes>
-      </header>
-    </div>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Intro />} />
+        <Route path="/gift" element={<Gift />} />
+        <Route path="/confirm/:targetId" element={<Confirm />} />
+        <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />
+        <Route path="/recoil-sample" element={<RecoilSample />} />
+        <Route path="/react-query-sample" element={<ReactQuerySample />} />
+      </Routes>
+    </Root>
   );
 }
+
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 390px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+`;
 
 export default App;
