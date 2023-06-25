@@ -1,7 +1,7 @@
 export interface GiftList {
   giftId: number;
   giftUrl: string;
-  giftImage: Blob;
+  giftImage: string;
   giftTitle: string;
   giftDescription: string;
 }

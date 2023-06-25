@@ -1,17 +1,10 @@
 import styled from "styled-components";
 import Icon from "./Icon";
 import COLOR from "style/color";
-
-interface ListData {
-  id: number;
-  originUrl: string;
-  giftImage: string;
-  giftTitle: string;
-  giftDescription: string;
-}
+import { GiftList } from "types/giftList.type";
 
 interface ListProps {
-  listData: ListData[];
+  listData: GiftList[];
   type?: "default" | "editable" | "likable";
   onClickClose?: () => void;
   onClickEdit?: () => void;
@@ -28,13 +21,13 @@ function List({
   return (
     <div>
       {listData.map(ele => {
-        const { id, originUrl, giftImage, giftTitle, giftDescription } = ele;
+        const { giftId, giftImage, giftUrl, giftTitle, giftDescription } = ele;
         return (
-          <ListItem key={id}>
+          <ListItem key={giftId}>
             <ListItemInfoWrapper>
               <ListImage alt={giftDescription} src={giftImage} />
               <ListTextWrapper>
-                <ListTitle href={originUrl}>{giftTitle}</ListTitle>
+                <ListTitle href={giftUrl}>{giftTitle}</ListTitle>
                 <ListDescription>{giftDescription}</ListDescription>
               </ListTextWrapper>
             </ListItemInfoWrapper>
