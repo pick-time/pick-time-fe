@@ -12,6 +12,7 @@ import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
 import Confirm from "pages/Confirm";
 import GiftForConsumer from "pages/GiftForConsumer";
+import ProviderResult from "pages/ProviderResult";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/target/:targetId" element={<Intro />} />
         <Route path="/gift" element={<Gift />} />
         <Route path="/card" element={<Card />} />
+        <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
         <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />
         <Route path="/recoil-sample" element={<RecoilSample />} />
