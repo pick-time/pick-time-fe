@@ -4,11 +4,14 @@ import { Routes, Route } from "react-router-dom";
 import NotFound from "pages/NotFound";
 import Intro from "pages/Intro";
 import Gift from "pages/Gift";
+import Card from "pages/Card";
 import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
 import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
+import Confirm from "pages/Confirm";
+import GiftForConsumer from "pages/GiftForConsumer";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Intro />} />
         <Route path="/gift" element={<Gift />} />
+        <Route path="/card" element={<Card />} />
+        <Route path="/confirm/:targetId" element={<Confirm />} />
+        <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />
         <Route path="/recoil-sample" element={<RecoilSample />} />
         <Route path="/react-query-sample" element={<ReactQuerySample />} />
       </Routes>

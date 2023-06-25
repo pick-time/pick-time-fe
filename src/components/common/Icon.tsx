@@ -24,6 +24,8 @@ const Icon = ({ name, width, height }: IconProps) => {
 export default Icon;
 
 export type IconName =
+  | "camera-fill"
+  | "camera-stroke"
   | "card-create"
   | "cart"
   | "close"
