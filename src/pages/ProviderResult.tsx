@@ -45,7 +45,9 @@ function ProviderResult() {
       />
       <LinkWrapper>
         <KakaoShare />
-        <CopyLink />
+        <CopyLink>
+          <Button text="URL" color={COLOR.NAVY} width="half" />
+        </CopyLink>
       </LinkWrapper>
     </ResultWrapper>
   );
