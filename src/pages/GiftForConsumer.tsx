@@ -10,12 +10,13 @@ import List from "components/common/List";
 import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 import { GiftList } from "types/giftList.type";
 
-const IS_MOCK = true;
+const IS_MOCK = false;
 
 type User = Pick<GETGiftListResponse, "providerName" | "consumerName">;
 
@@ -25,10 +26,7 @@ function GiftForConsumer() {
 
   const [fetchedList, setFetchedList] = useState<GiftList[]>([]);
   const [userInfo, setUserInfo] = useState<User>();
-  const [pickedGiftId, setPickedGiftId] = useState<number>();
-
-  const [isLoading, setIsLoading] = useState<boolean>(IS_MOCK);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [pickedGiftId, setPickedGiftId] = useState<number>(0);
 
   const mockData = {
     providerName: "닝겐미키",
@@ -102,13 +100,12 @@ function GiftForConsumer() {
   };
 
   const onClickPickButton = () => {
-    if (targetId && pickedGiftId) {
-      const { data } = usePOSTPickedGift({
-        targetId: parseInt(targetId, 10),
-        giftId: pickedGiftId,
-      });
-      console.log(data);
-    }
+    const { data } = usePOSTPickedGift({
+      targetId: parseInt(targetId || "0", 10),
+      giftId: pickedGiftId,
+    });
+    console.log(data);
+
     navigate(`/target/${targetId}/gift/final`);
   };
 
@@ -124,38 +121,31 @@ function GiftForConsumer() {
     setFetchedList(mockData.giftList);
   };
 
-  const fetchRealData = () => {
-    const {
-      data,
-      isLoading: dataIsLoading,
-      isError: dataIsError,
-    } = useGETGiftList({
-      targetId: parseInt(targetId || "", 10),
-    });
-    setIsLoading(dataIsLoading);
-    setIsError(dataIsError);
-    if (!isLoading && data) {
-      const { giftList, providerName, consumerName } = data;
-      setUserInfo({ providerName, consumerName });
-      setFetchedList(giftList);
-    }
-  };
+  const {
+    data,
+    isLoading: dataIsLoading,
+    isError: dataIsError,
+  } = useGETGiftList({
+    id: parseInt(targetId || "", 10),
+  });
+
+  if (!dataIsLoading && data) {
+    const { giftList, providerName, consumerName } = data;
+    setUserInfo({ providerName, consumerName });
+    setFetchedList(giftList);
+  }
 
   useEffect(() => {
-    if (IS_MOCK) {
+    if (dataIsError) {
       fetchMockData();
-      return;
     }
-    if (targetId) {
-      fetchRealData();
-    }
-  }, [targetId]);
+  }, []);
 
   return (
     <PageWrapper>
-      {isLoading && <Loading />}
+      {dataIsLoading && <Loading />}
       <Header />
-      {!isLoading && (
+      {!dataIsLoading && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">

@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useGETGiftList, GETGiftListResponse } from "api/api";
+import { GETGiftListResponse, getGiftList, useGETGiftList } from "api/api";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import ListComponent from "components/common/List";
 import Title from "components/common/Title";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
-// import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
+// import { CouponList } from "types/couponList.type";
 
-const IS_MOCK = true;
+const IS_MOCK = false;
 
 // coupon 보류
 // export interface GiftCouponList {
@@ -25,9 +26,8 @@ function Confirm() {
   const { targetId } = useParams();
   const navigate = useNavigate();
 
-  const [fetchedList, setFetchedList] = useState<GiftList[]>();
+  const [fetchedList, setFetchedList] = useState<GiftList[]>([]);
   const [userInfo, setUserInfo] = useState<User>();
-  const [isLoading, setIsLoading] = useState<boolean>(!IS_MOCK);
   const [isError, setIsError] = useState<boolean>(false);
 
   const mockData = {
@@ -58,7 +58,7 @@ function Confirm() {
     navigate(`/result/${targetId}`);
   };
 
-  const fetchMockData = async () => {
+  const fetchMockData = () => {
     setUserInfo({
       providerName: mockData.providerName,
       consumerName: mockData.consumerName,
@@ -69,33 +69,39 @@ function Confirm() {
     );
   };
 
+  // const useGETGiftList = ({ id }: { id: number }) => {
+  //   return useQuery<GETGiftListResponse>({
+  //     queryKey: ["result", id],
+  //     queryFn: () => getGiftList({ targetId: id }),
+  //     refetchOnWindowFocus: false,
+  //     retry: 0,
+  //   });
+  // };
+
+  const {
+    data,
+    isLoading: dataIsLoading,
+    isError: dataIsError,
+  } = useGETGiftList({
+    id: parseInt(targetId || "", 10),
+  });
+
+  if (!dataIsLoading && data) {
+    const { giftList, providerName, consumerName } = data;
+    setUserInfo({ providerName, consumerName });
+    setFetchedList(giftList);
+  }
+
   useEffect(() => {
-    if (IS_MOCK) {
+    if (dataIsError) {
       fetchMockData();
-      return;
     }
-    if (targetId) {
-      const {
-        data,
-        isLoading: dataIsLoading,
-        isError: dataIsError,
-      } = useGETGiftList({
-        targetId: parseInt(targetId || "", 10),
-      });
-      setIsLoading(dataIsLoading);
-      setIsError(dataIsError);
-      if (!isLoading && data) {
-        const { giftList, providerName, consumerName } = data;
-        setUserInfo({ providerName, consumerName });
-        setFetchedList(giftList);
-      }
-    }
-  }, [targetId]);
+  }, []);
 
   return (
     <PageWrapper>
       <Header />
-      {!isLoading && (
+      {!dataIsLoading && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">
@@ -104,10 +110,7 @@ function Confirm() {
               고르신 선물 확인해 주세요!
             </Title>
           </TitleWrapper>
-          <ListComponent
-            listData={fetchedList || mockData.giftList}
-            type="default"
-          />
+          <ListComponent listData={fetchedList} type="default" />
           <ButtonWrapper>
             <Button
               text="확인했어요!"
@@ -124,7 +127,10 @@ function Confirm() {
 
 export default Confirm;
 
-const PageWrapper = styled.div``;
+const PageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const TitleWrapper = styled.div`
   margin-top: 2.4rem;
