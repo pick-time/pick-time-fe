@@ -68,6 +68,5 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  // TODO: 컬러값 constant로 빼기
-  background-color: #ffffff;
+  background-color: ${COLOR.WHITE};
 `;

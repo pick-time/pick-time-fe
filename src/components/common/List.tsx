@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Icon from "./Icon";
+import COLOR from "style/color";
 
 interface ListData {
   id: number;
@@ -68,7 +69,7 @@ const ListItem = styled.div`
   height: 9rem;
   max-width: 38rem;
   display: flex;
-  background-color: #ffffff;
+  background-color: ${COLOR.WHITE};
   border: 0.1rem solid #e6e6e6;
   border-radius: 1rem;
   padding: 0.4rem;

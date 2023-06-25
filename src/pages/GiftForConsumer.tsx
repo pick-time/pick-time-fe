@@ -86,6 +86,6 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  background-color: #ffffff;
+  background-color: ${COLOR.WHITE};
   gap: 1rem;
 `;
