@@ -41,7 +41,7 @@ const INPUT_STYLES = {
 
 const StyledInput = styled.input<{ align: string }>`
   width: 100%;
-  padding: 1rem 0 1rem 1.4rem;
+  padding: 1rem 1.4rem 1rem 1.4rem;
   border: none;
   border-radius: 1rem;
   outline: none;
