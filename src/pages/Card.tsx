@@ -4,14 +4,26 @@ import COLOR from "style/color";
 import styled from "styled-components";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
+import CardTxt from "components/provider/CardTxt";
+import { cardInputState } from "stores/cardAtom";
+import { useRecoilState } from "recoil";
+import CardToggle from "components/provider/CardToggle";
 
 function Card() {
   const navigate = useNavigate();
-  const [CardText, setCardText] = useState("");
-  const [imageURL, setImageURL] = useState<string | null>(null);
+  const [toggleType, setToggleType] = useState<"basic" | "custom">("basic");
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCardText(event.target.value);
+  const [cardTxt, setCardTxt] = useState("");
+  const [imageURL, setImageURL] = useState<string | null>("");
+  const [cardInput, setCardInput] = useRecoilState(cardInputState);
+  console.log(cardInput);
+
+  const handleTxtChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCardTxt(event.target.value);
+    setCardInput(prevCardInput => ({
+      ...prevCardInput,
+      cardText: event.target.value,
+    }));
   };
 
   const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +31,10 @@ function Card() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImageURL(imageUrl);
+      setCardInput(prevCardInput => ({
+        ...prevCardInput,
+        imgUrl: imageUrl,
+      }));
     }
   };
 
@@ -33,6 +49,7 @@ function Card() {
   return (
     <Form>
       <Header />
+      <CardToggle toggleType={toggleType} setToggleType={setToggleType} />
       <ImgLabel htmlFor="cardImg">
         {imageURL ? (
           <PreviewImage src={imageURL} alt="선택한 이미지" />
@@ -49,11 +66,10 @@ function Card() {
           </>
         )}
       </ImgLabel>
-      <CardInput
-        type="text"
-        value={CardText}
+      <CardTxt
+        cardInp={cardTxt}
+        onChange={handleTxtChange}
         placeholder="마음을 전하고 싶은 분에게 메세지를 작성해 보세요!"
-        onChange={handleChange}
       />
       <ButtonWrapper>
         <Button
@@ -103,22 +119,6 @@ const ImgLabel = styled.label`
     font-weight: 500;
     font-size: 1.3rem;
     line-height: 1.9rem;
-  }
-`;
-
-const CardInput = styled.input`
-  width: 31rem;
-  height: 8rem;
-  margin: 1rem auto 4rem;
-  border-radius: 1rem;
-  border: 1px solid #ececec;
-  padding: 1.2rem 0 0 1.6rem;
-  ::placeholder {
-    /* padding: 1.2rem 0 0 1.6rem; */
-    font-weight: 500;
-    font-size: 1.1rem;
-    line-height: 1.6rem;
-    color: #dfdfdf;
   }
 `;
 
