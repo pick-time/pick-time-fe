@@ -39,11 +39,13 @@ export default function KakaoShare() {
   };
 
   return (
-    <Button
-      text="카카오"
-      color={COLOR.PURPLE}
-      width="half"
-      onClick={shareKakao}
-    />
+    <div>
+      <Button
+        text="카카오"
+        color={COLOR.PURPLE}
+        width="half"
+        onClick={shareKakao}
+      />
+    </div>
   );
 }
