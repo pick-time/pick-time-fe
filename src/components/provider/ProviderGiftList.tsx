@@ -19,8 +19,7 @@ interface ListData {
 }
 
 export default function ProviderGiftList() {
-  const [response, setResponse] =
-    useRecoilState<ResponseData>(urlResponseState);
+  const [response] = useRecoilState<ResponseData>(urlResponseState);
   const [listData, setListData] = useState<ListData[] | undefined>(undefined);
   const [id, setId] = useState(1);
 

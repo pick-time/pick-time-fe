@@ -13,7 +13,7 @@ const LogoWrapper = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 12rem;
+  padding: 0 12rem;
 `;
 
 export default Header;
