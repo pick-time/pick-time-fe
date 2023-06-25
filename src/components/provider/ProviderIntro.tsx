@@ -38,7 +38,7 @@ function ProviderIntro() {
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
       <ImageWrapper>
-        <Icon name="logo-intro-provider" width={282} height={200} />
+        <Icon name="logo-intro-provider" width={242} height={201} />
       </ImageWrapper>
       <TextWrapper>
         <Text
@@ -118,16 +118,16 @@ const HeaderLogo = styled.header`
 `;
 
 const ImageWrapper = styled.div`
-  margin-top: 39px;
+  margin-top: 3.9rem;
   padding: 1rem;
 `;
 
 const TextWrapper = styled.div`
-  margin-top: 39px;
+  margin-top: 3.9rem;
 `;
 
 const InputWrapper = styled.div`
-  margin-top: 40px;
+  margin-top: 4px;
 `;
 
 const Spacing = styled.div`
