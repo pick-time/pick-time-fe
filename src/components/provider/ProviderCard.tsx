@@ -1,13 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
 
 function ProviderCard() {
-  const handleOpenModal = () => {
-    console.log("버튼");
+  const navigate = useNavigate();
+  const handleNextToPage = () => {
+    navigate("/card");
   };
   return (
     <CardWrapper>
-      <ContentWrapper onClick={handleOpenModal}>
+      <ContentWrapper onClick={handleNextToPage}>
         <Icon name="card-create" width={32} height={32} />
         <Content>나만의 카드 등록하기</Content>
       </ContentWrapper>
