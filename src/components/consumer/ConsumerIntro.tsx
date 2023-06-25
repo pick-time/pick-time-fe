@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
 
-function ProviderIntro() {
+function ConsumerIntro() {
   const navigate = useNavigate();
   const [form, errors, handleFormChange] = useInputFormValidation();
   const [showContent, setShowContent] = useState(false);
@@ -127,7 +127,7 @@ const TextWrapper = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  margin-top: 4px;
+  margin-top: 4rem;
 `;
 
 const Spacing = styled.div`
@@ -140,4 +140,4 @@ const InputErrorText = styled.p`
   text-align: center;
 `;
 
-export default ProviderIntro;
+export default ConsumerIntro;
