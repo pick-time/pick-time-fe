@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "pages/NotFound";
 import Intro from "pages/Intro";
@@ -12,6 +11,7 @@ import styled from "styled-components";
 import Confirm from "pages/Confirm";
 import GiftForConsumer from "pages/GiftForConsumer";
 import ProviderResult from "pages/ProviderResult";
+import ConsumerResult from "pages/ConsumerResult";
 
 function App() {
   return (
@@ -27,6 +27,10 @@ function App() {
         <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
         <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />
+        <Route
+          path="/target/:targetId/gift/final"
+          element={<ConsumerResult />}
+        />
         <Route path="/recoil-sample" element={<RecoilSample />} />
         <Route path="/react-query-sample" element={<ReactQuerySample />} />
       </Routes>

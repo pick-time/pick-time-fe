@@ -1,12 +1,14 @@
-import Button from "components/common/Button";
 import { useLocation } from "react-router-dom";
-import COLOR from "style/color";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-export default function CopyLink() {
+interface CopyLinkProps {
+  children: React.ReactNode;
+}
+
+export default function CopyLink({ children }: CopyLinkProps) {
   // TODO: 배포 URL로 대체
   const baseUrl = "https://pick-time-fe.vercel.app/";
   const location = useLocation();
@@ -15,7 +17,7 @@ export default function CopyLink() {
   return (
     <div>
       <CopyToClipboard text={`${baseUrl}${location.pathname}`} onCopy={notify}>
-        <Button text="URL" color={COLOR.NAVY} width="half" />
+        {children}
       </CopyToClipboard>
       <StyledToastContainer
         position="top-right"
