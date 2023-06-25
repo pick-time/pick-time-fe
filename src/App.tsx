@@ -22,6 +22,7 @@ function App() {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Intro />} />
+        <Route path="/target/:targetId" element={<Intro />} />
         <Route path="/gift" element={<Gift />} />
         <Route path="/card" element={<Card />} />
         <Route path="/result/:targetId" element={<ProviderResult />} />
