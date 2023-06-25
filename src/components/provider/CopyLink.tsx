@@ -13,7 +13,7 @@ export default function CopyLink() {
   const notify = () => toast.success("클립보드에 복사되었습니다.");
 
   return (
-    <>
+    <div>
       <CopyToClipboard text={`${baseUrl}${location.pathname}`} onCopy={notify}>
         <Button text="URL" color={COLOR.NAVY} width="half" />
       </CopyToClipboard>
@@ -22,9 +22,10 @@ export default function CopyLink() {
         autoClose={1500}
         limit={1}
         hideProgressBar={false}
+        pauseOnHover={false}
         theme="light"
       />
-    </>
+    </div>
   );
 }
 
