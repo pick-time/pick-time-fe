@@ -1,8 +1,7 @@
 import Button from "components/common/Button";
 import Icon from "components/common/Icon";
-import Input from "components/common/Input";
+import Image from "components/common/Image";
 import Text from "components/common/Text";
-import useInputFormValidation from "hooks/useInputValidation";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import COLOR from "style/color";
@@ -10,7 +9,6 @@ import styled, { keyframes } from "styled-components";
 
 function ConsumerIntro() {
   const navigate = useNavigate();
-  const [form, errors, handleFormChange] = useInputFormValidation();
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -22,75 +20,39 @@ function ConsumerIntro() {
   }, []);
 
   const handleClick = () => {
-    if (!form.providerName || !form.consumerName) {
-      handleFormChange({
-        ...form,
-        type: "all",
-      });
-      return;
-    }
     navigate("/gift");
   };
 
   return (
     <IntroWrapper show={showContent}>
+      <ImageWrapper>
+        <Image
+          src="/assets/images/card1.png"
+          alt="나만의 카드 이미지"
+          width={308}
+          height={160}
+        />
+      </ImageWrapper>
       <HeaderLogo>
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
-      <ImageWrapper>
-        <Icon name="logo-intro-provider" width={242} height={201} />
-      </ImageWrapper>
       <TextWrapper>
         <Text
           contents={
-            "무엇이든 담아서 \n 당신의 소중한 사람에게 마음을 전하세요!"
+            "닝겐 미키님의 마음이 도착했어요! \n 정성스럽게 모은 선물 목록에서 \n 원하는 것을 골라주세요!"
           }
         />
       </TextWrapper>
-      <InputWrapper>
-        <Input
-          placeholder="주는 사람"
-          align="center"
-          value={form.providerName}
-          maxLength={10}
-          onChange={e => {
-            handleFormChange({
-              ...form,
-              type: "provider",
-              providerName: e.target.value,
-            });
-          }}
-        />
-        {errors.providerNameError && (
-          <InputErrorText>{errors.providerNameError}</InputErrorText>
-        )}
-        <Spacing />
-        <Input
-          placeholder="누구에게 주는 선물인가요?"
-          value={form.consumerName}
-          align="center"
-          maxLength={10}
-          onChange={e => {
-            handleFormChange({
-              ...form,
-              type: "consumer",
-              consumerName: e.target.value,
-            });
-          }}
-        />
-        {errors.consumerNameError && (
-          <InputErrorText>{errors.consumerNameError}</InputErrorText>
-        )}
-      </InputWrapper>
       <Spacing />
-      <Button
-        type="button"
-        text="선물 고르러 가기"
-        color={COLOR.PINK}
-        width="full"
-        isDisabled={form.isDisabled}
-        onClick={handleClick}
-      />
+      <ButtonWrapper>
+        <Button
+          type="button"
+          text="선물 목록 보러가기"
+          color={COLOR.PURPLE}
+          width="full"
+          onClick={handleClick}
+        />
+      </ButtonWrapper>
     </IntroWrapper>
   );
 }
@@ -113,6 +75,7 @@ const IntroWrapper = styled.div`
 `;
 
 const HeaderLogo = styled.header`
+  margin-top: 8rem;
   text-align: center;
   padding: 0.5rem;
 `;
@@ -123,21 +86,15 @@ const ImageWrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  margin-top: 3.9rem;
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 4rem;
+  margin-top: 1.9rem;
 `;
 
 const Spacing = styled.div`
   margin-top: 1rem;
 `;
 
-const InputErrorText = styled.p`
-  margin-top: 0.5rem;
-  color: ${COLOR.PINK};
-  text-align: center;
+const ButtonWrapper = styled.div`
+  margin-top: 8rem;
 `;
 
 export default ConsumerIntro;
