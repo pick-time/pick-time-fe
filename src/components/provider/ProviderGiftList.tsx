@@ -19,15 +19,15 @@ interface ListData {
 }
 
 export default function ProviderGiftList() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [response, setResponse] =
     useRecoilState<ResponseData>(urlResponseState);
   const [listData, setListData] = useState<ListData[] | undefined>(undefined);
-  const [id, setId] = useState(1);
 
   useEffect(() => {
     if (response.title !== "") {
       const newData: ListData = {
-        id,
+        id: new Date().getTime(),
         originUrl: response.url,
         giftImage: response.image,
         giftTitle: response.title,
@@ -36,7 +36,7 @@ export default function ProviderGiftList() {
       setListData(prevListData =>
         prevListData ? [...prevListData, newData] : [newData],
       );
-      setId(prev => prev + 1);
+      console.log(newData.id);
     }
   }, [response]);
 
