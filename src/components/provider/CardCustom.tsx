@@ -32,11 +32,7 @@ function CardCustom({
           </>
         )}
       </ImgLabel>
-      <CardTxt
-        cardInp={cardTxt}
-        onChange={handleTxtChange}
-        placeholder="마음을 전하고 싶은 분에게 메세지를 작성해 보세요!"
-      />
+      <CardTxt cardInp={cardTxt} onChange={handleTxtChange} />
     </div>
   );
 }
@@ -44,7 +40,7 @@ function CardCustom({
 export default CardCustom;
 
 const ImgLabel = styled.label`
-  margin: 1rem 0;
+  margin: 6.2rem 0 1rem;
   width: 31rem;
   height: 16rem;
   background: #eee;

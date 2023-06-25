@@ -51,7 +51,7 @@ function Card() {
       <Header />
       <CardToggle toggleType={toggleType} setToggleType={setToggleType} />
       {toggleType === "basic" ? (
-        <CardBasic />
+        <CardBasic cardTxt={cardTxt} handleTxtChange={handleTxtChange} />
       ) : (
         <CardCustom
           cardTxt={cardTxt}
