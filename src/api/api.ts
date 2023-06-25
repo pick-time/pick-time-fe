@@ -11,6 +11,20 @@ export default async function fetchTodos(): Promise<Todos[]> {
   return response.data;
 }
 
+export async function postScrapeMetaData(url: string) {
+  const res = await axios({
+    url: "http://localhost:5000/scrape",
+    method: "post",
+    data: {
+      url,
+    },
+  });
+  if (res.statusText === "OK") {
+    return res.data;
+  }
+  throw new Error(res.statusText);
+}
+
 async function getGiftList({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftListResponse> {
@@ -45,18 +59,4 @@ export interface GETGiftListResponse {
   consumerName: string;
   giftList: GiftList[];
   couponList: CouponList[];
-}
-
-export async function postScrapeMetaData(url: string) {
-  const res = await axios({
-    url: "http://localhost:5000/scrape",
-    method: "post",
-    data: {
-      url,
-    },
-  });
-  if (res.statusText === "OK") {
-    return res.data;
-  }
-  throw new Error(res.statusText);
 }
