@@ -27,6 +27,7 @@ export default function Input({
       type="text"
       placeholder={placeholder}
       style={{ ...INPUT_STYLES[align] }}
+      align={align}
       value={value}
       onChange={onChange}
     />
@@ -34,26 +35,19 @@ export default function Input({
 }
 
 const INPUT_STYLES = {
-  center: {
-    height: "4.6rem",
-    fontSize: "1.8rem",
-    "text-align": "center",
-  },
-  left: {
-    height: "4rem",
-    fontSize: "1.4rem",
-    "text-align": "left",
-  },
+  center: { height: "4.6rem", fontSize: "1.8rem" },
+  left: { height: "4rem", fontSize: "1.4rem" },
 };
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ align: string }>`
   width: 100%;
-  padding: 1rem 0 1rem 1.4rem;
+  padding: 1rem 1.4rem 1rem 1.4rem;
   border: none;
   border-radius: 1rem;
   outline: none;
   background-color: #f9f6ff;
   font-weight: 500;
+  text-align: ${({ align }) => align};
 
   &::placeholder {
     color: #c3bbdb;
