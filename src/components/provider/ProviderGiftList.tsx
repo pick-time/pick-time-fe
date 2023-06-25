@@ -17,6 +17,10 @@ export default function ProviderGiftList() {
     useRecoilState<ResponseData>(urlResponseState);
   const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
 
+  const handleDelete = (giftId: number) => {
+    setListData(listData?.filter(list => list.giftId !== giftId));
+  };
+
   useEffect(() => {
     if (response.title !== "") {
       const newData: GiftList = {
@@ -32,5 +36,11 @@ export default function ProviderGiftList() {
     }
   }, [response]);
 
-  return <>{listData && <List listData={listData} />}</>;
+  return (
+    <>
+      {listData && (
+        <List listData={listData} type="editable" onClickClose={handleDelete} />
+      )}
+    </>
+  );
 }
