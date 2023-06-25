@@ -2,7 +2,9 @@ import Button from "components/common/Button";
 import Header from "components/common/Header";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
+// import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
 import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
 
@@ -15,6 +17,8 @@ const mockData = {
 };
 
 function ConsumerResult() {
+  // const { targetId } = useParams();
+  // const { isLoading, data } = useGetTargetInfo(Number(targetId));
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -24,6 +28,7 @@ function ConsumerResult() {
     return () => clearTimeout(timer);
   }, []);
 
+  // if (isLoading) return "Loading...";
   return (
     <>
       <Header />
