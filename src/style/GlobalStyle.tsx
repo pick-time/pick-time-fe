@@ -12,6 +12,7 @@ const GlobalStyle = styled.createGlobalStyle`
 
   html {
     font-size: 62.5%;
+    height: 844px;
   }
 
   body,
