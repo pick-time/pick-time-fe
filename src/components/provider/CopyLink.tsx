@@ -15,7 +15,7 @@ export default function CopyLink() {
   return (
     <>
       <CopyToClipboard text={`${baseUrl}${location.pathname}`} onCopy={notify}>
-        <Button text="URL" color={COLOR.WHITE} width="half" />
+        <Button text="URL" color={COLOR.NAVY} width="half" />
       </CopyToClipboard>
       <StyledToastContainer
         position="top-right"
