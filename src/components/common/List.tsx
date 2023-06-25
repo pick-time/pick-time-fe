@@ -6,14 +6,16 @@ import { GiftList } from "types/giftList.type";
 interface ListProps {
   listData: GiftList[];
   type?: "default" | "editable" | "likable";
+  selectedGiftId?: number;
   onClickClose?: () => void;
   onClickEdit?: () => void;
-  onClickLike?: () => void;
+  onClickLike?: (giftId: number) => void;
 }
 
 function List({
   listData,
   type = "likable",
+  selectedGiftId,
   onClickClose,
   onClickEdit,
   onClickLike,
@@ -42,9 +44,13 @@ function List({
                   </IconButton>
                 </>
               )}
-              {type === "likable" && (
-                <IconButton type="button" onClick={onClickLike}>
-                  <Icon name="empty-heart" width={16} height={14} />
+              {type === "likable" && onClickLike && (
+                <IconButton type="button" onClick={() => onClickLike(giftId)}>
+                  {giftId === selectedGiftId ? (
+                    <Icon name="fill-heart" width={16} height={14} />
+                  ) : (
+                    <Icon name="empty-heart" width={16} height={14} />
+                  )}
                 </IconButton>
               )}
             </ListButtonWrapper>
