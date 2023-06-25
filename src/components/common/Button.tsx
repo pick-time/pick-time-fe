@@ -7,7 +7,7 @@ interface ButtonProps {
   color: string;
   width: "full" | "half";
   isDisabled?: boolean;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 /**

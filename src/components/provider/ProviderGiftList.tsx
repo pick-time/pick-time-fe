@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
-import { GiftList } from "types/giftList.type";
 
 interface ResponseData {
   title: string;
   description: string;
   image: string;
   url: string;
+}
+
+interface ListData {
+  id: number;
+  originUrl: string;
+  giftImage: string;
+  giftTitle: string;
+  giftDescription: string;
 }
 
 export default function ProviderGiftList() {
@@ -18,9 +25,9 @@ export default function ProviderGiftList() {
 
   useEffect(() => {
     if (response.title !== "") {
-      const newData: GiftList = {
-        giftId: new Date().getTime(),
-        giftUrl: response.url,
+      const newData: ListData = {
+        id,
+        originUrl: response.url,
         giftImage: response.image,
         giftTitle: response.title,
         giftDescription: response.description,
@@ -28,6 +35,7 @@ export default function ProviderGiftList() {
       setListData(prevListData =>
         prevListData ? [...prevListData, newData] : [newData],
       );
+      setId(prev => prev + 1);
     }
   }, [response]);
 

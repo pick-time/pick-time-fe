@@ -1,123 +1,43 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useGETGiftList, GETGiftListResponse } from "api/api";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
-import ListComponent from "components/common/List";
+import List from "components/common/List";
 import Title from "components/common/Title";
-import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+// import mockListData from "components/common/mockData";
 import COLOR from "style/color";
 import styled from "styled-components";
-// import { CouponList } from "types/couponList.type";
-import { GiftList } from "types/giftList.type";
-
-const IS_MOCK = true;
-
-// coupon 보류
-// export interface GiftCouponList {
-//   giftList: GiftList[];
-//   couponList: CouponList[];
-// }
-
-type User = Pick<GETGiftListResponse, "providerName" | "consumerName">;
 
 function Confirm() {
   const { targetId } = useParams();
   const navigate = useNavigate();
 
-  const [fetchedList, setFetchedList] = useState<GiftList[]>();
-  const [userInfo, setUserInfo] = useState<User>();
-  const [isLoading, setIsLoading] = useState<boolean>(!IS_MOCK);
-  const [isError, setIsError] = useState<boolean>(false);
-
   const mockData = {
     providerName: "닝겐미키",
     consumerName: "문을 왜 그렇게 황현희니니니니니이름",
-    giftList: [
-      {
-        giftId: 123,
-        giftTitle: "CK 캘빈클라인 비 EDT 100ml",
-        giftUrl:
-          "https://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000148683&chlNo=1&chlDtlNo=61&utm_source=naver&utm_medium=shopping_ep&utm_campaign=onpro_ep_product_0101_1231&utm_content=pc_price&nv_ad=pla&n_media=11068&n_query=%ED%96%A5%EC%88%98&n_rank=1&n_ad_group=grp-a001-02-000000013179677&n_ad=nad-a001-02-000000226442586&n_campaign_type=2&n_mall_id=oliveyoungshop&n_mall_pid=A000000148683&n_ad_group_type=2&NaPm=ct%3Dljbghxoo%7Cci%3D0zi0003bdDvyINl17f0o%7Ctr%3Dpla%7Chk%3Dacc0c9fff7e60837c1bbd4703c5516d5e19bb931",
-        giftImage:
-          "https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014868303ko.jpg?l=ko",
-        giftDescription:
-          "본 상품 정보(상품 상세, 상품 설명 등)의 내용은 협력사가 직접 등록한 것 입니다.",
-      },
-    ],
-    // couponList: [
-    //   {
-    //     couponImage:
-    //       "https://t4.ftcdn.net/jpg/03/29/10/97/360_F_329109774_iTsyjzLU5O9cagJ9UhahhNF2ZdkW4OHc.jpg",
-    //     couponTitle: "안마 쿠폰",
-    //   },
-    // ],
   };
 
   const onClickConfirmButton = () => {
     navigate(`/result/${targetId}`);
   };
-
-  const fetchMockData = async () => {
-    setUserInfo({
-      providerName: mockData.providerName,
-      consumerName: mockData.consumerName,
-    });
-    setFetchedList(
-      mockData.giftList,
-      // couponList: mockData.couponList,
-    );
-  };
-
-  useEffect(() => {
-    if (IS_MOCK) {
-      fetchMockData();
-      return;
-    }
-    if (targetId) {
-      const {
-        data,
-        isLoading: dataIsLoading,
-        isError: dataIsError,
-      } = useGETGiftList({
-        targetId: parseInt(targetId || "", 10),
-      });
-      setIsLoading(dataIsLoading);
-      setIsError(dataIsError);
-      if (!isLoading && data) {
-        const { giftList, providerName, consumerName } = data;
-        setUserInfo({ providerName, consumerName });
-        setFetchedList(giftList);
-      }
-    }
-  }, [targetId]);
-
   return (
     <PageWrapper>
       <Header />
-      {!isLoading && (
-        <>
-          <TitleWrapper>
-            <Title level={1} align="left">
-              <TitleSpan>{userInfo?.providerName}님,</TitleSpan>
-              <br />
-              고르신 선물 확인해 주세요!
-            </Title>
-          </TitleWrapper>
-          <ListComponent
-            listData={fetchedList || mockData.giftList}
-            type="default"
-          />
-          <ButtonWrapper>
-            <Button
-              text="확인했어요!"
-              color={COLOR.PINK}
-              width="full"
-              onClick={onClickConfirmButton}
-            />
-          </ButtonWrapper>
-        </>
-      )}
+      <TitleWrapper>
+        <Title level={1} align="left">
+          <TitleSpan>{mockData.providerName}님,</TitleSpan>
+          <br />
+          고르신 선물 확인해 주세요!
+        </Title>
+      </TitleWrapper>
+      <List listData={[]} type="default" />
+      <ButtonWrapper>
+        <Button
+          text="확인했어요!"
+          color={COLOR.PINK}
+          width="full"
+          onClick={onClickConfirmButton}
+        />
+      </ButtonWrapper>
     </PageWrapper>
   );
 }

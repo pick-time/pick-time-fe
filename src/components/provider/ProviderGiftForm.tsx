@@ -1,56 +1,55 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
-import validateUrl from "utils/validateUrl";
-import { postScrapeMetaData } from "api/api";
+
+// interface LinkPreviewResponse {
+//   author: string | null;
+//   date: string | null;
+//   title: string | null;
+//   description: string | null;
+//   image: string | null;
+//   logo: string | null;
+//   publisher: string | null;
+//   url: string | null;
+// }
 
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
   const [, setResponse] = useRecoilState(urlResponseState);
 
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (urlError !== "") setUrlError("");
     setUrl(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const onSuccess = async () => {
-      if (validateUrl(url)) return;
-      // 에러메시지 함수 추가
-
-      // input창 리셋
-      inputRef.current!.value = "";
-
-      postScrapeMetaData(url).then(data => setResponse({ ...data, url }));
+    const data = {
+      key: process.env.REACT_APP_LINKPREVIEW_API_KEY,
+      q: url,
     };
 
-    if (urlError !== "") {
-      setUrlError("");
-      onSuccess();
-    } else {
-      onSuccess();
-    }
+    fetch("https://api.linkpreview.net", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(res => {
+        // console.log(res);
+        setResponse(res);
+      });
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <Input
-          ref={inputRef}
-          type="text"
-          placeholder="링크를 등록해 주세요."
-          onChange={handleUrlChange}
-        />
-        <AddBtn type="submit">
-          <Icon name="cart" width={20} height={20} />
-        </AddBtn>
-      </form>
-      {urlError && <ErrorMsg>{urlError}</ErrorMsg>}
-    </>
+    <form onSubmit={handleSubmit}>
+      <Input id="url-input" type="text" onChange={handleUrlChange} />
+      <AddBtn type="submit">
+        <Icon name="cart" width={20} height={20} />
+      </AddBtn>
+    </form>
   );
 }
 
@@ -62,7 +61,6 @@ const Input = styled.input`
   outline: none;
   border: none;
   padding-left: 5px;
-  font-size: 14px;
 `;
 
 const AddBtn = styled.button`
@@ -72,9 +70,4 @@ const AddBtn = styled.button`
   background-color: #584392;
   border: none;
   margin-left: 8px;
-`;
-
-const ErrorMsg = styled.p`
-  margin-top: 8px;
-  font-size: 14px;
 `;
