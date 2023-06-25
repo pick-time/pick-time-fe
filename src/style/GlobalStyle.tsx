@@ -1,3 +1,4 @@
+import COLOR from "style/color";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -6,7 +7,13 @@ const styled = { createGlobalStyle };
 const GlobalStyle = styled.createGlobalStyle`
   ${reset}
 
-  *, *::before, *::after {
+  :root {
+    --toastify-color-success: ${COLOR.PINK};
+  }
+
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 

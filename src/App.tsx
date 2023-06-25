@@ -38,7 +38,7 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   width: 390px;
-  height: 100%;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
 `;

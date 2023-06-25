@@ -4,6 +4,7 @@ interface InputProps {
   placeholder: string;
   align: "center" | "left";
   value?: string;
+  maxLength?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -20,6 +21,7 @@ export default function Input({
   placeholder,
   align,
   value = "",
+  maxLength = 10,
   onChange,
 }: InputProps) {
   return (
@@ -29,6 +31,7 @@ export default function Input({
       style={{ ...INPUT_STYLES[align] }}
       align={align}
       value={value}
+      maxLength={maxLength}
       onChange={onChange}
     />
   );
