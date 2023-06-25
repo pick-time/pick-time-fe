@@ -19,6 +19,7 @@ export async function postScrapeMetaData(url: string) {
       url,
     },
   });
+  console.log(res);
   if (res.statusText === "OK") {
     return res.data;
   }
