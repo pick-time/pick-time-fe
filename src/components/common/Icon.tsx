@@ -30,6 +30,7 @@ export type IconName =
   | "cart"
   | "close"
   | "coupon"
+  | "fill-heart"
   | "empty-heart"
   | "gift-edit"
   | "logo-header"
