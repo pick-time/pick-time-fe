@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Icon from "./Icon";
 
@@ -66,14 +65,14 @@ export default List;
 
 const ListItem = styled.div`
   width: 100%;
-  height: 90px;
-  max-width: 380px;
+  height: 9rem;
+  max-width: 38rem;
   display: flex;
   background-color: #ffffff;
-  border: 1px solid #e6e6e6;
-  border-radius: 10px;
-  padding: 4px;
-  margin-bottom: 16px;
+  border: 0.1rem solid #e6e6e6;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin-bottom: 1.6rem;
   justify-content: space-between;
 `;
 
@@ -84,25 +83,25 @@ const ListItemInfoWrapper = styled.div`
 const ListTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 11px;
+  font-size: 1.1rem;
   color: #333333;
   text-align: left;
-  padding-top: 7px;
+  padding-top: 0.7rem;
 `;
 
 const ListImage = styled.img`
   width: auto;
   height: 100%;
-  border-radius: 10px;
-  margin-right: 8px;
+  border-radius: 1rem;
+  margin-right: 0.8rem;
 `;
 
 const ListTitle = styled.a`
   color: #333333;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom: 4px;
-  line-height: 16px;
+  margin-bottom: 0.4rem;
+  line-height: 1.6rem;
 `;
 
 const ListDescription = styled.p`
@@ -114,8 +113,8 @@ const ListButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 20px;
-  margin: 7px 10px 7px 0px;
+  max-width: 2rem;
+  margin: 0.7rem 1rem 0.7rem 0rem;
 `;
 
 const IconButton = styled.button`
