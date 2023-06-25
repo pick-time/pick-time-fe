@@ -9,6 +9,7 @@ import RecoilSample from "pages/RecoilSample";
 import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
+import Confirm from "pages/Confirm";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Intro />} />
         <Route path="/gift" element={<Gift />} />
+        <Route path="/confirm/:targetId" element={<Confirm />} />
         <Route path="/recoil-sample" element={<RecoilSample />} />
         <Route path="/react-query-sample" element={<ReactQuerySample />} />
       </Routes>
