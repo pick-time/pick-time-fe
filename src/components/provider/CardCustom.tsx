@@ -20,17 +20,15 @@ function CardCustom({
         {imageUrl ? (
           <PreviewImage src={imageUrl} alt="선택한 이미지" />
         ) : (
-          <>
-            <p>나만의 이미지 등록</p>
-            <input
-              type="file"
-              id="cardImg"
-              accept="image/*"
-              onChange={handleImgChange}
-              style={{ display: "none" }}
-            />
-          </>
+          <p>나만의 이미지 등록</p>
         )}
+        <input
+          type="file"
+          id="cardImg"
+          accept="image/*"
+          onChange={handleImgChange}
+          style={{ display: "none" }}
+        />
       </ImgLabel>
       <CardTxt cardInp={cardTxt} onChange={handleTxtChange} />
     </div>

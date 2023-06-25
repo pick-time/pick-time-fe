@@ -1,17 +1,29 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
+import { imgUrlSelector } from "stores/cardAtom";
 
 function ProviderCard() {
   const navigate = useNavigate();
+  const imgUrl = useRecoilValue(imgUrlSelector);
+
+  console.log(imgUrl);
+
   const handleNextToPage = () => {
     navigate("/card");
   };
   return (
     <CardWrapper>
       <ContentWrapper onClick={handleNextToPage}>
-        <Icon name="card-create" width={32} height={32} />
-        <Content>나만의 카드 등록하기</Content>
+        {imgUrl ? (
+          <Img src={imgUrl} alt="나만의 카드 사진" />
+        ) : (
+          <>
+            <Icon name="card-create" width={32} height={32} />
+            <Content>나만의 카드 등록하기</Content>
+          </>
+        )}
       </ContentWrapper>
     </CardWrapper>
   );
@@ -44,6 +56,13 @@ const Content = styled.p`
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 2.1rem;
+`;
+
+const Img = styled.img`
+  width: 31rem;
+  height: 14rem;
+  border-radius: 10px;
+  margin: 0 2.6rem 4rem 2.6rem;
 `;
 
 export default ProviderCard;
