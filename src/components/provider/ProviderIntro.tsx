@@ -38,7 +38,7 @@ function ProviderIntro() {
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
       <ImageWrapper>
-        <Icon name="logo-intro-provider" width={282} height={200} />
+        <Icon name="logo-intro-provider" width={242} height={201} />
       </ImageWrapper>
       <TextWrapper>
         <Text

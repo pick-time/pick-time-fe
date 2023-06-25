@@ -34,5 +34,4 @@ export type IconName =
   | "gift-edit"
   | "logo-header"
   | "logo-large"
-  | "logo-intro-provider"
-  | "logo-intro-consumner";
+  | "logo-intro-provider";
