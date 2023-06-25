@@ -3,12 +3,13 @@ import Icon from "components/common/Icon";
 import Image from "components/common/Image";
 import Text from "components/common/Text";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
 
 function ConsumerIntro() {
   const navigate = useNavigate();
+  const params = useParams();
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function ConsumerIntro() {
   }, []);
 
   const handleClick = () => {
-    navigate("/gift");
+    navigate(`/target/${params.targetId}/gift`);
   };
 
   return (
