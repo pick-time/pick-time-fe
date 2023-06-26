@@ -36,4 +36,5 @@ export type IconName =
   | "logo-header"
   | "logo-large"
   | "logo-intro-provider"
-  | "logo-provider-result";
+  | "logo-provider-result"
+  | "logo-main";

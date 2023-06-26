@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
-import Image from "components/common/Image";
 
 function ProviderIntro() {
   const navigate = useNavigate();
@@ -39,12 +38,7 @@ function ProviderIntro() {
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
       <ImageWrapper>
-        <Image
-          src="/assets/images/main.png"
-          alt="메인 이미지"
-          width={241}
-          height={198}
-        />
+        <Icon name="logo-main" width={242} height={201} />
       </ImageWrapper>
       <TextWrapper>
         <Text
