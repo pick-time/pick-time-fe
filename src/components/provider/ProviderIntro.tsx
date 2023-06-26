@@ -127,8 +127,8 @@ const HeaderLogo = styled.header`
 
 const ImageWrapper = styled.div`
   margin-top: 3.9rem;
-  margin-left: 2.5rem;
   padding: 1rem;
+  text-align: center;
 `;
 
 const TextWrapper = styled.div`
