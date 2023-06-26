@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   GETGiftListResponse,
@@ -28,6 +29,9 @@ function GiftForConsumer() {
   const [fetchedList, setFetchedList] = useState<GiftList[]>([]);
   const [userInfo, setUserInfo] = useState<User>();
   const [pickedGiftId, setPickedGiftId] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  setTimeout(() => setIsLoading(false), 500);
 
   const mockData = {
     providerName: "닝겐미키",
@@ -97,28 +101,42 @@ function GiftForConsumer() {
   });
 
   useEffect(() => {
-    if (IS_MOCK) {
+    if (IS_MOCK || dataIsError) {
       fetchMockData();
     }
   }, [IS_MOCK]);
 
   return (
     <PageWrapper>
-      {dataIsLoading && data && <Loading />}
+      {isLoading && <Loading />}
+      {dataIsLoading && <Loading />}
       <Header />
-      {!dataIsLoading && data && (
+      {!isLoading && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">
-              {data.providerName}님이
+              {IS_MOCK
+                ? userInfo?.providerName
+                : data
+                ? data.providerName
+                : "주는 사람"}
+              님이
               <br />
-              <TitleSpan>{data.consumerName}님</TitleSpan>을 위해
+              <TitleSpan>
+                {IS_MOCK
+                  ? userInfo?.consumerName
+                  : data
+                  ? data.consumerName
+                  : "받는 사람"}
+                님
+              </TitleSpan>
+              을 위해
               <br />
               생각한 선물들이에요!
             </Title>
           </TitleWrapper>
           <List
-            listData={data.giftList}
+            listData={IS_MOCK ? fetchedList : data ? data.giftList : []}
             type="likable"
             selectedGiftId={pickedGiftId}
             onClickLike={onClickLikeButton}
