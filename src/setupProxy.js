@@ -12,4 +12,22 @@ module.exports = function (app) {
       },
     }),
   );
+  // 이거다!!
+  // app.use(
+  //   "/scrape",
+  //   createProxyMiddleware({
+  //     target: "http://localhost:5050",
+  //     changeOrigin: true,
+  //   }),
+  // );
+  //
+  // 배포 세팅
+  app.use(
+    "/scrape",
+    createProxyMiddleware({
+      target: "https://political-olive-radio.glitch.me",
+      changeOrigin: true,
+    }),
+  );
+  //
 };
