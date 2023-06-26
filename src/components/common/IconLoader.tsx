@@ -41,22 +41,22 @@ const IconLoader = () => (
         />
         <path
           fill="#fff"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M187.773 118.843v36.182c0 6.79-3.742 13.031-9.733 16.224l-46.884 25.03a18.39 18.39 0 0 1-17.301 0l-46.88-25.03a18.39 18.39 0 0 1-9.734-16.224v-36.182"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
         <path
           stroke="#E1E4E5"
-          stroke-width="4"
+          strokeWidth="4"
           d="M187.773 118.843v36.182c0 6.79-3.742 13.031-9.733 16.224l-46.884 25.03a18.39 18.39 0 0 1-17.301 0l-46.88-25.03a18.39 18.39 0 0 1-9.734-16.224v-36.182"
         />
         <path
           fill="#fff"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           stroke="#E1E4E5"
-          stroke-width="4"
+          strokeWidth="4"
           d="m96.196 35.029 110.837 57.204c4.511 2.328 6.282 7.875 3.954 12.386a9.187 9.187 0 0 1-3.842 3.896l-41.367 22.062a18.389 18.389 0 0 1-17.08.12L37.886 73.469c-4.51-2.329-6.282-7.875-3.954-12.387a9.187 9.187 0 0 1 3.842-3.896l41.367-22.061a18.38 18.38 0 0 1 17.051-.1l.004.004Z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
         <path
           fill="#E1E4E5"
@@ -64,27 +64,27 @@ const IconLoader = () => (
         />
         <path
           stroke="#E1E4E5"
-          stroke-width="4"
+          strokeWidth="4"
           d="M148.723 35.029 37.886 92.233c-4.51 2.328-6.282 7.875-3.954 12.386a9.186 9.186 0 0 0 3.842 3.896l41.367 22.062a18.39 18.39 0 0 0 17.08.12L207.03 73.473c4.511-2.329 6.282-7.875 3.954-12.387a9.194 9.194 0 0 0-3.842-3.896L165.774 35.13a18.378 18.378 0 0 0-17.051-.1ZM122.462 198.446v-81.32"
         />
         <path
           stroke="#E1E4E5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="4.05"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="4.05"
           d="M33.442 170.7h8.42m-17.967-4.49h17.966m-7.858 9.264h7.858m165.176-4.774h-8.42m17.966-4.49h-17.966m7.859 9.264h-7.859"
         />
         <path
           fill="#E362A3"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M79.361 54.43V32.613c0-7.338 3.9-14.124 10.245-17.816l20.615-12a20.619 20.619 0 0 1 20.739 0l20.615 12a20.615 20.615 0 0 1 10.249 17.816V54.43c0 7.338-3.9 14.124-10.245 17.816l-20.614 12a20.62 20.62 0 0 1-20.74 0l-20.615-12A20.615 20.615 0 0 1 79.361 54.43Z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
         <path
           stroke="#fff"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="10"
           d="M120.587 59.556c-.628 0-1.14.508-1.14 1.14v.008a1.145 1.145 0 0 0 1.185 1.106 1.141 1.141 0 0 0 1.106-1.106c0-.632-.515-1.148-1.147-1.144"
         />
         <path
