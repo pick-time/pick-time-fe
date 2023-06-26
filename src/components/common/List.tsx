@@ -110,6 +110,7 @@ const ListTitle = styled.a`
 
 const ListDescription = styled.p`
   white-space: pre-line;
+  overflow: hidden;
 `;
 
 const ListButtonWrapper = styled.div`

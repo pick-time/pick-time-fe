@@ -54,7 +54,10 @@ const ModalDim = styled.div`
   height: 100vh;
 `;
 const Wrapper = styled.div`
-  position: relative;
+  position: absolute;
+  bottom: 12rem;
+  left: calc(50% - 15.5rem);
+  /* margin-top: 12rem; */
   background-color: #fff;
   width: 31rem;
   height: 48rem;

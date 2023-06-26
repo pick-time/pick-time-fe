@@ -4,6 +4,8 @@ import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
 import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
+import Button from "components/common/Button";
+import COLOR from "style/color";
 
 interface ResponseData {
   title: string;
@@ -53,6 +55,12 @@ export default function ProviderGiftList() {
           onClickEdit={handleEdit}
         />
       )}
+      <Button
+        text="작성 완료하기"
+        color={COLOR.PINK}
+        width="full"
+        // onClick={handleClick}
+      />
       {openEditModal && (
         <EditGiftModal
           listData={listData}

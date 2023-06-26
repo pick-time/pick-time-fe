@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
 import { postScrapeMetaData } from "api/api";
+import COLOR from "style/color";
 
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
@@ -87,6 +88,7 @@ const AddBtn = styled.button`
 `;
 
 const ErrorMsg = styled.p`
-  margin-top: 8px;
-  font-size: 14px;
+  margin-top: 0.5rem;
+  color: ${COLOR.PINK};
+  text-align: center;
 `;
