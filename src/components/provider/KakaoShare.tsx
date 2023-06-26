@@ -29,7 +29,7 @@ export default function KakaoShare() {
       // TODO: 축하 카드 이미지와 주는 사람 이름 받아와서 대체
       content: {
         title: "정성이 담긴 선물 목록",
-        imageUrl: "/assets/images/present-box.png",
+        imageUrl: "https://ifh.cc/g/p5Mz9R.jpg",
         link: { mobileWebUrl: webUrl, webUrl },
       },
       itemContent: {
