@@ -1,5 +1,6 @@
 import Button from "components/common/Button";
 import Header from "components/common/Header";
+import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
 import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
@@ -20,7 +21,7 @@ function ConsumerResult() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   return (
     <>
       <Header />

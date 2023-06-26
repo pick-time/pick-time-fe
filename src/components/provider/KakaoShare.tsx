@@ -1,5 +1,6 @@
 import Button from "components/common/Button";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 
 declare global {
@@ -13,8 +14,9 @@ const { REACT_APP_JS_KEY } = process.env;
 const { Kakao } = window;
 
 export default function KakaoShare() {
+  const { targetId } = useParams();
   // TODO: 받는 사람이 볼 인트로 URL로 대체
-  const webUrl = "https://pick-time-fe.vercel.app/";
+  const webUrl = `https://pick-time.vercel.app/target/${targetId}`;
 
   useEffect(() => {
     Kakao.cleanup();
@@ -27,12 +29,11 @@ export default function KakaoShare() {
       // TODO: 축하 카드 이미지와 주는 사람 이름 받아와서 대체
       content: {
         title: "정성이 담긴 선물 목록",
-        imageUrl:
-          "https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+        imageUrl: "https://ifh.cc/g/p5Mz9R.jpg",
         link: { mobileWebUrl: webUrl, webUrl },
       },
       itemContent: {
-        titleImageText: "코마님의 마음이 도착했어요.",
+        titleImageText: "당신에게 마음이 도착했어요.",
         titleImageCategory: "원하는 선물을 골라주세요!",
       },
     });

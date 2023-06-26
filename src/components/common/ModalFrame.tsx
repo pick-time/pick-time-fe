@@ -43,6 +43,7 @@ export default ModalFrame;
 
 const ModalDim = styled.div`
   position: absolute;
+  z-index: 1;
   bottom: 0;
   left: 0;
   background-color: #00000066;
@@ -55,6 +56,7 @@ const ModalDim = styled.div`
 `;
 const Wrapper = styled.div`
   position: absolute;
+  z-index: 2;
   bottom: 12rem;
   left: calc(50% - 15.5rem);
   /* margin-top: 12rem; */
