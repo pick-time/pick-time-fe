@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CardTxt from "./CardTxt";
+// import { imgUrlSelector } from "stores/cardAtom";
+// import { useRecoilValue } from "recoil";
 
 interface CardCustomProps {
   cardTxt: string;
