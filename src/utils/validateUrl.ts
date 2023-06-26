@@ -1,17 +1,15 @@
 import urlPattern from "./urlPattern";
 
 const validateUrl = (url: string) => {
-  if (url === "") {
-    // setUrlError("상품 url을 입력해주세요.");
-    return true;
+  if (url.length === 0) {
+    return "상품 url을 입력해주세요.";
   }
 
   if (!urlPattern.test(url)) {
-    // setUrlError("유효한 url을 입력해주세요.");
-    return true;
+    return "유효한 url을 입력해주세요.";
   }
 
-  return false;
+  return "";
 };
 
 export default validateUrl;
