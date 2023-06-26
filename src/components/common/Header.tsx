@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Icon from "./Icon";
+import COLOR from "style/color";
 
 function Header() {
   return (
@@ -13,7 +14,10 @@ const LogoWrapper = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 12rem;
+  padding: 1rem 12rem;
+  position: fixed;
+  top: 0px;
+  background: ${COLOR.WHITE};
 `;
 
 export default Header;
