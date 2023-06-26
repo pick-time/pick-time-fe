@@ -69,48 +69,23 @@ function Confirm() {
     );
   };
 
-  // const useGETGiftList = ({ id }: { id: number }) => {
-  //   return useQuery<GETGiftListResponse>({
-  //     queryKey: ["result", id],
-  //     queryFn: () => getGiftList({ targetId: id }),
-  //     refetchOnWindowFocus: false,
-  //     retry: 0,
-  //   });
-  // };
-
-  const {
-    data,
-    isLoading: dataIsLoading,
-    isError: dataIsError,
-  } = useGETGiftList({
+  const { data, isLoading: dataIsLoading } = useGETGiftList({
     id: parseInt(targetId || "", 10),
   });
-
-  if (!dataIsLoading && data) {
-    const { giftList, providerName, consumerName } = data;
-    setUserInfo({ providerName, consumerName });
-    setFetchedList(giftList);
-  }
-
-  useEffect(() => {
-    if (dataIsError) {
-      fetchMockData();
-    }
-  }, []);
 
   return (
     <PageWrapper>
       <Header />
-      {!dataIsLoading && (
+      {!dataIsLoading && data && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">
-              <TitleSpan>{userInfo?.providerName}님,</TitleSpan>
+              <TitleSpan>{data?.providerName}님,</TitleSpan>
               <br />
               고르신 선물 확인해 주세요!
             </Title>
           </TitleWrapper>
-          <ListComponent listData={fetchedList} type="default" />
+          <ListComponent listData={data?.giftList} type="default" />
           <ButtonWrapper>
             <Button
               text="확인했어요!"

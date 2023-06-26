@@ -5,7 +5,6 @@ import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 import type { Todos } from "types/todo.type";
 
-axios.defaults.baseURL = "http://15.164.225.241";
 axios.defaults.withCredentials = true;
 
 export default async function fetchTodos(): Promise<Todos[]> {
@@ -40,15 +39,13 @@ export const useGETGiftList = ({ id }: { id: number }) => {
   return useQuery<GETGiftListResponse>({
     queryKey: ["result", id],
     queryFn: () => getGiftList({ targetId: id }),
-    refetchOnWindowFocus: false,
-    retry: 0,
   });
 };
 export async function getGiftList({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftListResponse> {
   return axios
-    .get<GETGiftListResponse>(`/target/${targetId}/all`)
+    .get<GETGiftListResponse>(`/api/target/${targetId}/all`)
     .then(response => response.data);
 }
 
@@ -71,14 +68,11 @@ export interface GETGiftListResponse {
  * @param02 giftId
  * @returns POSTPickedGiftResponse
  */
-export function usePOSTPickedGift(params: POSTPickedGiftRequest) {
-  const { targetId, giftId } = params;
-  return useMutation({
-    mutationFn: () => postPickedGift({ targetId, giftId }),
-  });
+export function usePOSTPickedGift() {
+  return useMutation(postPickedGift);
 }
 
-async function postPickedGift(
+export async function postPickedGift(
   params: POSTPickedGiftRequest,
 ): Promise<POSTPickedGiftResponse> {
   const { targetId, giftId } = params;
