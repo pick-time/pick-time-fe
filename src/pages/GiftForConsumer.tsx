@@ -10,7 +10,6 @@ import List from "components/common/List";
 import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
@@ -21,6 +20,8 @@ const IS_MOCK = false;
 type User = Pick<GETGiftListResponse, "providerName" | "consumerName">;
 
 function GiftForConsumer() {
+  const { mutate } = usePOSTPickedGift();
+
   const { targetId } = useParams();
   const navigate = useNavigate();
 
@@ -96,16 +97,12 @@ function GiftForConsumer() {
   };
 
   const onClickRandomButton = () => {
-    navigate(`/target/${targetId}/gift/random`);
+    alert("준비 중인 기능입니다.");
+    // navigate(`/target/${targetId}/gift/random`);
   };
 
   const onClickPickButton = () => {
-    const { data } = usePOSTPickedGift({
-      targetId: parseInt(targetId || "0", 10),
-      giftId: pickedGiftId,
-    });
-    console.log(data);
-
+    mutate({ targetId: parseInt(targetId || "", 10), giftId: pickedGiftId });
     navigate(`/target/${targetId}/gift/final`);
   };
 
@@ -129,35 +126,23 @@ function GiftForConsumer() {
     id: parseInt(targetId || "", 10),
   });
 
-  if (!dataIsLoading && data) {
-    const { giftList, providerName, consumerName } = data;
-    setUserInfo({ providerName, consumerName });
-    setFetchedList(giftList);
-  }
-
-  useEffect(() => {
-    if (dataIsError) {
-      fetchMockData();
-    }
-  }, []);
-
   return (
     <PageWrapper>
-      {dataIsLoading && <Loading />}
+      {dataIsLoading && data && <Loading />}
       <Header />
-      {!dataIsLoading && (
+      {!dataIsLoading && data && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">
-              {userInfo?.providerName}님이
+              {data.providerName}님이
               <br />
-              <TitleSpan>{userInfo?.consumerName}님</TitleSpan>을 위해
+              <TitleSpan>{data.consumerName}님</TitleSpan>을 위해
               <br />
               생각한 선물들이에요!
             </Title>
           </TitleWrapper>
           <List
-            listData={fetchedList}
+            listData={data.giftList}
             type="likable"
             selectedGiftId={pickedGiftId}
             onClickLike={onClickLikeButton}
@@ -172,6 +157,7 @@ function GiftForConsumer() {
           onClick={onClickRandomButton}
         />
         <Button
+          isDisabled={pickedGiftId === 0}
           text="다 골랐어요!"
           color={COLOR.PURPLE}
           width="full"

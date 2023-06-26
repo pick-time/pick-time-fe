@@ -88,6 +88,7 @@ const ListItem = styled.div`
 
 const ListItemInfoWrapper = styled.div`
   display: flex;
+  width: 20rem;
 `;
 
 const ListTextWrapper = styled.div`
@@ -97,6 +98,7 @@ const ListTextWrapper = styled.div`
   color: #333333;
   text-align: left;
   padding-top: 0.7rem;
+  width: 18rem;
 `;
 
 const ListImage = styled.img`
@@ -112,10 +114,21 @@ const ListTitle = styled.a`
   font-weight: 500;
   margin-bottom: 0.4rem;
   line-height: 1.6rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
 `;
 
-const ListDescription = styled.p`
-  white-space: pre-line;
+const ListDescription = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 2;
+
+  line-clamp: 2;
+  height: 3rem;
 `;
 
 const ListButtonWrapper = styled.div`
