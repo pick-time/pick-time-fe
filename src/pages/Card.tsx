@@ -16,7 +16,7 @@ function Card() {
   const [cardTxt, setCardTxt] = useState("");
   const [imageURL, setImageURL] = useState<string | null>("");
   const [, setCardInput] = useRecoilState(cardInputState);
-  const [fileOjb, setFileObj] = useRecoilState(FileInputState);
+  const [, setFileObj] = useRecoilState(FileInputState);
   // console.log(fileOjb);
 
   const handleTxtChange = (event: ChangeEvent<HTMLInputElement>) => {
