@@ -59,13 +59,7 @@ const ImgLabel = styled.label`
 
 const PreviewImage = styled.img`
   width: 31rem;
-  height: 16rem;
+  height: 18rem;
   border-radius: 1rem;
   object-fit: cover;
-`;
-
-const LabelText = styled.p`
-  font-size: 2rem;
-  font-weight: 500;
-  color: #8e8e8e;
 `;
