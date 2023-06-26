@@ -1,17 +1,16 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GETGiftListResponse, getGiftList, useGETGiftList } from "api/api";
+import { GETGiftListResponse, useGETGiftList } from "api/api";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import ListComponent from "components/common/List";
+import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 import { GiftList } from "types/giftList.type";
-// import { CouponList } from "types/couponList.type";
 
 const IS_MOCK = true;
 
@@ -29,7 +28,10 @@ function Confirm() {
 
   const [fetchedList, setFetchedList] = useState<GiftList[]>([]);
   const [userInfo, setUserInfo] = useState<User>();
-  const [isError, setIsError] = useState<boolean>(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  setTimeout(() => setIsLoading(false), 500);
 
   const mockData = {
     providerName: "닝겐미키",
@@ -102,26 +104,31 @@ function Confirm() {
 
   return (
     <PageWrapper>
+      {isLoading && <Loading />}
+      {dataIsLoading && <Loading />}
       <Header />
-
-      <TitleWrapper>
-        <Title level={1} align="left">
-          <TitleSpan>
-            {IS_MOCK
-              ? userInfo?.providerName
-              : data
-              ? data.providerName
-              : "익명"}
-            님,
-          </TitleSpan>
-          <br />
-          고르신 선물 확인해 주세요!
-        </Title>
-      </TitleWrapper>
-      <ListComponent
-        listData={IS_MOCK ? fetchedList : data ? data?.giftList : []}
-        type="default"
-      />
+      {!isLoading && (
+        <>
+          <TitleWrapper>
+            <Title level={1} align="left">
+              <TitleSpan>
+                {IS_MOCK
+                  ? userInfo?.providerName
+                  : data
+                  ? data.providerName
+                  : "익명"}
+                님,
+              </TitleSpan>
+              <br />
+              고르신 선물 확인해 주세요!
+            </Title>
+          </TitleWrapper>
+          <ListComponent
+            listData={IS_MOCK ? fetchedList : data ? data?.giftList : []}
+            type="default"
+          />
+        </>
+      )}
       <ButtonWrapper>
         <Button
           text="확인했어요!"
