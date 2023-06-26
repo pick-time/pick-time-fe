@@ -2,23 +2,15 @@ import Button from "components/common/Button";
 import Header from "components/common/Header";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
-// import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
+import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
 
-const mockData = {
-  finalGift: {
-    title: "CK 캘빈클라인 비 EDT 100ml",
-    image:
-      "https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014868303ko.jpg?l=ko",
-  },
-};
-
 function ConsumerResult() {
-  // const { targetId } = useParams();
-  // const { isLoading, data } = useGetTargetInfo(Number(targetId));
+  const { targetId } = useParams();
+  const { isLoading, data } = useGetTargetInfo(Number(targetId));
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -28,7 +20,7 @@ function ConsumerResult() {
     return () => clearTimeout(timer);
   }, []);
 
-  // if (isLoading) return "Loading...";
+  if (isLoading) return <div>Loading...</div>;
   return (
     <>
       <Header />
@@ -38,7 +30,7 @@ function ConsumerResult() {
           마음에 드시나요?
         </Title>
         <ImageWrapper>
-          <StyledImage src={mockData.finalGift.image} alt="선택한 선물" />
+          <StyledImage src={data?.finalGift.giftImageUrl} alt="선택한 선물" />
         </ImageWrapper>
         <CopyLink>
           <Button text="이걸로 정했어요!" color={COLOR.PINK} width="full" />
