@@ -7,8 +7,8 @@ interface ListProps {
   listData: GiftList[];
   type?: "default" | "editable" | "likable";
   selectedGiftId?: number;
-  onClickClose?: () => void;
-  onClickEdit?: () => void;
+  onClickClose?: (giftId: number) => void;
+  onClickEdit?: (giftId: number) => void;
   onClickLike?: (giftId: number) => void;
 }
 
@@ -36,12 +36,22 @@ function List({
             <ListButtonWrapper>
               {type === "editable" && (
                 <>
-                  <IconButton type="button" onClick={onClickClose}>
-                    <Icon name="close" width={10} height={10} />
-                  </IconButton>
-                  <IconButton type="button" onClick={onClickEdit}>
-                    <Icon name="gift-edit" width={20} height={20} />
-                  </IconButton>
+                  {onClickClose && (
+                    <IconButton
+                      type="button"
+                      onClick={() => onClickClose(giftId)}
+                    >
+                      <Icon name="close" width={10} height={10} />
+                    </IconButton>
+                  )}
+                  {onClickEdit && (
+                    <IconButton
+                      type="button"
+                      onClick={() => onClickEdit(giftId)}
+                    >
+                      <Icon name="gift-edit" width={20} height={20} />
+                    </IconButton>
+                  )}
                 </>
               )}
               {type === "likable" && onClickLike && (
@@ -66,7 +76,7 @@ export default List;
 const ListItem = styled.div`
   width: 100%;
   height: 9rem;
-  max-width: 38rem;
+  max-width: 31rem;
   display: flex;
   background-color: ${COLOR.WHITE};
   border: 0.1rem solid #e6e6e6;
