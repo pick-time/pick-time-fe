@@ -1,7 +1,9 @@
 import Button from "components/common/Button";
 import Icon from "components/common/Icon";
 import Image from "components/common/Image";
+import Loading from "components/common/Loading";
 import Text from "components/common/Text";
+import useGetCardInfo from "hooks/queries/useGetCardInfo";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import COLOR from "style/color";
@@ -9,39 +11,45 @@ import styled, { keyframes } from "styled-components";
 
 function ConsumerIntro() {
   const navigate = useNavigate();
-  const params = useParams();
+  const { targetId } = useParams();
   const [showContent, setShowContent] = useState(false);
+  const { isLoading, data } = useGetCardInfo(Number(targetId));
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
     }, 1500);
-
     return () => clearTimeout(timer);
   }, []);
 
   const handleClick = () => {
-    navigate(`/target/${params.targetId}/gift`);
+    navigate(`/target/${targetId}/gift`);
   };
 
+  if (isLoading) return <Loading />;
   return (
     <IntroWrapper show={showContent}>
-      <ImageWrapper>
-        <Image
-          src="/assets/images/card1.png"
-          alt="나만의 카드 이미지"
-          width={308}
-          height={160}
-        />
-      </ImageWrapper>
       <HeaderLogo>
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
+      <CardWrapper>
+        <ImageWrapper>
+          <Image
+            src={data?.cardImageUrl ?? "/assets/images/card1.png"}
+            alt="나만의 카드 이미지"
+            width={308}
+            height={160}
+          />
+        </ImageWrapper>
+        <TextWrapper>
+          <Text contents={data?.cardMeesage ?? ""} />
+        </TextWrapper>
+      </CardWrapper>
       <TextWrapper>
         <Text
-          contents={
-            "닝겐 미키님의 마음이 도착했어요! \n 정성스럽게 모은 선물 목록에서 \n 원하는 것을 골라주세요!"
-          }
+          fontSize="1.8rem"
+          fontWeight={700}
+          contents={`${data?.providerName}님의 마음이 도착했어요! \n 정성스럽게 모은 선물 목록에서 \n 원하는 것을 골라주세요!`}
         />
       </TextWrapper>
       <Spacing />
@@ -76,13 +84,11 @@ const IntroWrapper = styled.div`
 `;
 
 const HeaderLogo = styled.header`
-  margin-top: 8rem;
   text-align: center;
   padding: 0.5rem;
 `;
 
 const ImageWrapper = styled.div`
-  margin-top: 3.9rem;
   padding: 1rem;
 `;
 
@@ -95,7 +101,15 @@ const Spacing = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 8rem;
+  margin-top: 5rem;
+`;
+
+const CardWrapper = styled.div`
+  margin: 3.9rem 0 5rem 0;
+  padding: 0 0 2rem 0;
+  border: 1px solid #e7dbff;
+  border-radius: 1rem;
+  background-color: #f9f6ff;
 `;
 
 export default ConsumerIntro;
