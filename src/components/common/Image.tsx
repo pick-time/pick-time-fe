@@ -10,8 +10,17 @@ interface ImageProps {
  * <Image src="/assets/images/card1.png" alt="나만의 카드 이미지" width={10} height={10} />
  */
 const Image = ({ src, alt, width, height, ...props }: ImageProps) => {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <img src={src} alt={alt} width={width} height={height} {...props} />;
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      style={{ borderRadius: "1rem" }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    />
+  );
 };
 
 export default Image;

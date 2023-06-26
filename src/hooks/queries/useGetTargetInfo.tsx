@@ -1,4 +1,4 @@
-import getTargetInfo from "api/consumerResult";
+import { getTargetInfo } from "api/consumer";
 import { useQuery } from "react-query";
 
 export const useGetTargetInfo = (targetId: number) => {

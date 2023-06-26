@@ -15,11 +15,11 @@ export default async function fetchTodos(): Promise<Todos[]> {
 }
 
 export async function postScrapeMetaData(url: string) {
-  console.log(url);
   const res = await axios({
     // url: "http://localhost:5151/scrape",
     // url: "https://political-olive-radio.glitch.me/scrape",
     url: "/scrape", // 이거다!
+    // axios.defaults.withCredentials = true;
     method: "post",
     data: {
       url,
