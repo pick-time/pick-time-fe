@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { cardInputState } from "stores/cardAtom";
 import styled from "styled-components";
 import CardTxt from "./CardTxt";
 import Card1 from "../../assets/Card1.png";
@@ -14,14 +16,17 @@ interface CardBasicProps {
 }
 
 function CardBasic({ cardTxt, handleTxtChange }: CardBasicProps) {
+  const setCardInput = useSetRecoilState(cardInputState);
+
   const [selectedImg, setSelectedImg] = useState(Card1);
   const cards = [Card1, Card2, Card3, Card4, Card5, Card6];
 
   const handleImgClick = (src: string) => {
     setSelectedImg(src);
-    // const formData = new FormData();
-    // formData.append("file", selectedImg);
-    // console.log(formData);
+    setCardInput(prevCardInput => ({
+      ...prevCardInput,
+      imgUrl: src,
+    }));
   };
 
   return (
