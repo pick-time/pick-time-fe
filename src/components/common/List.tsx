@@ -7,7 +7,7 @@ interface ListProps {
   listData: GiftList[];
   type?: "default" | "editable" | "likable";
   onClickClose?: (giftId: number) => void;
-  onClickEdit?: () => void;
+  onClickEdit?: (giftId: number) => void;
   onClickLike?: () => void;
 }
 
@@ -42,9 +42,14 @@ function List({
                       <Icon name="close" width={10} height={10} />
                     </IconButton>
                   )}
-                  <IconButton type="button" onClick={onClickEdit}>
-                    <Icon name="gift-edit" width={20} height={20} />
-                  </IconButton>
+                  {onClickEdit && (
+                    <IconButton
+                      type="button"
+                      onClick={() => onClickEdit(giftId)}
+                    >
+                      <Icon name="gift-edit" width={20} height={20} />
+                    </IconButton>
+                  )}
                 </>
               )}
               {type === "likable" && (

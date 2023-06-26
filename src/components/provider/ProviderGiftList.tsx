@@ -17,9 +17,15 @@ export default function ProviderGiftList() {
   const [response, setResponse] =
     useRecoilState<ResponseData>(urlResponseState);
   const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [openEditModal, setOpenEditModal] = useState<number>();
 
   const handleDelete = (giftId: number) => {
     setListData(listData?.filter(list => list.giftId !== giftId));
+  };
+
+  const handleEdit = (giftId: number) => {
+    setOpenEditModal(giftId);
   };
 
   useEffect(() => {
@@ -40,9 +46,21 @@ export default function ProviderGiftList() {
   return (
     <>
       {listData && (
-        <List listData={listData} type="editable" onClickClose={handleDelete} />
+        <List
+          listData={listData}
+          type="editable"
+          onClickClose={handleDelete}
+          onClickEdit={handleEdit}
+        />
       )}
-      <EditGiftModal />
+      {openEditModal && (
+        <EditGiftModal
+          listData={listData}
+          setListData={setListData}
+          openEditModal={openEditModal}
+          setOpenEditModal={setOpenEditModal}
+        />
+      )}
     </>
   );
 }

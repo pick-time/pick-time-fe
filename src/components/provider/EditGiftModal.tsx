@@ -2,8 +2,59 @@ import styled from "styled-components";
 import Button from "components/common/Button";
 import Icon from "components/common/Icon";
 import COLOR from "style/color";
+import { useState } from "react";
+import { GiftList } from "types/giftList.type";
 
-export default function EditGiftModal() {
+interface ModalProps {
+  listData: GiftList[] | undefined;
+  setListData: React.Dispatch<React.SetStateAction<GiftList[] | undefined>>;
+  openEditModal: number;
+  setOpenEditModal: React.Dispatch<React.SetStateAction<number | undefined>>;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function EditGiftModal({
+  listData,
+  setListData,
+  openEditModal,
+  setOpenEditModal,
+}: ModalProps) {
+  const [editedValue, setEditedValue] = useState({
+    title: "",
+    des: "",
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setEditedValue(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleEdit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const updatedTitle = editedValue.title;
+    const updatedDes = editedValue.des;
+
+    setListData(prevListData =>
+      prevListData?.map(list => {
+        if (list.giftId === openEditModal) {
+          return {
+            ...list,
+            giftTitle: updatedTitle,
+            giftDescription: updatedDes,
+          };
+        }
+        return list;
+      }),
+    );
+    setOpenEditModal(undefined);
+  };
+
+  console.log(listData);
+
   return (
     <Wrapper>
       <CloseBtn>
@@ -11,17 +62,27 @@ export default function EditGiftModal() {
       </CloseBtn>
       <Descrip>상품을 수정해주세요.</Descrip>
       <ImgBox />
-      <Form>
+      <Form onSubmit={handleEdit}>
         <InputContainer>
           <Title>제품 명</Title>
-          <Input type="text" />
+          <Input
+            type="text"
+            name="title"
+            value={editedValue.title}
+            onChange={handleInputChange}
+          />
         </InputContainer>
         <InputContainer>
           <Title>제품 설명</Title>
-          <Input type="text" />
+          <Input
+            type="text"
+            name="des"
+            value={editedValue.des}
+            onChange={handleInputChange}
+          />
         </InputContainer>
         <Button
-          type="button"
+          type="submit"
           text="확인"
           color={COLOR.PINK}
           width="modal"
