@@ -59,7 +59,7 @@ export default function ProviderGiftForm() {
 }
 
 const Form = styled.form`
-  /* margin-bottom: 1.5rem; */
+  margin-bottom: 1rem;
 `;
 const Input = styled.input`
   width: 25rem;
