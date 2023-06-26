@@ -6,6 +6,7 @@ import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
 import Button from "components/common/Button";
 import COLOR from "style/color";
+import giftList from "data/giftData";
 
 interface ResponseData {
   title: string;
@@ -18,7 +19,9 @@ export default function ProviderGiftList() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [response, setResponse] =
     useRecoilState<ResponseData>(urlResponseState);
-  const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
+  // 시현용
+  const [listData, setListData] = useState<GiftList[] | undefined>(giftList);
+  // const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openEditModal, setOpenEditModal] = useState<number>();
 

@@ -86,11 +86,11 @@ const ListWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 1.6rem;
+  margin-bottom: 1.6rem;
 `;
 const ListItem = styled.div`
-  width: 100%;
   height: 9rem;
-  max-width: 31rem;
+  width: 31rem;
   display: flex;
   background-color: ${COLOR.WHITE};
   border: 0.1rem solid #e6e6e6;
@@ -124,6 +124,7 @@ const ListImage = styled.img`
 `;
 
 const ListTitle = styled.a`
+  overflow: hidden;
   color: #333333;
   font-size: 1.2rem;
   font-weight: 500;
