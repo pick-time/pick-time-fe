@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Icon from "./Icon";
 import COLOR from "style/color";
 import { GiftList } from "types/giftList.type";
+import Text from "./Text";
 
 interface ListProps {
   listData: GiftList[];
@@ -21,58 +22,71 @@ function List({
   onClickLike,
 }: ListProps) {
   return (
-    <div>
-      {listData.map(ele => {
-        const { giftId, giftImage, giftUrl, giftTitle, giftDescription } = ele;
-        return (
-          <ListItem key={giftId}>
-            <ListItemInfoWrapper>
-              <ListImage alt={giftDescription} src={giftImage} />
-              <ListTextWrapper>
-                <ListTitle href={giftUrl}>{giftTitle}</ListTitle>
-                <ListDescription>{giftDescription}</ListDescription>
-              </ListTextWrapper>
-            </ListItemInfoWrapper>
-            <ListButtonWrapper>
-              {type === "editable" && (
-                <>
-                  {onClickClose && (
-                    <IconButton
-                      type="button"
-                      onClick={() => onClickClose(giftId)}
-                    >
-                      <Icon name="close" width={10} height={10} />
-                    </IconButton>
-                  )}
-                  {onClickEdit && (
-                    <IconButton
-                      type="button"
-                      onClick={() => onClickEdit(giftId)}
-                    >
-                      <Icon name="gift-edit" width={20} height={20} />
-                    </IconButton>
-                  )}
-                </>
-              )}
-              {type === "likable" && onClickLike && (
-                <IconButton type="button" onClick={() => onClickLike(giftId)}>
-                  {giftId === selectedGiftId ? (
-                    <Icon name="fill-heart" width={16} height={14} />
-                  ) : (
-                    <Icon name="empty-heart" width={16} height={14} />
-                  )}
-                </IconButton>
-              )}
-            </ListButtonWrapper>
-          </ListItem>
-        );
-      })}
-    </div>
+    <ListWrapper>
+      {!listData && (
+        <TextWrapper>
+          <Text contents="등록된 상품이 없습니다" />
+        </TextWrapper>
+      )}
+      {listData &&
+        listData.map(ele => {
+          const { giftId, giftImage, giftUrl, giftTitle, giftDescription } =
+            ele;
+          return (
+            <ListItem key={giftId}>
+              <ListItemInfoWrapper>
+                <ListImage alt={giftDescription} src={giftImage} />
+                <ListTextWrapper>
+                  <ListTitle href={giftUrl}>{giftTitle}</ListTitle>
+                  <ListDescription>{giftDescription}</ListDescription>
+                </ListTextWrapper>
+              </ListItemInfoWrapper>
+              <ListButtonWrapper>
+                {type === "editable" && (
+                  <>
+                    {onClickClose && (
+                      <IconButton
+                        type="button"
+                        onClick={() => onClickClose(giftId)}
+                      >
+                        <Icon name="close" width={10} height={10} />
+                      </IconButton>
+                    )}
+                    {onClickEdit && (
+                      <IconButton
+                        type="button"
+                        onClick={() => onClickEdit(giftId)}
+                      >
+                        <Icon name="gift-edit" width={20} height={20} />
+                      </IconButton>
+                    )}
+                  </>
+                )}
+                {type === "likable" && onClickLike && (
+                  <IconButton type="button" onClick={() => onClickLike(giftId)}>
+                    {giftId === selectedGiftId ? (
+                      <Icon name="fill-heart" width={16} height={14} />
+                    ) : (
+                      <Icon name="empty-heart" width={16} height={14} />
+                    )}
+                  </IconButton>
+                )}
+              </ListButtonWrapper>
+            </ListItem>
+          );
+        })}
+    </ListWrapper>
   );
 }
 
 export default List;
 
+const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+`;
 const ListItem = styled.div`
   width: 100%;
   height: 9rem;
@@ -84,6 +98,7 @@ const ListItem = styled.div`
   padding: 0.4rem;
   margin-bottom: 1.6rem;
   justify-content: space-between;
+  margin: auto;
 `;
 
 const ListItemInfoWrapper = styled.div`
@@ -145,5 +160,12 @@ const IconButton = styled.button`
   background: none;
   padding: 0;
   display: flex;
+  align-items: center;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
   align-items: center;
 `;

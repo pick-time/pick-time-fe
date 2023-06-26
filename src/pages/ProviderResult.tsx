@@ -6,8 +6,11 @@ import COLOR from "style/color";
 import KakaoShare from "components/provider/KakaoShare";
 import CopyLink from "components/provider/CopyLink";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ProviderResult() {
+  const { targetId } = useParams();
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -19,7 +22,7 @@ function ProviderResult() {
   }, []);
 
   const handleClick = () => {
-    // navigate("/confirm/:targetId");
+    navigate(`/confirm/${targetId}`);
   };
 
   return (

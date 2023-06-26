@@ -15,18 +15,20 @@ export default async function fetchTodos(): Promise<Todos[]> {
 }
 
 export async function postScrapeMetaData(url: string) {
-  // axios.defaults.withCredentials = true;
   const res = await axios({
-    url: "https://port-0-pick-time-express-7xwyjq992lljchlygq.sel4.cloudtype.app:5151/scrape",
+    // url: "http://localhost:5151/scrape",
+    // url: "https://political-olive-radio.glitch.me/scrape",
+    url: "/scrape", // 이거다!
+    // axios.defaults.withCredentials = true;
     method: "post",
     data: {
       url,
     },
   });
+
   console.log(res);
   if (res.status === 200) {
     console.log("test");
-
     return res.data;
   }
   throw new Error(res.statusText);
