@@ -19,7 +19,7 @@ function Card() {
   const [, setFileObj] = useRecoilState(FileInputState);
   // console.log(fileOjb);
 
-  const handleTxtChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleTxtChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCardTxt(event.target.value);
     setCardInput(prevCardInput => ({
       ...prevCardInput,
