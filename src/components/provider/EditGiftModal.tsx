@@ -7,6 +7,7 @@ import { GiftList } from "types/giftList.type";
 import ModalFrame from "components/common/ModalFrame";
 
 interface ModalProps {
+  listData: GiftList[] | undefined;
   setListData: React.Dispatch<React.SetStateAction<GiftList[] | undefined>>;
   openEditModal: number;
   setOpenEditModal: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -14,6 +15,7 @@ interface ModalProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function EditGiftModal({
+  listData,
   setListData,
   openEditModal,
   setOpenEditModal,
@@ -22,6 +24,12 @@ export default function EditGiftModal({
     title: "",
     des: "",
   });
+  const [imgSrc, setImgSrc] = useState<string | undefined>("");
+
+  function getImgSrcById() {
+    const foundList = listData?.find(list => list.giftId === openEditModal);
+    setImgSrc(foundList?.giftImage);
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,6 +41,7 @@ export default function EditGiftModal({
 
   const handleEdit = (event: React.FormEvent) => {
     event.preventDefault();
+    getImgSrcById();
 
     const updatedTitle = editedValue.title;
     const updatedDes = editedValue.des;
@@ -53,16 +62,12 @@ export default function EditGiftModal({
   };
 
   return (
-    // <Wrapper>
-    //   <CloseBtn>
-    //     <Icon name="close" width={10} height={10} />
-    //   </CloseBtn>
     <ModalFrame
       openEditModal={openEditModal}
       setOpenEditModal={setOpenEditModal}
     >
       <Descrip>상품을 수정해주세요.</Descrip>
-      <ImgBox />
+      {imgSrc ? <img src={imgSrc} alt="상품 이미지" /> : <ImgBox />}
       <Form onSubmit={handleEdit}>
         <InputContainer>
           <Title>제품 명</Title>
@@ -92,26 +97,9 @@ export default function EditGiftModal({
         />
       </Form>
     </ModalFrame>
-    // </Wrapper>
   );
 }
 
-// const Wrapper = styled.div`
-//   position: relative;
-//   width: 31rem;
-//   height: 48rem;
-//   border-radius: 10px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   gap: 1.8rem;
-// `;
-// const CloseBtn = styled.div`
-//   position: absolute;
-//   top: 1.5rem;
-//   right: 1.5rem;
-// `;
 const Descrip = styled.div`
   color: #333;
   font-size: 13px;

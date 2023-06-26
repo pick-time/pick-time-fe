@@ -55,6 +55,7 @@ export default function ProviderGiftList() {
       )}
       {openEditModal && (
         <EditGiftModal
+          listData={listData}
           setListData={setListData}
           openEditModal={openEditModal}
           setOpenEditModal={setOpenEditModal}

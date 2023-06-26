@@ -70,7 +70,7 @@ export default List;
 const ListItem = styled.div`
   width: 100%;
   height: 9rem;
-  max-width: 38rem;
+  max-width: 31rem;
   display: flex;
   background-color: ${COLOR.WHITE};
   border: 0.1rem solid #e6e6e6;

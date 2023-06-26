@@ -43,6 +43,7 @@ export default ModalFrame;
 
 const ModalDim = styled.div`
   position: absolute;
+  bottom: 0;
   left: 0;
   background-color: #00000066;
   display: flex;
