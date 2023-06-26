@@ -42,6 +42,7 @@ export default function ProviderGiftForm() {
 
   return (
     <>
+      <Title>상품 리스트</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
@@ -57,6 +58,14 @@ export default function ProviderGiftForm() {
     </>
   );
 }
+
+const Title = styled.div`
+  width: 31rem;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+  text-align: left;
+`;
 
 const Form = styled.form`
   margin-bottom: 1rem;
