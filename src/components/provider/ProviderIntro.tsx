@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
+import Image from "components/common/Image";
 
 function ProviderIntro() {
   const navigate = useNavigate();
@@ -38,10 +39,17 @@ function ProviderIntro() {
         <Icon name="logo-large" width={218} height={50} />
       </HeaderLogo>
       <ImageWrapper>
-        <Icon name="logo-intro-provider" width={242} height={201} />
+        <Image
+          src="/assets/images/main.png"
+          alt="메인 이미지"
+          width={241}
+          height={198}
+        />
       </ImageWrapper>
       <TextWrapper>
         <Text
+          fontSize="1.8rem"
+          fontWeight={700}
           contents={
             "무엇이든 담아서 \n 당신의 소중한 사람에게 마음을 전하세요!"
           }
@@ -119,6 +127,7 @@ const HeaderLogo = styled.header`
 
 const ImageWrapper = styled.div`
   margin-top: 3.9rem;
+  margin-left: 2.5rem;
   padding: 1rem;
 `;
 
@@ -127,7 +136,7 @@ const TextWrapper = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  margin-top: 4px;
+  margin-top: 4rem;
 `;
 
 const Spacing = styled.div`

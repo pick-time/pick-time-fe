@@ -16,6 +16,7 @@ import ConsumerResult from "pages/ConsumerResult";
 function App() {
   return (
     <Root className="App">
+      <div id="modal-root" />
       <IconLoader />
       <GlobalStyle />
       <Routes>
@@ -39,6 +40,7 @@ function App() {
 }
 
 const Root = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;

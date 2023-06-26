@@ -5,7 +5,7 @@ interface ButtonProps {
   type?: "button" | "submit";
   text: string;
   color: string;
-  width: "full" | "half";
+  width: "full" | "half" | "modal";
   isDisabled?: boolean;
   onClick?: () => void;
 }
@@ -35,7 +35,7 @@ export default function Button({
   );
 }
 
-const BUTTON_WIDTH = { full: "100%", half: "14.9rem" };
+const BUTTON_WIDTH = { full: "100%", half: "14.9rem", modal: "26rem" };
 
 const StyledButton = styled.button<{
   width: string;

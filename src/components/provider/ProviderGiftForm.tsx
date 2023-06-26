@@ -41,7 +41,7 @@ export default function ProviderGiftForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
           type="text"
@@ -51,26 +51,35 @@ export default function ProviderGiftForm() {
         <AddBtn type="submit">
           <Icon name="cart" width={20} height={20} />
         </AddBtn>
-      </form>
+      </Form>
       {urlError && <ErrorMsg>{urlError}</ErrorMsg>}
     </>
   );
 }
 
+const Form = styled.form`
+  margin-bottom: 1.5rem;
+`;
 const Input = styled.input`
-  width: 250px;
-  height: 40px;
+  width: 25rem;
+  height: 4rem;
   border-radius: 10px;
   background-color: #f9f6ff;
   outline: none;
   border: none;
   padding-left: 5px;
   font-size: 14px;
+  ::placeholder {
+    color: #c3bbdb;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 14px;
+  }
 `;
 
 const AddBtn = styled.button`
-  width: 50px;
-  height: 40px;
+  width: 5rem;
+  height: 4rem;
   border-radius: 10px;
   background-color: #584392;
   border: none;
