@@ -58,6 +58,7 @@ const LeftBtn = styled.button<{ active: boolean }>`
   height: 3.6rem;
   border-radius: 5rem;
   font-weight: 700;
+  font-size: 1.6rem;
   line-height: 2rem;
   background-color: ${props => (props.active ? "#fff" : "#f9f6ff")};
   color: ${props => (props.active ? "#333" : "#C3BBDB")};

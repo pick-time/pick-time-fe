@@ -12,7 +12,7 @@ import Card6 from "../../assets/Card6.png";
 
 interface CardBasicProps {
   cardTxt: string;
-  handleTxtChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleTxtChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function CardBasic({ cardTxt, handleTxtChange }: CardBasicProps) {
@@ -72,7 +72,7 @@ export default CardBasic;
 const DefaultImg = styled.img`
   margin: 1rem 0;
   width: 31rem;
-  height: 16rem;
+  height: 18rem;
 `;
 
 const OtherImgWrapper = styled.div`

@@ -6,7 +6,7 @@ import CardTxt from "./CardTxt";
 interface CardCustomProps {
   cardTxt: string;
   imageUrl: string | null;
-  handleTxtChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleTxtChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleImgChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -22,7 +22,7 @@ function CardCustom({
         {imageUrl ? (
           <PreviewImage src={imageUrl} alt="선택한 이미지" />
         ) : (
-          <p>나만의 이미지 등록</p>
+          <p style={{ fontSize: "2rem" }}>나만의 이미지 등록</p>
         )}
         <input
           type="file"
@@ -42,7 +42,7 @@ export default CardCustom;
 const ImgLabel = styled.label`
   margin: 6.2rem 0 1rem;
   width: 31rem;
-  height: 16rem;
+  height: 18rem;
   background: #eee;
   display: flex;
   flex-direction: column;
@@ -62,4 +62,10 @@ const PreviewImage = styled.img`
   height: 16rem;
   border-radius: 1rem;
   object-fit: cover;
+`;
+
+const LabelText = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  color: #8e8e8e;
 `;
