@@ -5,7 +5,6 @@ import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 import type { Todos } from "types/todo.type";
 
-axios.defaults.baseURL = "http://15.164.225.241";
 axios.defaults.withCredentials = true;
 
 export default async function fetchTodos(): Promise<Todos[]> {
@@ -17,14 +16,20 @@ export default async function fetchTodos(): Promise<Todos[]> {
 
 export async function postScrapeMetaData(url: string) {
   const res = await axios({
-    url: "http://localhost:8080/scrape",
+    // url: "http://localhost:8080/scrape",
+    // url: "http://localhost:5151/scrape",
+    // url: "https://political-olive-radio.glitch.me/scrape",
+    url: "/scrape", // 이거다!
+    // axios.defaults.withCredentials = true;
     method: "post",
     data: {
       url,
     },
   });
+
   console.log(res);
-  if (res.statusText === "OK") {
+  if (res.status === 200) {
+    console.log("test");
     return res.data;
   }
   throw new Error(res.statusText);
@@ -40,15 +45,13 @@ export const useGETGiftList = ({ id }: { id: number }) => {
   return useQuery<GETGiftListResponse>({
     queryKey: ["result", id],
     queryFn: () => getGiftList({ targetId: id }),
-    refetchOnWindowFocus: false,
-    retry: 0,
   });
 };
 export async function getGiftList({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftListResponse> {
   return axios
-    .get<GETGiftListResponse>(`/target/${targetId}/all`)
+    .get<GETGiftListResponse>(`/api/target/${targetId}/all`)
     .then(response => response.data);
 }
 
@@ -71,14 +74,11 @@ export interface GETGiftListResponse {
  * @param02 giftId
  * @returns POSTPickedGiftResponse
  */
-export function usePOSTPickedGift(params: POSTPickedGiftRequest) {
-  const { targetId, giftId } = params;
-  return useMutation({
-    mutationFn: () => postPickedGift({ targetId, giftId }),
-  });
+export function usePOSTPickedGift() {
+  return useMutation(postPickedGift);
 }
 
-async function postPickedGift(
+export async function postPickedGift(
   params: POSTPickedGiftRequest,
 ): Promise<POSTPickedGiftResponse> {
   const { targetId, giftId } = params;
