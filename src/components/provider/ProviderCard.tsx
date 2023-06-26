@@ -8,8 +8,6 @@ function ProviderCard() {
   const navigate = useNavigate();
   const imgUrl = useRecoilValue(imgUrlSelector);
 
-  console.log(imgUrl);
-
   const handleNextToPage = () => {
     navigate("/card");
   };
@@ -60,9 +58,9 @@ const Content = styled.p`
 
 const Img = styled.img`
   width: 31rem;
-  height: 14rem;
+  height: 16rem;
   border-radius: 10px;
-  margin: 0 2.6rem 4rem 2.6rem;
+  margin: 3rem 2.6rem 4rem 2.6rem;
 `;
 
 export default ProviderCard;

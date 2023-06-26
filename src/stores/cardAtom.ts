@@ -4,9 +4,14 @@ import { atom, selector } from "recoil";
 export const cardInputState = atom({
   key: "cardInputState",
   default: {
-    imgUrl: "",
+    imgUrl: "" as any,
     cardText: "축하합니다",
   },
+});
+
+export const FileInputState = atom<File | null>({
+  key: "FileInputState",
+  default: null,
 });
 
 export const imgUrlSelector = selector({

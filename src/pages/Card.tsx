@@ -4,7 +4,7 @@ import COLOR from "style/color";
 import styled from "styled-components";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
-import { cardInputState } from "stores/cardAtom";
+import { cardInputState, FileInputState } from "stores/cardAtom";
 import { useRecoilState } from "recoil";
 import CardToggle from "components/provider/CardToggle";
 import CardCustom from "components/provider/CardCustom";
@@ -15,8 +15,9 @@ function Card() {
   const [toggleType, setToggleType] = useState<"basic" | "custom">("basic");
   const [cardTxt, setCardTxt] = useState("");
   const [imageURL, setImageURL] = useState<string | null>("");
-  const [cardInput, setCardInput] = useRecoilState(cardInputState);
-  console.log(cardInput);
+  const [, setCardInput] = useRecoilState(cardInputState);
+  const [, setFileObj] = useRecoilState(FileInputState);
+  // console.log(fileObj);
 
   const handleTxtChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCardTxt(event.target.value);
@@ -29,12 +30,17 @@ function Card() {
   const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      setFileObj(file); // 전역 상태에 저장
       const imageUrl = URL.createObjectURL(file);
-      setImageURL(imageUrl);
-      setCardInput(prevCardInput => ({
-        ...prevCardInput,
-        imgUrl: imageUrl,
-      }));
+      setImageURL(imageUrl); // 이미지 화면에 렌더링 하기
+      setCardInput(prevCardInput => {
+        return {
+          ...prevCardInput,
+          imgUrl: imageUrl,
+        };
+      });
     }
   };
 

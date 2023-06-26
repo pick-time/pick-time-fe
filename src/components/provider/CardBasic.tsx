@@ -19,6 +19,9 @@ function CardBasic({ cardTxt, handleTxtChange }: CardBasicProps) {
 
   const handleImgClick = (src: string) => {
     setSelectedImg(src);
+    // const formData = new FormData();
+    // formData.append("file", selectedImg);
+    // console.log(formData);
   };
 
   return (
