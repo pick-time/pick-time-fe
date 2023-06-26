@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,13 +10,13 @@ interface CopyLinkProps {
 
 export default function CopyLink({ children }: CopyLinkProps) {
   // TODO: 배포 URL로 대체
-  const baseUrl = "https://pick-time-fe.vercel.app/";
-  const location = useLocation();
-  const notify = () => toast.success("클립보드에 복사되었습니다.");
+  const baseUrl = "https://pick-time.vercel.app";
+  const notify = () => toast("📋️ 클립보드에 복사되었습니다.");
+  const { targetId } = useParams();
 
   return (
     <div>
-      <CopyToClipboard text={`${baseUrl}${location.pathname}`} onCopy={notify}>
+      <CopyToClipboard text={`${baseUrl}/target/${targetId}`} onCopy={notify}>
         {children}
       </CopyToClipboard>
       <StyledToastContainer
