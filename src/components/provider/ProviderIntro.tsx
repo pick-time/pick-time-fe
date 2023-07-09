@@ -2,16 +2,16 @@ import Button from "components/common/Button";
 import Icon from "components/common/Icon";
 import Input from "components/common/Input";
 import Text from "components/common/Text";
+import { usePostTarget } from "hooks/queries/usePostTarget";
 import useInputFormValidation from "hooks/useInputValidation";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled, { keyframes } from "styled-components";
 
 function ProviderIntro() {
-  const navigate = useNavigate();
   const [form, errors, handleFormChange] = useInputFormValidation();
   const [showContent, setShowContent] = useState(false);
+  const postTargetMutation = usePostTarget();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,7 +29,8 @@ function ProviderIntro() {
       });
       return;
     }
-    navigate("/gift");
+    const { providerName, consumerName } = form;
+    postTargetMutation.mutate({ providerName, consumerName });
   };
 
   return (
