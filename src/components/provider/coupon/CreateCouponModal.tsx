@@ -6,7 +6,7 @@ import styled from "styled-components";
 import CustomButton from "components/provider/coupon/CustomButton";
 import COLOR from "style/color";
 import Icon from "components/common/Icon";
-import { couponTextState } from "stores/couponAtom";
+import couponTextState from "stores/couponAtom";
 import { useRecoilState } from "recoil";
 
 const BASIC_IMAGE_GRADIENT = [
