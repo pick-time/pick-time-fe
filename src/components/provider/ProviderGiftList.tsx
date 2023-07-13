@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
 import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
-import Button from "components/common/Button";
-import COLOR from "style/color";
 import giftList from "data/giftData";
-import { useNavigate, useParams } from "react-router-dom";
 
 interface ResponseData {
   title: string;
@@ -17,8 +15,8 @@ interface ResponseData {
 }
 
 export default function ProviderGiftList() {
-  const navigate = useNavigate();
-  const { targetId } = useParams();
+  // const navigate = useNavigate();
+  // const { targetId } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [response, setResponse] =
     useRecoilState<ResponseData>(urlResponseState);
@@ -36,11 +34,11 @@ export default function ProviderGiftList() {
     setOpenEditModal(giftId);
   };
 
-  const handleClick = () => {
-    console.log(targetId);
+  // const handleClick = () => {
+  //   console.log(targetId);
 
-    navigate(`/result/${13}`);
-  };
+  //   navigate(`/result/${13}`);
+  // };
 
   useEffect(() => {
     if (response.title !== "") {
@@ -58,7 +56,8 @@ export default function ProviderGiftList() {
   }, [response]);
 
   return (
-    <>
+    <Wrapper>
+      <Title>상품 리스트</Title>
       {listData && (
         <List
           listData={listData}
@@ -67,12 +66,12 @@ export default function ProviderGiftList() {
           onClickEdit={handleEdit}
         />
       )}
-      <Button
+      {/* <Button
         text="작성 완료하기"
         color={COLOR.PINK}
         width="full"
         onClick={handleClick}
-      />
+      /> */}
       {openEditModal && (
         <EditGiftModal
           listData={listData}
@@ -81,6 +80,18 @@ export default function ProviderGiftList() {
           setOpenEditModal={setOpenEditModal}
         />
       )}
-    </>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  border-top: 1px solid #d7d7d7;
+`;
+
+const Title = styled.div`
+  color: #a3a3a3;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  padding: 0.8rem 0;
+`;

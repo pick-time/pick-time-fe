@@ -61,49 +61,61 @@ export default function EditGiftModal({
     setOpenEditModal(undefined);
   };
 
+  const [showTooltip, setShowTooltip] = useState(false);
   return (
     <ModalFrame
       openEditModal={openEditModal}
       setOpenEditModal={setOpenEditModal}
     >
-      <Descrip>상품을 수정해주세요.</Descrip>
+      <Descrip>상품 정보를 수정해주세요.</Descrip>
       {imgSrc ? <img src={imgSrc} alt="상품 이미지" /> : <ImgBox />}
       <Form onSubmit={handleEdit}>
-        <InputContainer>
-          <Title>제품 명</Title>
+        <InputBox>
+          <Title>
+            상품 제목<span>*</span>
+          </Title>
           <Input
             type="text"
             name="title"
             value={editedValue.title}
             onChange={handleInputChange}
           />
-        </InputContainer>
-        <InputContainer>
-          <Title>제품 설명</Title>
-          <Icon name="tooltip" width={16} height={16} />
+        </InputBox>
+        <InputBox>
+          <Title>상품 설명</Title>
+          <TooltipBtn
+            onMouseOver={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
+            <Icon name="tooltip" width={16} height={16} />
+          </TooltipBtn>
+          {showTooltip && (
+            <TooltipContent>선물을 선택한 이유를 적어보세요!</TooltipContent>
+          )}
           <Input
             type="text"
             name="des"
             value={editedValue.des}
             onChange={handleInputChange}
           />
-        </InputContainer>
-        <Button
-          type="submit"
-          text="확인"
-          color={COLOR.PINK}
-          width="modal"
-          // isDisabled={form.isDisabled}
-          // onClick={handleClick}
-        />
+        </InputBox>
+        <ButtonBox>
+          <Button
+            type="submit"
+            text="완료하기"
+            color={COLOR.PURPLE}
+            width="half"
+            // isDisabled={form.isDisabled}
+            // onClick={handleClick}
+          />
+        </ButtonBox>
       </Form>
     </ModalFrame>
   );
 }
 
 const Descrip = styled.div`
-  color: #333;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 700;
 `;
 const ImgBox = styled.div`
@@ -117,16 +129,58 @@ const Form = styled.form`
   flex-direction: column;
   gap: 1.7rem;
 `;
-const InputContainer = styled.div``;
+const InputBox = styled.div`
+  position: relative;
+`;
 const Title = styled.div`
-  color: #333;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
+  span {
+    color: #ff2c2c;
+  }
+`;
+const TooltipBtn = styled.div`
+  position: absolute;
+  top: 0;
+  left: 5.5rem;
+  cursor: pointer;
+`;
+const TooltipContent = styled.div`
+  position: absolute;
+  top: -0.9rem;
+  left: 8rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  background-color: #8e8e8e;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  ::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-right-color: #8e8e8e;
+    border-left: 0;
+    margin-top: -6px;
+    margin-left: -6px;
+  }
 `;
 const Input = styled.input`
   outline: none;
   border: none;
   width: 26rem;
   height: 3.3rem;
+  color: #8e8e8e;
+  font-size: 12px;
+  font-weight: 500;
   border-bottom: 1px solid #f2f3f5;
+`;
+const ButtonBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
