@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "components/common/Button";
-// import Icon from "components/common/Icon";
+import Icon from "components/common/Icon";
 import COLOR from "style/color";
 import { useState } from "react";
 import { GiftList } from "types/giftList.type";
@@ -80,6 +80,7 @@ export default function EditGiftModal({
         </InputContainer>
         <InputContainer>
           <Title>제품 설명</Title>
+          <Icon name="tooltip" width={16} height={16} />
           <Input
             type="text"
             name="des"
