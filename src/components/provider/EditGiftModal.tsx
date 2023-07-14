@@ -8,7 +8,6 @@ import ModalFrame from "components/common/ModalFrame";
 
 interface ModalProps {
   listData: GiftList[] | undefined;
-  setListData: React.Dispatch<React.SetStateAction<GiftList[] | undefined>>;
   openEditModal: number;
   setOpenEditModal: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
@@ -16,7 +15,6 @@ interface ModalProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function EditGiftModal({
   listData,
-  setListData,
   openEditModal,
   setOpenEditModal,
 }: ModalProps) {

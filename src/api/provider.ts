@@ -11,8 +11,8 @@ export const postGift = async ({ giftUrl, targetId }: PostGiftRequest) => {
   const response = await axios.post(`/gift/${targetId}`, {
     giftUrl,
   });
-  console.log(response.data);
-  return response;
+  console.log(response.data.giftList);
+  return response.data.giftList;
 };
 
 export const getGift = async () => {};

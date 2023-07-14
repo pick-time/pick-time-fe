@@ -4,7 +4,6 @@ import Icon from "components/common/Icon";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
-// import { postScrapeMetaData } from "api/api";
 import COLOR from "style/color";
 import { postGift } from "api/provider";
 
@@ -30,7 +29,9 @@ export default function ProviderGiftForm() {
       // input창 리셋
       inputRef.current!.value = "";
 
-      postGift({ giftUrl: url, targetId: 33 });
+      // 선물 추가
+      const gift = await postGift({ giftUrl: url, targetId: 33 });
+      setResponse(gift);
     };
 
     if (urlError !== "") {
