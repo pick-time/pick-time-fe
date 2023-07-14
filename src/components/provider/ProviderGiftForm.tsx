@@ -4,8 +4,9 @@ import Icon from "components/common/Icon";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
-import { postScrapeMetaData } from "api/api";
+// import { postScrapeMetaData } from "api/api";
 import COLOR from "style/color";
+import { postGift } from "api/provider";
 
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
@@ -29,7 +30,7 @@ export default function ProviderGiftForm() {
       // input창 리셋
       inputRef.current!.value = "";
 
-      postScrapeMetaData(url).then(data => setResponse({ ...data, url }));
+      postGift({ giftUrl: url, targetId: 33 });
     };
 
     if (urlError !== "") {
