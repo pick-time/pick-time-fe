@@ -51,7 +51,7 @@ export async function getGiftList({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftListResponse> {
   return axios
-    .get<GETGiftListResponse>(`/api/target/${targetId}/all`)
+    .get<GETGiftListResponse>(`/api/gift/${targetId}`)
     .then(response => response.data);
 }
 
@@ -84,7 +84,7 @@ export async function postPickedGift(
   const { targetId, giftId } = params;
   const body = { targetId, giftId };
   return axios
-    .post<POSTPickedGiftResponse>(`/target/${targetId}`, { body })
+    .post<POSTPickedGiftResponse>(`/target/${targetId}/pick`, { body })
     .then(response => response.data);
 }
 
