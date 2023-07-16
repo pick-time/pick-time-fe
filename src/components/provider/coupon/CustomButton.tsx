@@ -1,8 +1,12 @@
 import COLOR from "style/color";
 import styled from "styled-components";
 
-function CustomButton() {
-  return <StyledCouponButton>쿠폰 만들기</StyledCouponButton>;
+interface CustomButtonProps {
+  onClick: () => void;
+}
+
+function CustomButton({ onClick }: CustomButtonProps) {
+  return <StyledCouponButton onClick={onClick}>쿠폰 만들기</StyledCouponButton>;
 }
 
 export default CustomButton;

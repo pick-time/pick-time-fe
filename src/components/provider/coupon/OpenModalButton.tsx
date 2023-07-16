@@ -5,10 +5,19 @@ import CreateCouponModal from "components/provider/coupon/CreateCouponModal";
 function OpenModalButton() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openCouponModal, setOpenCouponModal] = useState<boolean>(false);
+
+  const onClickOpenModal = () => {
+    setOpenCouponModal(true);
+  };
+  const onClickCloseModal = () => {
+    setOpenCouponModal(false);
+  };
   return (
     <>
-      <CustomButton />
-      {openCouponModal && <CreateCouponModal />}
+      <CustomButton onClick={onClickOpenModal} />
+      {openCouponModal && (
+        <CreateCouponModal setCloseCouponModal={onClickCloseModal} />
+      )}
     </>
   );
 }

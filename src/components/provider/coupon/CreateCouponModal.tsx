@@ -6,8 +6,11 @@ import styled from "styled-components";
 import CustomButton from "components/provider/coupon/CustomButton";
 import COLOR from "style/color";
 import Icon from "components/common/Icon";
-import couponTextState from "stores/couponAtom";
-import { useRecoilState } from "recoil";
+import { couponInputState, couponTextState } from "stores/couponAtom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useCallback, useRef, useState } from "react";
+import { toPng } from "html-to-image";
+import Loading from "components/common/Loading";
 
 const BASIC_IMAGE_GRADIENT = [
   "linear-gradient(133deg, #52ccff 0%, #5448e8 100%)",
@@ -18,32 +21,91 @@ const BASIC_IMAGE_GRADIENT = [
   "linear-gradient(133deg, #D71659 0%, #FF4732 100%)",
 ];
 
-function CreateCouponModal() {
+interface CreateCouponModalProps {
+  setCloseCouponModal: () => void;
+}
+
+function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
+  const couponPreviewRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [previewImageURL, setPreviewImageURL] = useState<string>("");
+  // const [backImageFile, setBackImageFile] = useState<File | null>(null);
+  const [backImageURL, setBackImageURL] = useState<string>(
+    BASIC_IMAGE_GRADIENT[0],
+  );
+  const [backImageCustomURL, setBackImageCustomURL] = useState<string>("");
   const [couponMessage, setCouponMessage] = useRecoilState(couponTextState);
+  const [inputInfo, setInputInfo] = useRecoilState(couponInputState);
 
   const onChangeCouponMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCouponMessage(e.target.value);
   };
+
+  const onClickCouponToPNG = useCallback(async () => {
+    if (couponPreviewRef.current) {
+      setIsLoading(true);
+      const data = await toPng(couponPreviewRef.current);
+      setPreviewImageURL(data);
+      setIsLoading(false);
+    }
+  }, [couponPreviewRef.current]);
+
+  const onClickImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const imageUrl = URL.createObjectURL(file);
+      setBackImageCustomURL(imageUrl); // 이미지 화면에 렌더링 하기
+      setInputInfo({ ...inputInfo, file }); // 전역 상태에 저장
+    }
+  };
+
   return (
-    <ModalFrameCoupon setCloseCreateModal={() => console.log("hi")}>
+    <ModalFrameCoupon setCloseCreateModal={setCloseCouponModal}>
+      {isLoading && <Loading />}
       <Text
         contents="나만의 쿠폰을 만들어주세요"
         fontSize="1.8rem"
         fontWeight={700}
       />
-      <CouponPreview>
-        <CouponMessage>{couponMessage}</CouponMessage>
-        COUPON
-      </CouponPreview>
+      {backImageCustomURL.length !== 0 ? (
+        <CouponCustomPreview
+          ref={couponPreviewRef}
+          backgroundURL={backImageCustomURL}
+        >
+          <CouponMessage>{couponMessage}</CouponMessage>
+          COUPON
+        </CouponCustomPreview>
+      ) : (
+        <CouponPreview ref={couponPreviewRef} backgroundURL={backImageURL}>
+          <CouponMessage>{couponMessage}</CouponMessage>
+          COUPON
+        </CouponPreview>
+      )}
+
       <CouponBasicSlider>
         {BASIC_IMAGE_GRADIENT.map((basic, idx) => {
-          return <BasicImage key={idx} background={basic} />;
+          return (
+            <BasicImage
+              key={idx}
+              background={basic}
+              onClick={() => setBackImageURL(basic)}
+            />
+          );
         })}
       </CouponBasicSlider>
-      <ImageUploadButton>
+      <ImageUploadLabel htmlFor="couponImage">
+        <input
+          type="file"
+          id="couponImage"
+          accept="image/*"
+          onChange={onClickImageUpload}
+          style={{ display: "none" }}
+        />
         <Icon width={24} height={24} name="camera-stroke" />
         이미지 불러오기
-      </ImageUploadButton>
+      </ImageUploadLabel>
       <CouponMessageWrapper>
         <Text contents="쿠폰 메시지" fontSize="1.2rem" fontWeight={500} />
         <MessageInput
@@ -51,18 +113,41 @@ function CreateCouponModal() {
           value={couponMessage}
         />
       </CouponMessageWrapper>
-      <CustomButton />
+      <CustomButton onClick={onClickCouponToPNG} />
     </ModalFrameCoupon>
   );
 }
 
 export default CreateCouponModal;
 
-const CouponPreview = styled.div`
+const CouponPreview = styled.div<{ backgroundURL: string }>`
   width: 25.8rem;
   height: 12.4rem;
   border-radius: 8px;
-  background: linear-gradient(133deg, #52ccff 0%, #5448e8 100%);
+  background: ${({ backgroundURL }) => backgroundURL};
+
+  /* ${({ backgroundURL }) =>
+    backgroundURL != null
+      ? `background-image: url(${backgroundURL})`
+      : `background: linear-gradient(133deg, #52ccff 0%, #5448e8 100%)`} */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: ${COLOR.WHITE};
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+`;
+
+const CouponCustomPreview = styled.div<{ backgroundURL: string }>`
+  width: 25.8rem;
+  height: 12.4rem;
+  border-radius: 8px;
+  background-image: ${({ backgroundURL }) => `url(${backgroundURL})`};
+  background-size: 25.8rem 12.4rem;
 
   position: relative;
   display: flex;
@@ -94,7 +179,7 @@ const BasicImage = styled.img<{ background: string }>`
   background: ${({ background }) => background};
 `;
 
-const ImageUploadButton = styled.button`
+const ImageUploadLabel = styled.label`
   width: 26rem;
   height: 4rem;
   border-radius: 1rem;
