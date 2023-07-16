@@ -5,7 +5,8 @@ import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
 import COLOR from "style/color";
-import { postGift } from "api/provider";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { postGift, postTarget, getTarget } from "api/provider";
 
 export default function ProviderGiftForm() {
   const [url, setUrl] = useState<string>("");
@@ -29,8 +30,7 @@ export default function ProviderGiftForm() {
       // input창 리셋
       inputRef.current!.value = "";
 
-      // 선물 추가
-      const gift = await postGift({ giftUrl: url, targetId: 33 });
+      const gift = await postGift({ giftUrl: url, targetId: 34 });
       setResponse(gift);
     };
 

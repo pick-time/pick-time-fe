@@ -3,18 +3,19 @@ import Button from "components/common/Button";
 import Icon from "components/common/Icon";
 import COLOR from "style/color";
 import { useState } from "react";
-import { GiftList } from "types/giftList.type";
+// import { GiftList } from "types/giftList.type";
 import ModalFrame from "components/common/ModalFrame";
+import { putGift } from "api/provider";
 
 interface ModalProps {
-  listData: GiftList[] | undefined;
+  // listData: GiftList[] | undefined;
   openEditModal: number;
   setOpenEditModal: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function EditGiftModal({
-  listData,
+  // listData,
   openEditModal,
   setOpenEditModal,
 }: ModalProps) {
@@ -22,12 +23,12 @@ export default function EditGiftModal({
     title: "",
     des: "",
   });
-  const [imgSrc, setImgSrc] = useState<string | undefined>("");
+  // const [imgSrc, setImgSrc] = useState<string | undefined>("");
 
-  function getImgSrcById() {
-    const foundList = listData?.find(list => list.giftId === openEditModal);
-    setImgSrc(foundList?.giftImage);
-  }
+  // function getImgSrcById() {
+  //   const foundList = listData?.find(list => list.giftId === openEditModal);
+  //   setImgSrc(foundList?.giftImage);
+  // }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -39,23 +40,25 @@ export default function EditGiftModal({
 
   const handleEdit = (event: React.FormEvent) => {
     event.preventDefault();
-    getImgSrcById();
+    // getImgSrcById();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const updatedTitle = editedValue.title;
     const updatedDes = editedValue.des;
 
-    setListData(prevListData =>
-      prevListData?.map(list => {
-        if (list.giftId === openEditModal) {
-          return {
-            ...list,
-            giftTitle: updatedTitle,
-            giftDescription: updatedDes,
-          };
-        }
-        return list;
-      }),
-    );
+    // setListData(prevListData =>
+    //   prevListData?.map(list => {
+    //     if (list.giftId === openEditModal) {
+    //       return {
+    //         ...list,
+    //         giftTitle: updatedTitle,
+    //         giftDescription: updatedDes,
+    //       };
+    //     }
+    //     return list;
+    //   }),
+    // );
+    putGift({ giftId: openEditModal, description: updatedDes });
     setOpenEditModal(undefined);
   };
 
@@ -66,7 +69,7 @@ export default function EditGiftModal({
       setOpenEditModal={setOpenEditModal}
     >
       <Descrip>상품 정보를 수정해주세요.</Descrip>
-      {imgSrc ? <img src={imgSrc} alt="상품 이미지" /> : <ImgBox />}
+      {/* {imgSrc ? <img src={imgSrc} alt="상품 이미지" /> : <ImgBox />} */}
       <Form onSubmit={handleEdit}>
         <InputBox>
           <Title>
@@ -116,12 +119,12 @@ const Descrip = styled.div`
   font-size: 18px;
   font-weight: 700;
 `;
-const ImgBox = styled.div`
-  width: 12.4rem;
-  height: 12.4rem;
-  border-radius: 50%;
-  background-color: #f2f3f5;
-`;
+// const ImgBox = styled.div`
+//   width: 12.4rem;
+//   height: 12.4rem;
+//   border-radius: 50%;
+//   background-color: #f2f3f5;
+// `;
 const Form = styled.form`
   display: flex;
   flex-direction: column;

@@ -21,9 +21,10 @@ function List({
   onClickEdit,
   onClickLike,
 }: ListProps) {
+  console.log(listData);
   return (
     <ListWrapper>
-      {!listData && (
+      {listData.length === 1 && (
         <TextWrapper>
           <Text contents="등록된 상품이 없습니다" />
         </TextWrapper>

@@ -32,6 +32,12 @@ export default function ProviderGiftList() {
     setListData(listData?.filter(list => list.giftId !== giftId));
   };
 
+  // interface EditGift {
+  //   giftId: number;
+  //   giftTitle: string;
+  //   giftDescription: string;
+  // }
+
   const handleEdit = (giftId: number) => {
     setOpenEditModal(giftId);
   };
@@ -64,7 +70,7 @@ export default function ProviderGiftList() {
       )}
       {openEditModal && (
         <EditGiftModal
-          listData={response}
+          // listData={response}
           openEditModal={openEditModal}
           setOpenEditModal={setOpenEditModal}
         />
