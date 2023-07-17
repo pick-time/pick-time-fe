@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
@@ -8,6 +8,7 @@ import Button from "components/common/Button";
 import COLOR from "style/color";
 import giftList from "data/giftData";
 import { useNavigate, useParams } from "react-router-dom";
+import mockCouponList from "data/couponData";
 
 interface ResponseData {
   title: string;
@@ -61,7 +62,11 @@ export default function ProviderGiftList() {
     <>
       {listData && (
         <List
+          // TODO: listData 삭제
           listData={listData}
+          giftList={listData}
+          // TODO: 실데이터로 교체
+          couponList={mockCouponList}
           type="editable"
           onClickClose={handleDelete}
           onClickEdit={handleEdit}
