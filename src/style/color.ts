@@ -3,6 +3,8 @@ const COLOR = {
   PURPLE: "#584392",
   NAVY: "#24105E",
   WHITE: "#FFFFFF",
+  PLACEHOLDER_PURPLE: "#C3BBDB",
+  SUB_GRAY: "#A3A3A3",
 };
 
 export default COLOR;
