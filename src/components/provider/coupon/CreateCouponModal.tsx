@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import ModalFrameCoupon from "components/common/ModalFrameCoupon";
 import Text from "components/common/Text";
@@ -6,7 +5,11 @@ import styled from "styled-components";
 import CustomButton from "components/provider/coupon/CustomButton";
 import COLOR from "style/color";
 import Icon from "components/common/Icon";
-import { couponInputState, couponTextState } from "stores/couponAtom";
+import {
+  couponImageURLState,
+  couponInputState,
+  couponTextState,
+} from "stores/couponAtom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useCallback, useRef, useState } from "react";
 import { toPng } from "html-to-image";
@@ -28,14 +31,13 @@ interface CreateCouponModalProps {
 function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
   const couponPreviewRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [previewImageURL, setPreviewImageURL] = useState<string>("");
-  // const [backImageFile, setBackImageFile] = useState<File | null>(null);
   const [backImageURL, setBackImageURL] = useState<string>(
     BASIC_IMAGE_GRADIENT[0],
   );
   const [backImageCustomURL, setBackImageCustomURL] = useState<string>("");
   const [couponMessage, setCouponMessage] = useRecoilState(couponTextState);
   const [inputInfo, setInputInfo] = useRecoilState(couponInputState);
+  const setCouponPreviewImageURL = useSetRecoilState(couponImageURLState);
 
   const onChangeCouponMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCouponMessage(e.target.value);
@@ -45,7 +47,7 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
     if (couponPreviewRef.current) {
       setIsLoading(true);
       const data = await toPng(couponPreviewRef.current);
-      setPreviewImageURL(data);
+      setCouponPreviewImageURL(data);
       setIsLoading(false);
     }
   }, [couponPreviewRef.current]);
@@ -126,10 +128,6 @@ const CouponPreview = styled.div<{ backgroundURL: string }>`
   border-radius: 8px;
   background: ${({ backgroundURL }) => backgroundURL};
 
-  /* ${({ backgroundURL }) =>
-    backgroundURL != null
-      ? `background-image: url(${backgroundURL})`
-      : `background: linear-gradient(133deg, #52ccff 0%, #5448e8 100%)`} */
   position: relative;
   display: flex;
   flex-direction: column;
