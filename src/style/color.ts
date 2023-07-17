@@ -5,6 +5,7 @@ const COLOR = {
   WHITE: "#FFFFFF",
   PLACEHOLDER_PURPLE: "#C3BBDB",
   SUB_GRAY: "#A3A3A3",
+  GRAY: "#D7D7D7",
 };
 
 export default COLOR;

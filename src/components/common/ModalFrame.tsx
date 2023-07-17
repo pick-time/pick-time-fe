@@ -27,7 +27,7 @@ const ModalFrame: React.FC<Props> = ({
           <ModalDim onClick={handleClose} />
           <Wrapper>
             <CloseBtn onClick={handleClose}>
-              <Icon name="close" width={10} height={10} />
+              <Icon name="close" width={18} height={18} />
             </CloseBtn>
             {children}
           </Wrapper>
@@ -74,4 +74,5 @@ const CloseBtn = styled.div`
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
+  cursor: pointer;
 `;

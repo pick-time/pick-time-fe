@@ -42,12 +42,12 @@ export default function ProviderGiftForm() {
 
   return (
     <>
-      <Title>상품 리스트</Title>
+      <Title>선물 리스트</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
           type="text"
-          placeholder="링크를 등록해 주세요."
+          placeholder="선물 사이트 링크를 등록해 주세요."
           onChange={handleUrlChange}
         />
         <AddBtn type="submit">
