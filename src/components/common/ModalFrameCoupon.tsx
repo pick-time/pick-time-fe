@@ -27,20 +27,20 @@ export default ModalFrameCoupon;
 const ModalDim = styled.div`
   position: absolute;
   z-index: 1;
-  bottom: 0;
+  top: 0;
   left: 0;
   background-color: #00000066;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 390px;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 `;
 const Wrapper = styled.div`
   position: absolute;
   z-index: 2;
-  bottom: 12rem;
+  top: 20rem;
   left: calc(50% - 15.5rem);
   background-color: #fff;
   width: 31rem;

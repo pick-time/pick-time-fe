@@ -30,7 +30,7 @@ function List({
   onClickLike,
 }: ListProps) {
   return (
-    <>
+    <Wrapper>
       {type === "editable" && !couponList && (
         <>
           <Divider />
@@ -135,12 +135,15 @@ function List({
           </ListWrapper>
         </>
       )}
-    </>
+    </Wrapper>
   );
 }
 
 export default List;
 
+const Wrapper = styled.div`
+  margin-bottom: 4rem;
+`;
 const Divider = styled.hr`
   width: 100%;
   stroke-width: 0.1rem;

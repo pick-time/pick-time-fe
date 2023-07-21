@@ -5,7 +5,6 @@ import Gift from "pages/Gift";
 import Card from "pages/Card";
 import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
-import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
 import Confirm from "pages/Confirm";
@@ -23,7 +22,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Intro />} />
         <Route path="/target/:targetId" element={<Intro />} />
-        <Route path="/gift" element={<Gift />} />
+        <Route path="/gift/:targetId" element={<Gift />} />
         <Route path="/card" element={<Card />} />
         <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
@@ -33,7 +32,6 @@ function App() {
           element={<ConsumerResult />}
         />
         <Route path="/recoil-sample" element={<RecoilSample />} />
-        <Route path="/react-query-sample" element={<ReactQuerySample />} />
       </Routes>
     </Root>
   );

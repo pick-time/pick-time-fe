@@ -10,10 +10,12 @@ import {
   couponInputState,
   couponTextState,
 } from "stores/couponAtom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { useCallback, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import Loading from "components/common/Loading";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const BASIC_IMAGE_GRADIENT = [
   "linear-gradient(133deg, #52ccff 0%, #5448e8 100%)",
@@ -29,6 +31,7 @@ interface CreateCouponModalProps {
 }
 
 function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
+  const { targetId } = useParams();
   const couponPreviewRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [backImageURL, setBackImageURL] = useState<string>(
@@ -38,17 +41,51 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
   const [couponMessage, setCouponMessage] = useRecoilState(couponTextState);
   const [inputInfo, setInputInfo] = useRecoilState(couponInputState);
   const setCouponPreviewImageURL = useSetRecoilState(couponImageURLState);
+  const resetCouponInput = useResetRecoilState(couponInputState);
+  const resetCouponText = useResetRecoilState(couponTextState);
+  const resetCouponImageURL = useResetRecoilState(couponImageURLState);
 
   const onChangeCouponMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCouponMessage(e.target.value);
+  };
+
+  // TODO: mutate로 custom hook 분리 예정
+  const onClickSubmit = async (png: string) => {
+    const formData = new FormData();
+    formData.append("file", png);
+    try {
+      if (targetId) {
+        const params = new URLSearchParams({ targetId }).toString();
+        await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/coupon?${params}`,
+          { formData },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              charset: "utf-8",
+            },
+          },
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const onClickCouponToPNG = useCallback(async () => {
     if (couponPreviewRef.current) {
       setIsLoading(true);
       const data = await toPng(couponPreviewRef.current);
+
+      await onClickSubmit(data);
       setCouponPreviewImageURL(data);
       setIsLoading(false);
+
+      setCloseCouponModal();
+
+      resetCouponText();
+      resetCouponInput();
+      resetCouponImageURL();
     }
   }, [couponPreviewRef.current]);
 
@@ -109,8 +146,11 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
         이미지 불러오기
       </ImageUploadLabel>
       <CouponMessageWrapper>
-        <Text contents="쿠폰 메시지" fontSize="1.2rem" fontWeight={500} />
+        <CouponMessageTitle>
+          쿠폰 메시지 <span style={{ color: "red" }}>*</span>
+        </CouponMessageTitle>
         <MessageInput
+          maxLength={10}
           onChange={e => onChangeCouponMessage(e)}
           value={couponMessage}
         />
@@ -183,11 +223,34 @@ const ImageUploadLabel = styled.label`
   border-radius: 1rem;
   border: 0.1rem solid #eee;
   background-color: ${COLOR.WHITE};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.4rem;
 `;
 
 const CouponMessageWrapper = styled.div``;
 
+const CouponMessageTitle = styled.p`
+  white-space: pre-line;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: normal;
+`;
+
 const MessageInput = styled.input`
   width: 26.2rem;
   height: 2.4rem;
+
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-bottom: 1px solid ${COLOR.PLACEHOLDER_PURPLE};
 `;
