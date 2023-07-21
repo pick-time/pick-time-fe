@@ -11,6 +11,7 @@ import useGift from "hooks/queries/useGift";
 export default function ProviderGiftList() {
   const { targetId } = useParams();
   const {
+    deleteGift,
     getGift: { isLoading, data: giftList },
   } = useGift(Number(targetId));
   // 시현용
@@ -18,7 +19,7 @@ export default function ProviderGiftList() {
   const [openEditModal, setOpenEditModal] = useState<number>();
 
   const handleDelete = (giftId: number) => {
-    setListData(listData?.filter(list => list.giftId !== giftId));
+    deleteGift.mutate(giftId);
   };
 
   const handleEdit = (giftId: number) => {

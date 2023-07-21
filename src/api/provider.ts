@@ -9,12 +9,19 @@ export const getGiftList = async (targetId: number) => {
 };
 
 // 선물 추가
-export const postGift = async (giftUrl: string, targetId: number) => {
+export const postGiftItem = async (giftUrl: string, targetId: number) => {
   const response = await axios.post(`/api/gift/${targetId}`, {
     giftUrl,
   });
   // console.log(response.data.giftList);
   return response.data.giftList;
+};
+
+// 선물 삭제
+export const deleteGiftItem = async (giftId: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const response = await axios.delete(`/api/gift/${giftId}`);
+  return response;
 };
 
 interface PutGiftRequest {
