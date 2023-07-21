@@ -15,7 +15,7 @@ const LogoWrapper = styled.header`
   flex-direction: column;
   align-items: center;
   padding: 1rem 12rem;
-  position: absolute;
+  position: fixed;
   top: 0px;
   background: ${COLOR.WHITE};
 `;
