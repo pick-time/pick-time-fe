@@ -3,7 +3,7 @@ import { postGift } from "api/provider";
 
 type PostGiftRequest = {
   giftUrl: string;
-  targetId: string;
+  targetId: number;
 };
 
 const usePostGift = () => {

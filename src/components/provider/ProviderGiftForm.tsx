@@ -5,7 +5,7 @@ import validateUrl from "utils/validateUrl";
 import COLOR from "style/color";
 
 // 타입 수정
-export default function ProviderGiftForm({ addGift }: any) {
+export default function ProviderGiftForm({ addGift, refetch }: any) {
   const [url, setUrl] = useState<string>("");
   const [urlError, setUrlError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +25,8 @@ export default function ProviderGiftForm({ addGift }: any) {
       // input창 리셋
       inputRef.current!.value = "";
 
-      addGift({ giftUrl: url, targetId: 35 });
+      addGift({ giftUrl: url, targetId: 32 });
+      refetch();
     };
 
     if (urlError !== "") {
