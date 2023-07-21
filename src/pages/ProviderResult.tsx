@@ -47,7 +47,7 @@ function ProviderResult() {
         onClick={handleClick}
       />
       <LinkWrapper>
-        <KakaoShare />
+        <KakaoShare userType="provider" />
         <CopyLink>
           <Button text="URL" color={COLOR.NAVY} width="half" />
         </CopyLink>

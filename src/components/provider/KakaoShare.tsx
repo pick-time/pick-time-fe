@@ -13,10 +13,33 @@ declare global {
 const { REACT_APP_JS_KEY } = process.env;
 const { Kakao } = window;
 
-export default function KakaoShare() {
+interface KakaoShareProps {
+  userType: "consumer" | "provider";
+  consumerName?: string;
+}
+
+export default function KakaoShare({
+  userType,
+  consumerName,
+}: KakaoShareProps) {
   const { targetId } = useParams();
-  // TODO: 받는 사람이 볼 인트로 URL로 대체
-  const webUrl = `https://pick-time.vercel.app/target/${targetId}`;
+
+  const data = {
+    consumer: {
+      webUrl: `https://pick-time.vercel.app/target/${targetId}`,
+      title: "정성이 담긴 선물 목록",
+      titleImageText: "당신에게 마음이 도착했어요.",
+      titleImageCategory: "당신에게 마음이 도착했어요.",
+    },
+    provider: {
+      webUrl: `https://pick-time.vercel.app/target/${targetId}/gift/final`,
+      title: `${consumerName}님이 선택한 선물`,
+      titleImageText: `${consumerName}님이 선물을 고르셨어요.`,
+      titleImageCategory: `${consumerName}님이 고르신 선물을 확인해주세요!`,
+    },
+  };
+
+  const { webUrl, title, titleImageText, titleImageCategory } = data[userType];
 
   useEffect(() => {
     Kakao.cleanup();
@@ -26,16 +49,12 @@ export default function KakaoShare() {
   const shareKakao = () => {
     Kakao.Share.sendDefault({
       objectType: "feed",
-      // TODO: 축하 카드 이미지와 주는 사람 이름 받아와서 대체
       content: {
-        title: "정성이 담긴 선물 목록",
+        title,
         imageUrl: "https://ifh.cc/g/p5Mz9R.jpg",
         link: { mobileWebUrl: webUrl, webUrl },
       },
-      itemContent: {
-        titleImageText: "당신에게 마음이 도착했어요.",
-        titleImageCategory: "원하는 선물을 골라주세요!",
-      },
+      itemContent: { titleImageText, titleImageCategory },
     });
   };
 

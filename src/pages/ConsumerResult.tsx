@@ -12,15 +12,15 @@ import styled from "styled-components";
 
 function ConsumerResult() {
   const { targetId } = useParams();
-  const { isLoading, data } = useGetTargetInfo(Number(targetId));
+  const { data } = useGetTargetInfo(Number(targetId));
 
-  if (isLoading) return <Loading />;
+  if (!data) return <Loading />;
   return (
     <>
       <ResultWrapper>
         <Header />
         <Title level={1} align="center">
-          {data?.consumerName}님이 <br />
+          {data.consumerName}님이 <br />
           고른 선물이에요
         </Title>
         <ImageWrapper>
@@ -31,7 +31,7 @@ function ConsumerResult() {
           <Icon name="link-icon" width={23} height={23} />
         </GiftTitle>
         <LinkWrapper>
-          <KakaoShare />
+          <KakaoShare userType="consumer" consumerName={data.consumerName} />
           <CopyLink>
             <Button text="URL" color={COLOR.NAVY} width="half" />
           </CopyLink>
