@@ -1,16 +1,12 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
-import { useRecoilState } from "recoil";
-import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
-import { postScrapeMetaData } from "api/api";
 import COLOR from "style/color";
 
-export default function ProviderGiftForm() {
+// 타입 수정
+export default function ProviderGiftForm({ mutate }: any) {
   const [url, setUrl] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [response, setResponse] = useRecoilState(urlResponseState);
   const [urlError, setUrlError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -29,7 +25,7 @@ export default function ProviderGiftForm() {
       // input창 리셋
       inputRef.current!.value = "";
 
-      postScrapeMetaData(url).then(data => setResponse({ ...data, url }));
+      mutate({ giftUrl: url, targetId: 35 });
     };
 
     if (urlError !== "") {
