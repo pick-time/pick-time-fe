@@ -10,7 +10,7 @@ import {
   couponInputState,
   couponTextState,
 } from "stores/couponAtom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { useCallback, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import Loading from "components/common/Loading";
@@ -42,6 +42,9 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
   const [couponMessage, setCouponMessage] = useRecoilState(couponTextState);
   const [inputInfo, setInputInfo] = useRecoilState(couponInputState);
   const setCouponPreviewImageURL = useSetRecoilState(couponImageURLState);
+  const resetCouponInput = useResetRecoilState(couponInputState);
+  const resetCouponText = useResetRecoilState(couponTextState);
+  const resetCouponImageURL = useResetRecoilState(couponImageURLState);
 
   const onChangeCouponMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCouponMessage(e.target.value);
@@ -78,6 +81,12 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
       await onClickSubmit(data);
       setCouponPreviewImageURL(data);
       setIsLoading(false);
+
+      setCloseCouponModal();
+
+      resetCouponText();
+      resetCouponInput();
+      resetCouponImageURL();
     }
   }, [couponPreviewRef.current]);
 
