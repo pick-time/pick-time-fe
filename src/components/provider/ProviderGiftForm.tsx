@@ -1,17 +1,12 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
-import { useRecoilState } from "recoil";
-import { urlResponseState } from "stores/atom";
 import validateUrl from "utils/validateUrl";
 import COLOR from "style/color";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { postGift, postTarget, getTarget } from "api/provider";
 
-export default function ProviderGiftForm() {
+// 타입 수정
+export default function ProviderGiftForm({ mutate }: any) {
   const [url, setUrl] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [response, setResponse] = useRecoilState(urlResponseState);
   const [urlError, setUrlError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,10 +25,7 @@ export default function ProviderGiftForm() {
       // input창 리셋
       inputRef.current!.value = "";
 
-      const gift = await postGift({ giftUrl: url, targetId: 34 });
-      // const test = await getGiftList({ targetId: 35 });
-      // console.log(test);
-      setResponse(gift);
+      mutate({ giftUrl: url, targetId: 35 });
     };
 
     if (urlError !== "") {

@@ -7,7 +7,7 @@ import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
 import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
-import giftList from "data/giftData";
+// import giftList from "data/giftData";
 
 import { useNavigate, useParams } from "react-router-dom";
 import mockCouponList from "data/couponData";
@@ -19,27 +19,20 @@ interface ResponseData {
   url: string;
 }
 
-export default function ProviderGiftList() {
+type GiftListProps = {
+  giftList: GiftList[];
+};
+
+export default function ProviderGiftList({ giftList }: GiftListProps) {
   // const navigate = useNavigate();
   // const { targetId } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [response, setResponse] = useRecoilState<GiftList[]>(urlResponseState);
-
   // 시현용
   const [listData, setListData] = useState<GiftList[]>(giftList);
-  // const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openEditModal, setOpenEditModal] = useState<number>();
 
   const handleDelete = (giftId: number) => {
     setListData(listData?.filter(list => list.giftId !== giftId));
   };
-
-  // interface EditGift {
-  //   giftId: number;
-  //   giftTitle: string;
-  //   giftDescription: string;
-  // }
 
   const handleEdit = (giftId: number) => {
     setOpenEditModal(giftId);
@@ -61,13 +54,12 @@ export default function ProviderGiftList() {
   // }, [response]);
 
   return (
-    <Wrapper>
-      <Title>상품 리스트</Title>
-      {listData && (
+    <>
+      {giftList && (
         <List
           // TODO: listData 삭제
           listData={listData}
-          giftList={listData}
+          giftList={giftList}
           // TODO: 실데이터로 교체
           couponList={mockCouponList}
           type="editable"
@@ -82,13 +74,9 @@ export default function ProviderGiftList() {
           setOpenEditModal={setOpenEditModal}
         />
       )}
-    </Wrapper>
+    </>
   );
 }
-
-const Wrapper = styled.div`
-  border-top: 1px solid #d7d7d7;
-`;
 
 const Title = styled.div`
   color: #a3a3a3;

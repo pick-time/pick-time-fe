@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Icon from "./Icon";
 import COLOR from "style/color";
 import { GiftList } from "types/giftList.type";
-
 import { CouponList as TCouponList } from "types/couponList.type";
 import CouponList from "./CouponList";
 import mockCouponList from "data/couponData";
@@ -30,7 +29,6 @@ function List({
   onClickEdit,
   onClickLike,
 }: ListProps) {
-  console.log(listData);
   return (
     <>
       {type === "editable" && !couponList && (
