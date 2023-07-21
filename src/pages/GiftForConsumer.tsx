@@ -7,9 +7,11 @@ import {
 } from "api/api";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
-import List from "components/common/List";
 import Loading from "components/common/Loading";
 import Title from "components/common/Title";
+import ConsumerGiftList from "components/consumer/ConsumerGiftList";
+import mockCouponList from "data/couponData";
+import giftList from "data/giftData";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
@@ -135,12 +137,7 @@ function GiftForConsumer() {
               생각한 선물들이에요!
             </Title>
           </TitleWrapper>
-          <List
-            listData={IS_MOCK ? fetchedList : data ? data.giftList : []}
-            type="likable"
-            selectedGiftId={pickedGiftId}
-            onClickLike={onClickLikeButton}
-          />
+          <ConsumerGiftList couponList={mockCouponList} giftList={giftList} />
         </>
       )}
       <ButtonWrapper>
