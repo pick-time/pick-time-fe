@@ -3,37 +3,8 @@ import { useMutation, useQuery } from "react-query";
 // import { useMutation, useQuery } from "react-query";
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
-import type { Todos } from "types/todo.type";
 
 axios.defaults.withCredentials = true;
-
-export default async function fetchTodos(): Promise<Todos[]> {
-  const response = await axios.get<Todos[]>(
-    "https://jsonplaceholder.typicode.com/todos",
-  );
-  return response.data;
-}
-
-export async function postScrapeMetaData(url: string) {
-  const res = await axios({
-    // url: "http://localhost:8080/scrape",
-    // url: "http://localhost:5151/scrape",
-    // url: "https://political-olive-radio.glitch.me/scrape",
-    url: "/scrape", // 이거다!
-    // axios.defaults.withCredentials = true;
-    method: "post",
-    data: {
-      url,
-    },
-  });
-
-  console.log(res);
-  if (res.status === 200) {
-    console.log("test");
-    return res.data;
-  }
-  throw new Error(res.statusText);
-}
 
 /**
  *
@@ -51,7 +22,9 @@ export async function getGiftList({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftListResponse> {
   return axios
-    .get<GETGiftListResponse>(`/api/gift/${targetId}`)
+    .get<GETGiftListResponse>(
+      `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
+    )
     .then(response => response.data);
 }
 
@@ -84,7 +57,10 @@ export async function postPickedGift(
   const { targetId, giftId } = params;
   const body = { targetId, giftId };
   return axios
-    .post<POSTPickedGiftResponse>(`/target/${targetId}/pick`, { body })
+    .post<POSTPickedGiftResponse>(
+      `${process.env.REACT_APP_BASE_URL}/target/${targetId}/pick`,
+      { body },
+    )
     .then(response => response.data);
 }
 

@@ -16,7 +16,6 @@ import { toPng } from "html-to-image";
 import Loading from "components/common/Loading";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 
 const BASIC_IMAGE_GRADIENT = [
   "linear-gradient(133deg, #52ccff 0%, #5448e8 100%)",
@@ -58,7 +57,7 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
       if (targetId) {
         const params = new URLSearchParams({ targetId }).toString();
         await axios.post(
-          `/api/coupon?${params}`,
+          `${process.env.REACT_APP_BASE_URL}/coupon?${params}`,
           { formData },
           {
             headers: {
