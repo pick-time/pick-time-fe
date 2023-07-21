@@ -33,7 +33,7 @@ export const postTarget = async (data: PostTargetData) => {
 
 // 선물 추가
 export const postGift = async ({ giftUrl, targetId }: PostGiftRequest) => {
-  const response = await axios.post(`/gift/${targetId}`, {
+  const response = await axios.post(`/api/gift/${targetId}`, {
     giftUrl,
   });
   console.log(response.data.giftList);
