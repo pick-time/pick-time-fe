@@ -38,4 +38,5 @@ export type IconName =
   | "logo-intro-provider"
   | "logo-provider-result"
   | "logo-main"
-  | "tooltip";
+  | "tooltip"
+  | "link-icon";
