@@ -7,10 +7,10 @@ type PostGiftRequest = {
 };
 
 const usePostGift = () => {
-  const { mutate, data: giftList } = useMutation(
+  const { mutate: addGift, data: giftList } = useMutation(
     ({ giftUrl, targetId }: PostGiftRequest) => postGift(giftUrl, targetId),
   );
-  return { mutate, giftList };
+  return { addGift, giftList };
 };
 
 export default usePostGift;
