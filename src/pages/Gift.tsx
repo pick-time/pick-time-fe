@@ -6,12 +6,12 @@ import OpenModalButton from "components/provider/coupon/OpenModalButton";
 import usePostGift from "hooks/queries/usePostGift";
 
 export default function Gift() {
-  const { mutate, giftList } = usePostGift();
+  const { addGift, giftList } = usePostGift();
   return (
     <>
       <Header />
       <ProviderCard />
-      <ProviderGiftForm mutate={mutate} />
+      <ProviderGiftForm addGift={addGift} />
       <OpenModalButton />
       <ProviderGiftList giftList={giftList} />
     </>
