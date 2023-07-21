@@ -31,6 +31,8 @@ export default function ProviderGiftForm() {
       inputRef.current!.value = "";
 
       const gift = await postGift({ giftUrl: url, targetId: 34 });
+      // const test = await getGiftList({ targetId: 35 });
+      // console.log(test);
       setResponse(gift);
     };
 

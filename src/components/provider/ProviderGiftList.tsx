@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { urlResponseState } from "stores/atom";
@@ -7,23 +9,24 @@ import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
 import giftList from "data/giftData";
 
-export interface ResponseData {
-  giftDescription: string;
-  giftId: number;
-  giftImage: string;
-  giftTitle: string;
-  giftUrl: string;
+import { useNavigate, useParams } from "react-router-dom";
+import mockCouponList from "data/couponData";
+
+interface ResponseData {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
 }
 
 export default function ProviderGiftList() {
   // const navigate = useNavigate();
   // const { targetId } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [response, setResponse] =
-    useRecoilState<ResponseData[]>(urlResponseState);
+  const [response, setResponse] = useRecoilState<GiftList[]>(urlResponseState);
 
   // 시현용
-  const [listData, setListData] = useState<GiftList[] | undefined>(giftList);
+  const [listData, setListData] = useState<GiftList[]>(giftList);
   // const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openEditModal, setOpenEditModal] = useState<number>();
@@ -60,9 +63,13 @@ export default function ProviderGiftList() {
   return (
     <Wrapper>
       <Title>상품 리스트</Title>
-      {response && (
+      {listData && (
         <List
-          listData={response}
+          // TODO: listData 삭제
+          listData={listData}
+          giftList={listData}
+          // TODO: 실데이터로 교체
+          couponList={mockCouponList}
           type="editable"
           onClickClose={handleDelete}
           onClickEdit={handleEdit}
