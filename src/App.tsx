@@ -5,7 +5,6 @@ import Gift from "pages/Gift";
 import Card from "pages/Card";
 import GlobalStyle from "style/GlobalStyle";
 import RecoilSample from "pages/RecoilSample";
-import ReactQuerySample from "pages/ReactQuerySample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
 import Confirm from "pages/Confirm";
@@ -33,7 +32,6 @@ function App() {
           element={<ConsumerResult />}
         />
         <Route path="/recoil-sample" element={<RecoilSample />} />
-        <Route path="/react-query-sample" element={<ReactQuerySample />} />
       </Routes>
     </Root>
   );
@@ -46,11 +44,9 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   width: 390px;
-  height: 100%;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
-
-  overflow-y: hidden;
 `;
 
 export default App;

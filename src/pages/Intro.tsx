@@ -7,7 +7,9 @@ export default function Intro() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/target/13/all"); // '/api' 경로로 요청을 보냅니다.
+        const response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/target/13/all`,
+        ); // '/api' 경로로 요청을 보냅니다.
         const jsonData = await response.json();
         console.log(jsonData);
       } catch (error) {
