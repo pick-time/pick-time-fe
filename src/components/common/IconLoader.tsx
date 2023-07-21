@@ -401,13 +401,13 @@ const IconLoader = () => (
         viewBox="0 0 16 16"
         fill="none"
       >
-        <g id="help-circle" clip-path="url(#clip0_125_2829)">
+        <g id="help-circle" clipPath="url(#clip0_125_2829)">
           <path
             d="M6.06004 6.00004C6.21678 5.55449 6.52614 5.17878 6.93334 4.93946C7.34055 4.70015 7.8193 4.61267 8.28483 4.69252C8.75035 4.77236 9.17259 5.01439 9.47676 5.37573C9.78093 5.73706 9.94741 6.19439 9.94671 6.66671C9.94671 8.00004 7.94671 8.66671 7.94671 8.66671M8.00004 11.3334H8.00671M14.6667 8.00004C14.6667 11.6819 11.6819 14.6667 8.00004 14.6667C4.31814 14.6667 1.33337 11.6819 1.33337 8.00004C1.33337 4.31814 4.31814 1.33337 8.00004 1.33337C11.6819 1.33337 14.6667 4.31814 14.6667 8.00004Z"
             stroke="#A3A3A3"
-            stroke-width="1.33333"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.33333"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
         <defs>
@@ -600,6 +600,21 @@ const IconLoader = () => (
             <stop offset="1" stopColor="#EEEEEE" />
           </linearGradient>
         </defs>
+      </symbol>
+      <symbol
+        id="link-icon"
+        width="23"
+        height="23"
+        viewBox="0 0 23 23"
+        fill="none"
+      >
+        <path
+          stroke="#8E8E8E"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
+          d="m16.243 12.178 1.356-1.356a3.833 3.833 0 0 0-5.421-5.42l-1.356 1.354M8.79 14.21l5.421-5.42m-7.454 2.032-1.355 1.356a3.833 3.833 0 0 0 5.421 5.42l1.356-1.354"
+        />
       </symbol>
     </defs>
   </svg>

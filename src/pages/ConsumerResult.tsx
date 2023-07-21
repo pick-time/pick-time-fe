@@ -1,41 +1,41 @@
 import Button from "components/common/Button";
 import Header from "components/common/Header";
+import Icon from "components/common/Icon";
 import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
+import KakaoShare from "components/provider/KakaoShare";
 import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import COLOR from "style/color";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 function ConsumerResult() {
   const { targetId } = useParams();
-  const { isLoading, data } = useGetTargetInfo(Number(targetId));
-  const [showContent, setShowContent] = useState(false);
+  const { data } = useGetTargetInfo(Number(targetId));
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) return <Loading />;
+  if (!data) return <Loading />;
   return (
     <>
-      <Header />
-      <ResultWrapper show={showContent}>
+      <ResultWrapper>
+        <Header />
         <Title level={1} align="center">
-          고르신 선물은 <br />
-          마음에 드시나요?
+          {data.consumerName}님이 <br />
+          고른 선물이에요
         </Title>
         <ImageWrapper>
           <StyledImage src={data?.finalGift.giftImageUrl} alt="선택한 선물" />
         </ImageWrapper>
-        <CopyLink>
-          <Button text="이걸로 정했어요!" color={COLOR.PINK} width="full" />
-        </CopyLink>
+        <GiftTitle>
+          <p>{data?.finalGift.giftTitle}</p>
+          <Icon name="link-icon" width={23} height={23} />
+        </GiftTitle>
+        <LinkWrapper>
+          <KakaoShare userType="consumer" consumerName={data.consumerName} />
+          <CopyLink>
+            <Button text="URL" color={COLOR.NAVY} width="half" />
+          </CopyLink>
+        </LinkWrapper>
       </ResultWrapper>
     </>
   );
@@ -43,31 +43,52 @@ function ConsumerResult() {
 
 export default ConsumerResult;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
 const ResultWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+
   width: 100%;
-  animation: ${fadeIn} 1.5s ease-in-out;
-  opacity: 0;
-  ${({ show }: { show: boolean }) => show && "opacity: 1;"}
+  height: 100%;
 `;
 
 const ImageWrapper = styled.div`
   text-align: center;
-  margin: 4.4rem 0 4.8rem 0;
+  margin: 5rem 0 2.5rem 0;
 `;
 
 const StyledImage = styled.img`
   width: 21.2rem;
   height: 21.2rem;
   border-radius: 1rem;
+`;
+
+const GiftTitle = styled.div`
+  display: flex;
+  align-items: center;
+
+  height: 5rem;
+
+  & > p {
+    width: 25rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+
+  width: 30.2rem;
+  height: 6.1rem;
+  background-color: ${COLOR.WHITE};
 `;
