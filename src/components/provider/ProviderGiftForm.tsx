@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Icon from "components/common/Icon";
 import validateUrl from "utils/validateUrl";
 import COLOR from "style/color";
+import useGift from "hooks/queries/useGift";
+import { useParams } from "react-router-dom";
 
-// 타입 수정
-export default function ProviderGiftForm({ addGift, refetch }: any) {
+export default function ProviderGiftForm() {
+  const { targetId } = useParams();
+  const { addGift } = useGift(Number(targetId));
   const [url, setUrl] = useState<string>("");
   const [urlError, setUrlError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,8 +28,7 @@ export default function ProviderGiftForm({ addGift, refetch }: any) {
       // input창 리셋
       inputRef.current!.value = "";
 
-      addGift({ giftUrl: url, targetId: 32 });
-      refetch();
+      addGift.mutate({ giftUrl: url });
     };
 
     if (urlError !== "") {

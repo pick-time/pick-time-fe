@@ -2,11 +2,10 @@ import axios from "axios";
 
 export const API_URL = "https://api.picktime.store";
 
-// 선물, 쿠폰 조회
-export const getGiftCoupon = async (targetId: number) => {
+// 선물 조회
+export const getGiftList = async (targetId: number) => {
   const response = await axios.get(`/api/gift/${targetId}`);
-  console.log(response.data);
-  return response.data;
+  return response.data.giftList;
 };
 
 // 선물 추가

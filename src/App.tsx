@@ -23,7 +23,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Intro />} />
         <Route path="/target/:targetId" element={<Intro />} />
-        <Route path="/gift" element={<Gift />} />
+        <Route path="/gift/:targetId" element={<Gift />} />
         <Route path="/card" element={<Card />} />
         <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
@@ -46,9 +46,11 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   width: 390px;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   padding: 2rem;
+
+  overflow-y: hidden;
 `;
 
 export default App;
