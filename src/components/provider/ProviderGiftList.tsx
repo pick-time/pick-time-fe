@@ -7,7 +7,7 @@ import { urlResponseState } from "stores/atom";
 import List from "components/common/List";
 import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
-import giftList from "data/giftData";
+// import giftList from "data/giftData";
 
 import { useNavigate, useParams } from "react-router-dom";
 import mockCouponList from "data/couponData";
@@ -19,16 +19,15 @@ interface ResponseData {
   url: string;
 }
 
-export default function ProviderGiftList() {
+type GiftListProps = {
+  giftList: GiftList[];
+};
+
+export default function ProviderGiftList({ giftList }: GiftListProps) {
   // const navigate = useNavigate();
   // const { targetId } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [response, setResponse] =
-    useRecoilState<ResponseData>(urlResponseState);
   // 시현용
-  const [listData, setListData] = useState<GiftList[] | undefined>(giftList);
-  // const [listData, setListData] = useState<GiftList[] | undefined>(undefined);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [listData, setListData] = useState<GiftList[]>(giftList);
   const [openEditModal, setOpenEditModal] = useState<number>();
 
   const handleDelete = (giftId: number) => {
@@ -39,35 +38,28 @@ export default function ProviderGiftList() {
     setOpenEditModal(giftId);
   };
 
-  // const handleClick = () => {
-  //   console.log(targetId);
-
-  //   navigate(`/result/${13}`);
-  // };
-
-  useEffect(() => {
-    if (response.title !== "") {
-      const newData: GiftList = {
-        giftId: new Date().getTime(),
-        giftUrl: response.url,
-        giftImage: response.image,
-        giftTitle: response.title,
-        giftDescription: response.description,
-      };
-      setListData(prevListData =>
-        prevListData ? [...prevListData, newData] : [newData],
-      );
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   if (response.title !== "") {
+  //     const newData: GiftList = {
+  //       giftId: new Date().getTime(),
+  //       giftUrl: response.url,
+  //       giftImage: response.image,
+  //       giftTitle: response.title,
+  //       giftDescription: response.description,
+  //     };
+  //     setListData(prevListData =>
+  //       prevListData ? [...prevListData, newData] : [newData],
+  //     );
+  //   }
+  // }, [response]);
 
   return (
-    <Wrapper>
-      <Title>상품 리스트</Title>
-      {listData && (
+    <>
+      {giftList && (
         <List
           // TODO: listData 삭제
           listData={listData}
-          giftList={listData}
+          giftList={giftList}
           // TODO: 실데이터로 교체
           couponList={mockCouponList}
           type="editable"
@@ -75,27 +67,16 @@ export default function ProviderGiftList() {
           onClickEdit={handleEdit}
         />
       )}
-      {/* <Button
-        text="작성 완료하기"
-        color={COLOR.PINK}
-        width="full"
-        onClick={handleClick}
-      /> */}
       {openEditModal && (
         <EditGiftModal
-          listData={listData}
-          setListData={setListData}
+          // listData={response}
           openEditModal={openEditModal}
           setOpenEditModal={setOpenEditModal}
         />
       )}
-    </Wrapper>
+    </>
   );
 }
-
-const Wrapper = styled.div`
-  border-top: 1px solid #d7d7d7;
-`;
 
 const Title = styled.div`
   color: #a3a3a3;
