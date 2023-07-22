@@ -11,7 +11,7 @@ const useGift = (targetId: number) => {
   // 선물 목록 조회
   const getGift = useQuery(["gift", targetId], () => getGiftList(targetId));
 
-  // 선물 목록 추가
+  // 선물 아이템 추가
   const addGift = useMutation(
     ({ giftUrl }: PostGiftRequest) => postGiftItem(giftUrl, targetId),
     {
@@ -19,11 +19,15 @@ const useGift = (targetId: number) => {
     },
   );
 
+  // 선물 아이템 삭제
   const deleteGift = useMutation((giftId: number) => deleteGiftItem(giftId), {
     onSuccess: () => {
       queryClient.invalidateQueries(["gift", targetId]);
     },
   });
+
+  // 선물 아이템 수정
+
   return { getGift, addGift, deleteGift };
 };
 

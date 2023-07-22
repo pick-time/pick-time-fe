@@ -4,9 +4,7 @@ export const API_URL = "https://api.picktime.store";
 
 // 선물 조회
 export const getGiftList = async (targetId: number) => {
-  const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
-  );
+  const response = await axios.get(`${API_URL}/gift/${targetId}`);
   return response.data.giftList;
 };
 
@@ -32,14 +30,26 @@ export const deleteGiftItem = async (giftId: number) => {
 
 interface PutGiftRequest {
   giftId: number;
-  description: string;
+  giftImage?: string;
+  giftTitle?: string;
+  giftDescription?: string;
 }
 
 // 선물 수정
-export const putGift = async ({ giftId, description }: PutGiftRequest) => {
+export const putGift = async ({
+  giftId,
+  giftImage,
+  giftTitle,
+  giftDescription,
+}: PutGiftRequest) => {
+  const formData = new FormData();
+  formData.append("giftId", giftId.toString());
+  if (giftImage) formData.append("giftImage", giftImage);
+  if (giftTitle) formData.append("giftTitle", giftTitle);
+  if (giftDescription) formData.append("giftDescription", giftDescription);
   const response = await axios.put(
     `${process.env.REACT_APP_BASE_URL}/gift/${giftId}`,
-    description,
+    formData,
     {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -47,4 +57,5 @@ export const putGift = async ({ giftId, description }: PutGiftRequest) => {
     },
   );
   console.log(response);
+  return response.data.giftList;
 };

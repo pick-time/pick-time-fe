@@ -5,24 +5,24 @@ import Icon from "./Icon";
 
 type Props = {
   children: React.ReactNode;
-  openEditModal: number | undefined;
-  setOpenEditModal: (state: number | undefined) => void;
+  editedGiftId: number | undefined;
+  setEditedGiftId: (state: number | undefined) => void;
 };
 
 const ModalFrame: React.FC<Props> = ({
   children,
-  openEditModal,
-  setOpenEditModal,
+  editedGiftId,
+  setEditedGiftId,
 }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
-    setOpenEditModal(undefined);
+    setEditedGiftId(undefined);
   };
   return (
     <>
-      {openEditModal !== undefined ? (
+      {editedGiftId !== undefined ? (
         <ModalPortal>
           <ModalDim onClick={handleClose} />
           <Wrapper>

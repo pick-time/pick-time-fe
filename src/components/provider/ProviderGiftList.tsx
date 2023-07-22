@@ -16,14 +16,14 @@ export default function ProviderGiftList() {
   } = useGift(Number(targetId));
   // 시현용
   const [listData, setListData] = useState<GiftList[]>(giftList);
-  const [openEditModal, setOpenEditModal] = useState<number>();
+  const [editedGiftId, setEditedGiftId] = useState<number>();
 
   const handleDelete = (giftId: number) => {
     deleteGift.mutate(giftId);
   };
 
   const handleEdit = (giftId: number) => {
-    setOpenEditModal(giftId);
+    setEditedGiftId(giftId);
   };
   if (isLoading) return <div>loading</div>;
   return (
@@ -40,11 +40,12 @@ export default function ProviderGiftList() {
           onClickEdit={handleEdit}
         />
       )}
-      {openEditModal && (
+      {editedGiftId && (
         <EditGiftModal
           // listData={response}
-          openEditModal={openEditModal}
-          setOpenEditModal={setOpenEditModal}
+          giftList={giftList}
+          editedGiftId={editedGiftId}
+          setEditedGiftId={setEditedGiftId}
         />
       )}
     </>
