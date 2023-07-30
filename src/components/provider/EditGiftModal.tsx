@@ -19,7 +19,9 @@ export default function EditGiftModal({
   editedGiftId,
   setEditedGiftId,
 }: ModalProps) {
-  // 개별 선물 아이템 정보
+  const { targetId } = useParams();
+  const { modifyGift } = useGift(Number(targetId));
+  // 개별 선물 정보
   const [giftItem, setGiftItem] = useState({
     giftDescription: "",
     giftId: 0,
@@ -27,18 +29,11 @@ export default function EditGiftModal({
     giftUrl: "",
     giftImage: "",
   });
-
   const [showTooltip, setShowTooltip] = useState(false);
   const [showInputFile, setShowInputFile] = useState(false);
-  // 타입 지정
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [editedImg, setEditedImg] = useState<any>();
+  const [editedImg, setEditedImg] = useState<string | Blob>();
 
-  // 선물 수정 훅
-  const { targetId } = useParams();
-  const { modifyGift } = useGift(Number(targetId));
-
-  const getGiftItemInfo = () => {
+  const getGiftItem = () => {
     const giftItemInfo = giftList?.find(list => list.giftId === editedGiftId);
     if (giftItemInfo) {
       setGiftItem(giftItemInfo);
@@ -46,9 +41,10 @@ export default function EditGiftModal({
   };
 
   useEffect(() => {
-    getGiftItemInfo();
+    getGiftItem();
   }, []);
 
+  // 선물 title, description 수정
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setGiftItem(prevState => ({
@@ -57,33 +53,30 @@ export default function EditGiftModal({
     }));
   };
 
-  // 선물 수정
-  const handleEdit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("giftId", giftItem.giftId.toString());
-    if (editedImg !== undefined) {
-      formData.append("file", editedImg);
-      formData.append("giftTitle", giftItem.giftTitle);
-      formData.append("giftDescription", giftItem.giftDescription);
-      modifyGift.mutate(formData);
-    } else {
-      formData.append("giftTitle", giftItem.giftTitle);
-      formData.append("giftDescription", giftItem.giftDescription);
-      modifyGift.mutate(formData);
-    }
-    setEditedGiftId(undefined);
-  };
-
   // 선물 이미지 수정
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     if (event.target.files !== null) {
       setEditedImg(event.target.files[0]);
     }
   };
-  console.log(editedImg);
-  const handleClick = () => {
+  // console.log(editedImg);
+
+  // 선물 수정 폼 제출
+  const handleEditForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("giftTitle", giftItem.giftTitle);
+    formData.append("giftDescription", giftItem.giftDescription);
+    formData.append("giftId", giftItem.giftId.toString());
+    if (editedImg !== undefined) {
+      formData.append("file", editedImg);
+    }
+    modifyGift.mutate(formData);
+    setEditedGiftId(undefined);
+  };
+
+  const handleInputFile = () => {
     setShowInputFile(true);
   };
 
@@ -95,14 +88,14 @@ export default function EditGiftModal({
           <Img
             src={giftItem?.giftImage}
             alt="상품 이미지"
-            onClick={handleClick}
+            onClick={handleInputFile}
           />
-          {showInputFile && <input type="file" onChange={handleChange} />}
+          {showInputFile && <input type="file" onChange={handleChangeImage} />}
         </>
       ) : (
         <ImgBox />
       )}
-      <Form onSubmit={handleEdit}>
+      <Form onSubmit={handleEditForm}>
         <InputBox>
           <Title>
             상품 제목<span>*</span>
@@ -138,7 +131,6 @@ export default function EditGiftModal({
             text="완료하기"
             color={COLOR.PURPLE}
             width="half"
-            // isDisabled={form.isDisabled}
           />
         </ButtonBox>
       </Form>
@@ -150,11 +142,11 @@ const Descrip = styled.div`
   font-size: 18px;
   font-weight: 700;
 `;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Img = styled.img`
   width: 12.4rem;
   height: 12.4rem;
   border-radius: 50%;
+  cursor: pointer;
 `;
 const ImgBox = styled.div`
   width: 12.4rem;
