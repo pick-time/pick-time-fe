@@ -5,7 +5,8 @@ import COLOR from "style/color";
 import { useEffect, useState } from "react";
 import { GiftList } from "types/giftList.type";
 import ModalFrame from "components/common/ModalFrame";
-import { putGift } from "api/provider";
+import useGift from "hooks/queries/useGift";
+import { useParams } from "react-router-dom";
 
 interface ModalProps {
   giftList: GiftList[];
@@ -13,39 +14,34 @@ interface ModalProps {
   setEditedGiftId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function EditGiftModal({
   giftList,
   editedGiftId,
   setEditedGiftId,
 }: ModalProps) {
   // 개별 선물 아이템 정보
-  const [giftInfo, setGiftInfo] = useState({
+  const [giftItem, setGiftItem] = useState({
     giftDescription: "",
     giftId: 0,
-    giftImage: "",
     giftTitle: "",
     giftUrl: "",
+    giftImage: "",
   });
+
   const [showTooltip, setShowTooltip] = useState(false);
-  // const [editedValue, setEditedValue] = useState({
-  //   editedImage: "",
-  //   editedTitle: "",
-  //   editedDescription: "",
-  // });
+  const [showInputFile, setShowInputFile] = useState(false);
+  // 타입 지정
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [editedImg, setEditedImg] = useState<any>();
+
+  // 선물 수정 훅
+  const { targetId } = useParams();
+  const { modifyGift } = useGift(Number(targetId));
 
   const getGiftItemInfo = () => {
-    const editedGift = giftList?.find(list => list.giftId === editedGiftId);
-    if (editedGift) {
-      setGiftInfo(editedGift);
-    } else {
-      setGiftInfo({
-        giftDescription: "",
-        giftId: 0,
-        giftImage: "",
-        giftTitle: "",
-        giftUrl: "",
-      });
+    const giftItemInfo = giftList?.find(list => list.giftId === editedGiftId);
+    if (giftItemInfo) {
+      setGiftItem(giftItemInfo);
     }
   };
 
@@ -55,23 +51,54 @@ export default function EditGiftModal({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setGiftInfo({ ...giftInfo, [name]: value });
+    setGiftItem(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
-
-  console.log(giftInfo);
 
   // 선물 수정
   const handleEdit = (event: React.FormEvent) => {
     event.preventDefault();
-    putGift(giftInfo);
+    const formData = new FormData();
+    formData.append("giftId", giftItem.giftId.toString());
+    if (editedImg !== undefined) {
+      formData.append("file", editedImg);
+      formData.append("giftTitle", giftItem.giftTitle);
+      formData.append("giftDescription", giftItem.giftDescription);
+      modifyGift.mutate(formData);
+    } else {
+      formData.append("giftTitle", giftItem.giftTitle);
+      formData.append("giftDescription", giftItem.giftDescription);
+      modifyGift.mutate(formData);
+    }
     setEditedGiftId(undefined);
+  };
+
+  // 선물 이미지 수정
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (event.target.files !== null) {
+      setEditedImg(event.target.files[0]);
+    }
+  };
+  console.log(editedImg);
+  const handleClick = () => {
+    setShowInputFile(true);
   };
 
   return (
     <ModalFrame editedGiftId={editedGiftId} setEditedGiftId={setEditedGiftId}>
       <Descrip>상품 정보를 수정해주세요.</Descrip>
-      {giftInfo ? (
-        <Img src={giftInfo?.giftImage} alt="상품 이미지" />
+      {giftItem.giftImage ? (
+        <>
+          <Img
+            src={giftItem?.giftImage}
+            alt="상품 이미지"
+            onClick={handleClick}
+          />
+          {showInputFile && <input type="file" onChange={handleChange} />}
+        </>
       ) : (
         <ImgBox />
       )}
@@ -83,7 +110,7 @@ export default function EditGiftModal({
           <Input
             type="text"
             name="giftTitle"
-            value={giftInfo?.giftTitle}
+            value={giftItem?.giftTitle}
             onChange={handleInputChange}
           />
         </InputBox>
@@ -101,7 +128,7 @@ export default function EditGiftModal({
           <Input
             type="text"
             name="giftDescription"
-            value={giftInfo?.giftDescription}
+            value={giftItem?.giftDescription}
             onChange={handleInputChange}
           />
         </InputBox>
@@ -112,7 +139,6 @@ export default function EditGiftModal({
             color={COLOR.PURPLE}
             width="half"
             // isDisabled={form.isDisabled}
-            // onClick={handleClick}
           />
         </ButtonBox>
       </Form>
@@ -124,6 +150,7 @@ const Descrip = styled.div`
   font-size: 18px;
   font-weight: 700;
 `;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Img = styled.img`
   width: 12.4rem;
   height: 12.4rem;

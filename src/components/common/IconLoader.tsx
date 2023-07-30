@@ -419,12 +419,12 @@ const IconLoader = () => (
       <symbol id="camera-stroke" fill="none" viewBox="0 0 24 24">
         <path
           stroke="#A3A3A3"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           d="M21 17V9a2 2 0 0 0-2-2h-2.5a1 1 0 0 1-1-1 1 1 0 0 0-1-1h-5a1 1 0 0 0-1 1 1 1 0 0 1-1 1H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2Z"
         />
         <path
           stroke="#A3A3A3"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           d="M15 13a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
         />
       </symbol>
