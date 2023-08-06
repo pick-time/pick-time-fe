@@ -1,9 +1,13 @@
-import ErrorCoupon from "components/common/ErrorCoupon";
 import { useState } from "react";
-import COLOR from "style/color";
 import styled from "styled-components";
+
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
+
+import ErrorCoupon from "components/common/ErrorCoupon";
+import ErrorProduct from "components/common/ErrorProduct";
+
+import COLOR from "style/color";
 
 interface ConsumerGiftListProps {
   giftList?: GiftList[];
@@ -39,17 +43,15 @@ export default function ConsumerGiftList({
       {couponList && (
         <>
           <Divider />
-          <ListTitleWrapper>
-            <ListTitleText>쿠폰 리스트</ListTitleText>
-          </ListTitleWrapper>
+          <ListTitle>쿠폰 리스트</ListTitle>
           <ListWrapper>
             {couponList.map(ele => {
               const { couponId, couponTitle, couponImage } = ele;
               const [couponIsError, setCouponIsError] =
                 useState<boolean>(false);
               return (
-                <CouponListItem key={couponId}>
-                  <CouponListItemInfoWrapper>
+                <CouponItem key={couponId}>
+                  <CouponItemImageWrapper>
                     {couponImage && !couponIsError && (
                       <CouponListImage
                         alt={couponTitle}
@@ -58,15 +60,15 @@ export default function ConsumerGiftList({
                       />
                     )}
                     {(!couponImage || couponIsError) && <ErrorCoupon />}
-                  </CouponListItemInfoWrapper>
-                  <CouponListButtonWrapper>
+                  </CouponItemImageWrapper>
+                  <RadioButtonWrapper>
                     <RadioButton
                       type="radio"
                       checked={selectedCouponId === couponId}
                       onChange={() => onClickRadioButton(couponId, "coupon")}
                     />
-                  </CouponListButtonWrapper>
-                </CouponListItem>
+                  </RadioButtonWrapper>
+                </CouponItem>
               );
             })}
           </ListWrapper>
@@ -75,9 +77,7 @@ export default function ConsumerGiftList({
       {giftList && (
         <>
           <Divider />
-          <ListTitleWrapper>
-            <ListTitleText>상품 리스트</ListTitleText>
-          </ListTitleWrapper>
+          <ListTitle>상품 리스트</ListTitle>
           <ListWrapper>
             {giftList.map(ele => {
               const { giftId, giftUrl, giftTitle, giftImage, giftDescription } =
@@ -85,31 +85,29 @@ export default function ConsumerGiftList({
               const [productImageIsError, setProductImageIsError] =
                 useState<boolean>(false);
               return (
-                <ProductItemWrapper key={giftId}>
-                  <ProductListItem>
-                    <ProductListItemInfoWrapper>
-                      {productImageIsError}
-                      <ProductListImage
+                <ProductItem key={giftId}>
+                  <ProductItemInfoWrapper>
+                    {!productImageIsError && (
+                      <ProductImage
                         alt={giftDescription}
                         src={giftImage}
                         onError={() => setProductImageIsError(true)}
                       />
-                      <ProductListTextWrapper>
-                        <ProductTitle href={giftUrl}>{giftTitle}</ProductTitle>
-                        <ProductDescription>
-                          {giftDescription}
-                        </ProductDescription>
-                      </ProductListTextWrapper>
-                    </ProductListItemInfoWrapper>
-                  </ProductListItem>
-                  <CouponListButtonWrapper>
+                    )}
+                    {productImageIsError && <ErrorProduct />}
+                    <ProductItemTextWrapper>
+                      <ProductTitle href={giftUrl}>{giftTitle}</ProductTitle>
+                      <ProductDescription>{giftDescription}</ProductDescription>
+                    </ProductItemTextWrapper>
+                  </ProductItemInfoWrapper>
+                  <RadioButtonWrapper>
                     <RadioButton
                       type="radio"
                       checked={selectedProductId === giftId}
                       onChange={() => onClickRadioButton(giftId, "product")}
                     />
-                  </CouponListButtonWrapper>
-                </ProductItemWrapper>
+                  </RadioButtonWrapper>
+                </ProductItem>
               );
             })}
           </ListWrapper>
@@ -128,19 +126,17 @@ const Divider = styled.hr`
   stroke: #d7d7d7;
 `;
 
-const ListTitleWrapper = styled.div`
+const ListTitle = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
 
   width: 100%;
-`;
+  padding: 0.8rem 0;
 
-const ListTitleText = styled.span`
   color: ${COLOR.SUB_GRAY};
   font-size: 1.4rem;
   font-weight: 700;
-  margin: 0.8rem 0;
 `;
 
 const ListWrapper = styled.div`
@@ -152,7 +148,7 @@ const ListWrapper = styled.div`
   margin-bottom: 1.6rem;
 `;
 
-const CouponListItem = styled.div`
+const CouponItem = styled.div`
   height: 12.4rem;
   width: 30.8rem;
   display: flex;
@@ -164,7 +160,7 @@ const CouponListItem = styled.div`
   margin: auto;
 `;
 
-const CouponListItemInfoWrapper = styled.div`
+const CouponItemImageWrapper = styled.div`
   display: flex;
   width: 26rem;
 `;
@@ -176,13 +172,12 @@ const CouponListImage = styled.img`
   margin-right: 0.8rem;
 `;
 
-const CouponListButtonWrapper = styled.div`
+const RadioButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 4.8rem;
-  /* margin: 0.7rem 1rem 0.7rem 0rem; */
 `;
 
 const RadioButton = styled.input`
@@ -201,13 +196,13 @@ const RadioButton = styled.input`
   }
 `;
 
-const ProductItemWrapper = styled.div`
+const ProductItem = styled.div`
   display: flex;
   justify-content: space-between;
   width: 30.8rem;
 `;
 
-const ProductListItem = styled.div`
+const ProductItemInfoWrapper = styled.div`
   height: 9rem;
   width: 26rem;
   display: flex;
@@ -215,16 +210,13 @@ const ProductListItem = styled.div`
   border: 0.1rem solid #e6e6e6;
   border-radius: 1rem;
   padding: 0.4rem;
+
   margin-bottom: 1.6rem;
   margin: auto;
+  gap: 0.3rem;
 `;
 
-const ProductListItemInfoWrapper = styled.div`
-  display: flex;
-  width: 20rem;
-`;
-
-const ProductListTextWrapper = styled.div`
+const ProductItemTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 1.1rem;
@@ -234,7 +226,7 @@ const ProductListTextWrapper = styled.div`
   width: 18rem;
 `;
 
-const ProductListImage = styled.img`
+const ProductImage = styled.img`
   width: auto;
   height: 100%;
   border-radius: 1rem;
