@@ -1,13 +1,17 @@
 import { GiftList } from "types/giftList.type";
+import { CouponList } from "types/couponList.type";
+import couponData from "./couponData";
 
 interface ConsumerResult {
   providerName: string;
   consumerName: string;
+  couponList: CouponList[];
   giftList: GiftList[];
 }
 const mockConsumerResult: ConsumerResult = {
   providerName: "mock데이터 주는 사람",
   consumerName: "mock데이터 받는 사람",
+  couponList: couponData,
   giftList: [
     {
       giftId: 123,

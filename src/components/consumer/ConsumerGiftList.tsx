@@ -1,3 +1,4 @@
+import ErrorCoupon from "components/common/ErrorCoupon";
 import { useState } from "react";
 import COLOR from "style/color";
 import styled from "styled-components";
@@ -7,52 +8,34 @@ import { GiftList } from "types/giftList.type";
 interface ConsumerGiftListProps {
   giftList?: GiftList[];
   couponList?: CouponList[];
+  onSelectGift: (id: number) => void;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ErrorCoupon = () => {
-  return <CouponPreview>COUPON</CouponPreview>;
-};
-
-const CouponPreview = styled.div`
-  width: 26.1rem;
-  height: 12.4rem;
-  border-radius: 8px;
-  background: linear-gradient(133deg, #52ccff 0%, #5448e8 100%);
-
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
-
-  color: ${COLOR.WHITE};
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-`;
 
 export default function ConsumerGiftList({
   giftList,
   couponList,
+  onSelectGift,
 }: ConsumerGiftListProps) {
+  // TODO: gift - coupon 데이터에서 id가 겹치지 않는 것이 보장될 경우 합칠 수 있음
   const [selectedCouponId, setSelectedCouponId] = useState<number | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(
+    null,
+  );
 
-  const onClickRadioButton = (couponId: number) => {
-    console.log("is clicked", couponId);
-    setSelectedCouponId(couponId);
-    consoleIsSame(couponId);
+  const onClickRadioButton = (id: number, giftType: "coupon" | "product") => {
+    if (giftType === "coupon") {
+      setSelectedCouponId(id);
+      setSelectedProductId(null);
+    }
+    if (giftType === "product") {
+      setSelectedProductId(id);
+      setSelectedCouponId(null);
+    }
+    onSelectGift(id);
   };
-  const consoleIsSame = (couponId: number) => {
-    console.log(selectedCouponId, couponId, selectedCouponId === couponId);
-  };
-  // useEffect(() => {
-  //   console.log(selectedCouponId);
-  // }, [selectedCouponId]);
 
   return (
-    <form>
+    <GiftListWrapper>
       {couponList && (
         <>
           <Divider />
@@ -80,7 +63,7 @@ export default function ConsumerGiftList({
                     <RadioButton
                       type="radio"
                       checked={selectedCouponId === couponId}
-                      onChange={() => onClickRadioButton(couponId)}
+                      onChange={() => onClickRadioButton(couponId, "coupon")}
                     />
                   </CouponListButtonWrapper>
                 </CouponListItem>
@@ -97,15 +80,48 @@ export default function ConsumerGiftList({
           </ListTitleWrapper>
           <ListWrapper>
             {giftList.map(ele => {
-              return ele.giftId;
+              const { giftId, giftUrl, giftTitle, giftImage, giftDescription } =
+                ele;
+              const [productImageIsError, setProductImageIsError] =
+                useState<boolean>(false);
+              return (
+                <ProductItemWrapper key={giftId}>
+                  <ProductListItem>
+                    <ProductListItemInfoWrapper>
+                      {productImageIsError}
+                      <ProductListImage
+                        alt={giftDescription}
+                        src={giftImage}
+                        onError={() => setProductImageIsError(true)}
+                      />
+                      <ProductListTextWrapper>
+                        <ProductTitle href={giftUrl}>{giftTitle}</ProductTitle>
+                        <ProductDescription>
+                          {giftDescription}
+                        </ProductDescription>
+                      </ProductListTextWrapper>
+                    </ProductListItemInfoWrapper>
+                  </ProductListItem>
+                  <CouponListButtonWrapper>
+                    <RadioButton
+                      type="radio"
+                      checked={selectedProductId === giftId}
+                      onChange={() => onClickRadioButton(giftId, "product")}
+                    />
+                  </CouponListButtonWrapper>
+                </ProductItemWrapper>
+              );
             })}
           </ListWrapper>
         </>
       )}
-    </form>
+    </GiftListWrapper>
   );
 }
 
+const GiftListWrapper = styled.div`
+  padding-bottom: 13.5em;
+`;
 const Divider = styled.hr`
   width: 100%;
   stroke-width: 0.1rem;
@@ -131,6 +147,7 @@ const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 1.6rem;
   margin-bottom: 1.6rem;
 `;
@@ -149,7 +166,7 @@ const CouponListItem = styled.div`
 
 const CouponListItemInfoWrapper = styled.div`
   display: flex;
-  width: 30.8rem;
+  width: 26rem;
 `;
 
 const CouponListImage = styled.img`
@@ -164,22 +181,86 @@ const CouponListButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 2rem;
-  margin: 0.7rem 1rem 0.7rem 0rem;
+  width: 4.8rem;
+  /* margin: 0.7rem 1rem 0.7rem 0rem; */
 `;
 
 const RadioButton = styled.input`
   appearance: none;
-  border: 0.1em solid ${COLOR.PURPLE};
+  border: 0.1rem solid ${COLOR.PURPLE};
   border-radius: 50%;
-  background: ${COLOR.PLACEHOLDER_PURPLE};
-  width: 1.25em;
-  height: 1.25em;
+  background: ${COLOR.BUTTON_LIGHT_PURPLE};
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.15rem;
 
   &:checked {
-    background-color: red;
-    box-shadow: inset 1rem 1rem ${COLOR.PURPLE};
-    outline: 0.2em solid ${COLOR.PLACEHOLDER_PURPLE};
-    outline-offset: -0.3em;
+    box-shadow: 2rem 2rem inset ${COLOR.PURPLE};
+    outline: 0.5rem solid ${COLOR.BUTTON_LIGHT_PURPLE};
+    outline-offset: -0.6rem;
   }
+`;
+
+const ProductItemWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 30.8rem;
+`;
+
+const ProductListItem = styled.div`
+  height: 9rem;
+  width: 26rem;
+  display: flex;
+  background-color: ${COLOR.WHITE};
+  border: 0.1rem solid #e6e6e6;
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin-bottom: 1.6rem;
+  margin: auto;
+`;
+
+const ProductListItemInfoWrapper = styled.div`
+  display: flex;
+  width: 20rem;
+`;
+
+const ProductListTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  color: #333333;
+  text-align: left;
+  padding-top: 0.7rem;
+  width: 18rem;
+`;
+
+const ProductListImage = styled.img`
+  width: auto;
+  height: 100%;
+  border-radius: 1rem;
+  margin-right: 0.8rem;
+`;
+
+const ProductTitle = styled.a`
+  overflow: hidden;
+  color: "#333333";
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  line-height: 1.6rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 1;
+`;
+
+const ProductDescription = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-line-clamp: 2;
+
+  line-clamp: 2;
+  height: 3rem;
 `;
