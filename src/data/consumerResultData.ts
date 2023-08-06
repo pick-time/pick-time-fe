@@ -2,7 +2,7 @@ import { GiftList } from "types/giftList.type";
 import { CouponList } from "types/couponList.type";
 import couponData from "./couponData";
 
-interface ConsumerResult {
+export interface ConsumerResult {
   providerName: string;
   consumerName: string;
   couponList: CouponList[];

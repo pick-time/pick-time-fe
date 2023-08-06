@@ -1,109 +1,83 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  GETGiftListResponse,
-  useGETGiftList,
-  usePOSTPickedGift,
-} from "api/api";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useGETGiftList, useGETPickedGift, usePOSTPickedGift } from "api/api";
+
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import ConsumerGiftList from "components/consumer/ConsumerGiftList";
-import mockCouponList from "data/couponData";
-import giftList from "data/giftData";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+
 import COLOR from "style/color";
 import styled from "styled-components";
-import { GiftList } from "types/giftList.type";
-import mockConsumerResult from "data/consumerResultData";
+
+import mockConsumerResult, { ConsumerResult } from "data/consumerResultData";
 
 const IS_MOCK = false;
 
-type User = Pick<GETGiftListResponse, "providerName" | "consumerName">;
-
 function GiftForConsumer() {
-  const { mutate } = usePOSTPickedGift();
-
   const { targetId } = useParams();
   const navigate = useNavigate();
+  // const { mutate, isSuccess } = usePOSTPickedGift();
 
-  const [fetchedList, setFetchedList] = useState<GiftList[]>([]);
-  const [userInfo, setUserInfo] = useState<User>();
-  const [pickedGiftId, setPickedGiftId] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  setTimeout(() => setIsLoading(false), 500);
+  // MOCK DATA 처리
+  const {
+    providerName: MOCK_PROVIDER,
+    consumerName: MOCK_CONSUMER,
+    couponList: MOCK_COUPONLIST,
+    giftList: MOCK_GIFTLIST,
+  }: ConsumerResult = mockConsumerResult;
 
   const onClickRandomButton = () => {
     alert("준비 중인 기능입니다.");
     // navigate(`/target/${targetId}/gift/random`);
   };
 
-  const onClickPickButton = () => {
-    mutate({ targetId: parseInt(targetId || "", 10), giftId: pickedGiftId });
-    navigate(`/target/${targetId}/gift/final`);
+  const [pickedGiftId, setPickedGiftId] = useState<number>(0);
+  const onClickPickButton = async () => {
+    // mutate({
+    //   targetId: parseInt(targetId || "", 10),
+    //   giftId: pickedGiftId,
+    // });
+    refetch();
+    if (isSuccess) {
+      navigate(`/target/${targetId}/gift/final`);
+    }
   };
 
-  const onClickLikeButton = (giftId: number) => {
-    setPickedGiftId(giftId);
-  };
-
-  const fetchMockData = () => {
-    setUserInfo({
-      providerName: mockConsumerResult.providerName,
-      consumerName: mockConsumerResult.consumerName,
-    });
-    setFetchedList(mockConsumerResult.giftList);
-  };
-
-  const {
-    data,
-    isLoading: dataIsLoading,
-    isError: dataIsError,
-  } = useGETGiftList({
+  const { data, isLoading } = useGETGiftList({
     id: parseInt(targetId || "", 10),
   });
-
-  useEffect(() => {
-    if (IS_MOCK || dataIsError) {
-      fetchMockData();
-    }
-  }, [IS_MOCK]);
+  const { isSuccess, refetch } = useGETPickedGift({
+    targetId: parseInt(targetId || "", 10),
+    giftId: pickedGiftId,
+  });
 
   return (
     <PageWrapper>
       {isLoading && <Loading />}
-      {dataIsLoading && <Loading />}
       <Header />
       {!isLoading && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">
-              {IS_MOCK
-                ? userInfo?.providerName
-                : data
-                ? data.providerName
-                : "주는 사람"}
+              {IS_MOCK ? MOCK_PROVIDER : data?.providerName}
               님이
               <br />
               <TitleSpan>
-                {IS_MOCK
-                  ? userInfo?.consumerName
-                  : data
-                  ? data.consumerName
-                  : "받는 사람"}
-                님
+                {IS_MOCK ? MOCK_CONSUMER : data?.consumerName}
               </TitleSpan>
-              을 위해
+              님을 위해
               <br />
               생각한 선물들이에요!
             </Title>
           </TitleWrapper>
           <ConsumerGiftList
-            couponList={IS_MOCK ? mockCouponList : data?.couponList}
-            giftList={IS_MOCK ? giftList : data?.giftList}
+            onSelectGift={(id: number) => setPickedGiftId(id)}
+            couponList={IS_MOCK ? MOCK_COUPONLIST : data?.couponList}
+            giftList={IS_MOCK ? MOCK_GIFTLIST : data?.giftList}
           />
         </>
       )}
