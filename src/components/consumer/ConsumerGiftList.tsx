@@ -25,6 +25,7 @@ const CouponPreview = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 
   color: ${COLOR.WHITE};
   text-align: center;
@@ -37,6 +38,18 @@ export default function ConsumerGiftList({
   couponList,
 }: ConsumerGiftListProps) {
   const [selectedCouponId, setSelectedCouponId] = useState<number | null>(null);
+
+  const onClickRadioButton = (couponId: number) => {
+    console.log("is clicked", couponId);
+    setSelectedCouponId(couponId);
+    consoleIsSame(couponId);
+  };
+  const consoleIsSame = (couponId: number) => {
+    console.log(selectedCouponId, couponId, selectedCouponId === couponId);
+  };
+  // useEffect(() => {
+  //   console.log(selectedCouponId);
+  // }, [selectedCouponId]);
 
   return (
     <form>
@@ -67,7 +80,7 @@ export default function ConsumerGiftList({
                     <RadioButton
                       type="radio"
                       checked={selectedCouponId === couponId}
-                      onChange={() => setSelectedCouponId(couponId)}
+                      onChange={() => onClickRadioButton(couponId)}
                     />
                   </CouponListButtonWrapper>
                 </CouponListItem>
@@ -163,16 +176,10 @@ const RadioButton = styled.input`
   width: 1.25em;
   height: 1.25em;
 
-  &:before {
-    content: "";
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1rem 1rem ${COLOR.PURPLE};
-  }
-
   &:checked {
-    &::before {
-      transform: scale(1);
-    }
+    background-color: red;
+    box-shadow: inset 1rem 1rem ${COLOR.PURPLE};
+    outline: 0.2em solid ${COLOR.PLACEHOLDER_PURPLE};
+    outline-offset: -0.3em;
   }
 `;
