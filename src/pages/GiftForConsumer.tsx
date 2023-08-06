@@ -18,8 +18,10 @@ import mockConsumerResult, { ConsumerResult } from "data/consumerResultData";
 const IS_MOCK = false;
 
 function GiftForConsumer() {
-  const { targetId } = useParams();
+  const { targetId } = useParams() as { targetId: string };
   const navigate = useNavigate();
+
+  // TODO: GET 인지 POST 인지 확인
   // const { mutate, isSuccess } = usePOSTPickedGift();
 
   // MOCK DATA 처리
@@ -36,30 +38,36 @@ function GiftForConsumer() {
   };
 
   const [pickedGiftId, setPickedGiftId] = useState<number>(0);
-  const onClickPickButton = async () => {
+  const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
+
+  const onClickPickButton = () => {
     // mutate({
     //   targetId: parseInt(targetId || "", 10),
     //   giftId: pickedGiftId,
     // });
+    setIsPickedAndSend(true);
     refetch();
-    if (isSuccess) {
+    setTimeout(() => {
       navigate(`/target/${targetId}/gift/final`);
-    }
+    }, 100);
   };
 
-  const { data, isLoading } = useGETGiftList({
-    id: parseInt(targetId || "", 10),
+  const { data, isLoading: isGetGiftListLoading } = useGETGiftList({
+    id: parseInt(targetId, 10),
   });
-  const { isSuccess, refetch } = useGETPickedGift({
-    targetId: parseInt(targetId || "", 10),
+  const { refetch, isLoading: isPickedLoading } = useGETPickedGift({
+    targetId: parseInt(targetId, 10),
     giftId: pickedGiftId,
+    isPickedAndSend,
   });
+
+  const loading = isGetGiftListLoading || isPickedLoading;
 
   return (
     <PageWrapper>
-      {isLoading && <Loading />}
+      {loading && <Loading />}
       <Header />
-      {!isLoading && (
+      {!isGetGiftListLoading && (
         <>
           <TitleWrapper>
             <Title level={1} align="left">

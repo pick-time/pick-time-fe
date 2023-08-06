@@ -13,6 +13,7 @@ export const useGETGiftList = ({ id }: { id: number }) => {
   return useQuery<GETGiftListResponse>({
     queryKey: ["result", id],
     queryFn: () => getGiftList({ targetId: id }),
+    enabled: !!id,
   });
 };
 async function getGiftList({
@@ -83,11 +84,12 @@ export interface POSTPickedGiftResponse {
 export const useGETPickedGift = ({
   targetId,
   giftId,
-}: GETPickedGiftRequest) => {
+  isPickedAndSend,
+}: GETPickedGiftQueryRequest) => {
   return useQuery<GETPickedGiftResponse>({
     queryKey: ["consumer_result", targetId],
     queryFn: () => getPickedGift({ targetId, giftId }),
-    enabled: false,
+    enabled: isPickedAndSend,
   });
 };
 
@@ -102,6 +104,10 @@ async function getPickedGift({
       { params },
     )
     .then(response => response.data);
+}
+
+interface GETPickedGiftQueryRequest extends GETPickedGiftRequest {
+  isPickedAndSend: boolean;
 }
 
 interface GETPickedGiftRequest {
