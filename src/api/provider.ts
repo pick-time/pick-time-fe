@@ -1,32 +1,35 @@
 import axios from "axios";
 
-// 선물 추가
-export const postGift = async (giftUrl: string, targetId: string) => {
-  const response = await axios.post(
+// 선물 조회
+export const getGiftList = async (targetId: number) => {
+  const response = await axios.get(
     `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
-    {
-      giftUrl,
-    },
   );
-  // console.log(response.data.giftList);
   return response.data.giftList;
 };
 
-interface PutGiftRequest {
-  giftId: number;
-  description: string;
-}
+// 선물 추가
+export const postGiftItem = async (giftUrl: string, targetId: number) => {
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/gift/${targetId}`, {
+    giftUrl,
+  });
+};
+
+// 선물 삭제
+export const deleteGiftItem = async (giftId: number) => {
+  await axios.delete(`${process.env.REACT_APP_BASE_URL}/gift/${giftId}`);
+};
 
 // 선물 수정
-export const putGift = async ({ giftId, description }: PutGiftRequest) => {
-  const response = await axios.put(
+export const putGiftItem = async (formData: FormData) => {
+  const giftId = formData.get("giftId");
+  await axios.put(
     `${process.env.REACT_APP_BASE_URL}/gift/${giftId}`,
-    description,
+    formData,
     {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     },
   );
-  console.log(response);
 };

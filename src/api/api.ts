@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "react-query";
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 /**
  *
