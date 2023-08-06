@@ -32,6 +32,7 @@ export type IconName =
   | "coupon"
   | "fill-heart"
   | "empty-heart"
+  | "error-gift"
   | "gift-edit"
   | "logo-header"
   | "logo-large"
