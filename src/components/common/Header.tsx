@@ -18,6 +18,7 @@ const LogoWrapper = styled.header`
   position: fixed;
   top: 0px;
   background: ${COLOR.WHITE};
+  z-index: 1;
 `;
 
 export default Header;
