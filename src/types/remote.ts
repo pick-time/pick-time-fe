@@ -1,7 +1,7 @@
 export type GetCardInfo = {
   providerName: string;
   cardImageUrl: string;
-  cardMeesage: string;
+  cardMessage: string;
 };
 
 export type GetTargetInfo = {
