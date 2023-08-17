@@ -11,3 +11,8 @@ export type GetTargetInfo = {
     giftImageUrl: string;
   };
 };
+
+export type PostTarget = {
+  providerName: string;
+  consumerName: string;
+};
