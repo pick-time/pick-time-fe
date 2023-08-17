@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 import Button from "components/common/Button";
@@ -12,6 +12,7 @@ import CardBasic from "components/provider/CardBasic";
 
 function Card() {
   const navigate = useNavigate();
+  const { targetId } = useParams();
   const [toggleType, setToggleType] = useState<"basic" | "custom">("basic");
   const [cardTxt, setCardTxt] = useState("");
   const [imageURL, setImageURL] = useState<string | null>("");
@@ -45,11 +46,11 @@ function Card() {
   };
 
   const handleCancel = () => {
-    navigate("/gift");
+    navigate(`/gift/${targetId}`);
   };
 
   const handleSuccess = () => {
-    navigate("/gift");
+    navigate(`/gift/${targetId}`);
   };
 
   return (
