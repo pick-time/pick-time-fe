@@ -2,6 +2,7 @@ import Button from "components/common/Button";
 import Icon from "components/common/Icon";
 import Input from "components/common/Input";
 import Text from "components/common/Text";
+import usePostTarget from "hooks/queries/usePostTarget";
 import useInputFormValidation from "hooks/useInputValidation";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ function ProviderIntro() {
   const navigate = useNavigate();
   const [form, errors, handleFormChange] = useInputFormValidation();
   const [showContent, setShowContent] = useState(false);
+  const { mutate } = usePostTarget();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,14 +24,20 @@ function ProviderIntro() {
   }, []);
 
   const handleClick = () => {
-    if (!form.providerName || !form.consumerName) {
+    const { providerName, consumerName } = form;
+    if (!providerName || !consumerName) {
       handleFormChange({
         ...form,
         type: "all",
       });
       return;
     }
-    navigate("/gift");
+    mutate(
+      { consumerName, providerName },
+      {
+        onSuccess: data => navigate(`/gift/${data}`),
+      },
+    );
   };
 
   return (

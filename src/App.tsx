@@ -23,7 +23,7 @@ function App() {
         <Route path="/" element={<Intro />} />
         <Route path="/target/:targetId" element={<Intro />} />
         <Route path="/gift/:targetId" element={<Gift />} />
-        <Route path="/card" element={<Card />} />
+        <Route path="/card/:targetId" element={<Card />} />
         <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
         <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />

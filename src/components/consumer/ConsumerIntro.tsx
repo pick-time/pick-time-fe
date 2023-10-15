@@ -42,7 +42,7 @@ function ConsumerIntro() {
           />
         </ImageWrapper>
         <TextWrapper>
-          <Text contents={data?.cardMeesage ?? "취업 축하해 타몽~!"} />
+          <Text contents={data?.cardMessage ?? "취업 축하해 타몽~!"} />
         </TextWrapper>
       </CardWrapper>
       <TextWrapper>

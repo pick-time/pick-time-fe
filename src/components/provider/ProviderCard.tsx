@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Icon from "components/common/Icon";
@@ -6,10 +6,11 @@ import { imgUrlSelector } from "stores/cardAtom";
 
 function ProviderCard() {
   const navigate = useNavigate();
+  const { targetId } = useParams();
   const imgUrl = useRecoilValue(imgUrlSelector);
 
   const handleNextToPage = () => {
-    navigate("/card");
+    navigate(`/card/${targetId}`);
   };
   return (
     <CardWrapper>

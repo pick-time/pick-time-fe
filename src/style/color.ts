@@ -6,6 +6,7 @@ const COLOR = {
   PLACEHOLDER_PURPLE: "#C3BBDB",
   SUB_GRAY: "#A3A3A3",
   GRAY: "#D7D7D7",
+  BUTTON_LIGHT_PURPLE: "#F9F5FF",
 };
 
 export default COLOR;
