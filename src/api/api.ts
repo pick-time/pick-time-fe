@@ -16,6 +16,7 @@ export const useGETGiftsAndCoupons = ({ id }: { id: number }) => {
     enabled: !!id,
   });
 };
+
 async function getGiftsAndCoupons({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftsAndCouponsResponse> {

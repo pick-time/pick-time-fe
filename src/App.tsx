@@ -11,6 +11,7 @@ import Confirm from "pages/Confirm";
 import GiftForConsumer from "pages/GiftForConsumer";
 import ProviderResult from "pages/ProviderResult";
 import ConsumerResult from "pages/ConsumerResult";
+import RandomSelect from "pages/RandomSelect";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/result/:targetId" element={<ProviderResult />} />
         <Route path="/confirm/:targetId" element={<Confirm />} />
         <Route path="/target/:targetId/gift" element={<GiftForConsumer />} />
+        <Route path="/random/:targetId/gift" element={<RandomSelect />} />
         <Route
           path="/target/:targetId/gift/final"
           element={<ConsumerResult />}

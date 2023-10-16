@@ -43,7 +43,7 @@ function ConsumerResult() {
 
 export default ConsumerResult;
 
-const ResultWrapper = styled.div`
+export const ResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,18 +54,18 @@ const ResultWrapper = styled.div`
   height: 100%;
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   text-align: center;
   margin: 5rem 0 2.5rem 0;
 `;
 
-const StyledImage = styled.img`
+export const StyledImage = styled.img`
   width: 21.2rem;
   height: 21.2rem;
   border-radius: 1rem;
 `;
 
-const GiftTitle = styled.div`
+export const GiftTitle = styled.div`
   display: flex;
   align-items: center;
 

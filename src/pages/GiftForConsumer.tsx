@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useGETGiftsAndCoupons, useGETPickedFinal } from "api/api";
@@ -13,16 +13,22 @@ import ConsumerGiftList from "components/consumer/ConsumerGiftList";
 import COLOR from "style/color";
 import styled from "styled-components";
 
+import { getGiftAndCouponIds, pickRandomId } from "utils/randomUtils";
+
+import finalIdState from "stores/finalIdAtom";
+import { useRecoilState } from "recoil";
+
 function GiftForConsumer() {
   const { targetId } = useParams() as { targetId: string };
   const navigate = useNavigate();
 
-  const [pickedFinalId, setPickedFinalId] = useState<number>(0);
+  const [pickedFinalId, setPickedFinalId] = useRecoilState(finalIdState);
   const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
 
   const { data, isLoading: isGetGiftListLoading } = useGETGiftsAndCoupons({
     id: parseInt(targetId, 10),
   });
+
   const { refetch, isLoading: isPickedLoading } = useGETPickedFinal({
     targetId: parseInt(targetId, 10),
     giftId: pickedFinalId,
@@ -30,8 +36,16 @@ function GiftForConsumer() {
   });
 
   const onClickRandomButton = () => {
-    alert("준비 중인 기능입니다.");
-    // navigate(`/target/${targetId}/gift/random`);
+    if (!data) return;
+    const giftAndCouponIdArray = getGiftAndCouponIds(
+      data.giftList,
+      data.couponList,
+    );
+    const randomId = pickRandomId(giftAndCouponIdArray);
+    setPickedFinalId(randomId);
+    setTimeout(() => {
+      navigate(`/random/${targetId}/gift`, { state: giftAndCouponIdArray });
+    }, 100);
   };
 
   const onClickPickButton = () => {
@@ -41,6 +55,12 @@ function GiftForConsumer() {
       navigate(`/target/${targetId}/gift/final`);
     }, 100);
   };
+
+  useEffect(() => {
+    if (!isPickedAndSend && pickedFinalId) {
+      refetch();
+    }
+  }, [isPickedAndSend, pickedFinalId]);
 
   const loading = isGetGiftListLoading || isPickedLoading;
 
