@@ -19,7 +19,7 @@ import {
 } from "./ConsumerResult";
 
 import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
-import { useGETPickedFinal } from "api/api";
+import useGETPickedFinal from "hooks/queries/useGETPickedFinal";
 
 import { pickRandomId } from "utils/randomUtils";
 

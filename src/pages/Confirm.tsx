@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GETGiftsAndCouponsResponse, useGETGiftsAndCoupons } from "api/api";
+import { GETGiftsAndCouponsResponse } from "api/consumer";
+import useGETGiftsAndCoupons from "hooks/queries/useGETGiftsAndCoupons";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import ListComponent from "components/common/List";

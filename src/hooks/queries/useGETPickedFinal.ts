@@ -1,9 +1,13 @@
 import { useQuery } from "react-query";
 import {
   getPickedFinal,
-  GETPickedGiftQueryRequest,
+  GETPickedFinalRequest,
   GETPickedFinalResponse,
-} from "api/api";
+} from "api/consumer";
+
+export interface GETPickedGiftQueryRequest extends GETPickedFinalRequest {
+  isPickedAndSend: boolean;
+}
 
 export const useGETPickedFinal = ({
   targetId,

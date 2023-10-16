@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-import { useGETGiftsAndCoupons, useGETPickedFinal } from "api/api";
+import useGETGiftsAndCoupons from "hooks/queries/useGETGiftsAndCoupons";
+import useGETPickedFinal from "hooks/queries/useGETPickedFinal";
 
 import Button from "components/common/Button";
 import Header from "components/common/Header";
@@ -21,6 +21,7 @@ function GiftForConsumer() {
 
   const [pickedFinalId, setPickedFinalId] = useState<number>(0);
   const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
+  const [isRandom, setIsRandom] = useState<boolean>(false);
 
   const { data, isLoading: isGetGiftListLoading } = useGETGiftsAndCoupons({
     id: parseInt(targetId, 10),
@@ -34,12 +35,16 @@ function GiftForConsumer() {
 
   const onClickRandomButton = () => {
     if (!data) return;
+    setIsRandom(true);
     const giftAndCouponIdArray = getGiftAndCouponIds(
       data.giftList,
       data.couponList,
     );
+
     const randomId = pickRandomId(giftAndCouponIdArray);
     setPickedFinalId(randomId);
+    setIsRandom(false);
+
     setTimeout(() => {
       navigate(`/random/${targetId}/gift`, { state: giftAndCouponIdArray });
     }, 100);
@@ -54,7 +59,7 @@ function GiftForConsumer() {
   };
 
   useEffect(() => {
-    if (!isPickedAndSend && pickedFinalId) {
+    if (isRandom && pickedFinalId) {
       refetch();
     }
   }, [isPickedAndSend, pickedFinalId]);

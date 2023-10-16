@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { GETGiftsAndCouponsResponse, getGiftsAndCoupons } from "api/api";
+import { GETGiftsAndCouponsResponse, getGiftsAndCoupons } from "api/consumer";
 
 const useGETGiftsAndCoupons = ({ id }: { id: number }) => {
   return useQuery<GETGiftsAndCouponsResponse>({
