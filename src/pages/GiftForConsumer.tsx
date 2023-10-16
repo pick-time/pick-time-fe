@@ -15,14 +15,11 @@ import styled from "styled-components";
 
 import { getGiftAndCouponIds, pickRandomId } from "utils/randomUtils";
 
-import finalIdState from "stores/finalIdAtom";
-import { useRecoilState } from "recoil";
-
 function GiftForConsumer() {
   const { targetId } = useParams() as { targetId: string };
   const navigate = useNavigate();
 
-  const [pickedFinalId, setPickedFinalId] = useRecoilState(finalIdState);
+  const [pickedFinalId, setPickedFinalId] = useState<number>(0);
   const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
 
   const { data, isLoading: isGetGiftListLoading } = useGETGiftsAndCoupons({

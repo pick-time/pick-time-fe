@@ -1,6 +1,4 @@
-import { useRecoilState } from "recoil";
 import { useState } from "react";
-import { introInputState } from "stores/introAtom";
 
 interface InputForm {
   type: string;
@@ -19,7 +17,11 @@ const useInputFormValidation = (): [
   InputFormErrors,
   (data: InputForm) => void,
 ] => {
-  const [form, setForm] = useRecoilState<InputForm>(introInputState);
+  const [form, setForm] = useState<InputForm>({
+    type: "",
+    providerName: "",
+    consumerName: "",
+  });
   const [errors, setErrors] = useState<InputFormErrors>({
     providerNameError: "",
     consumerNameError: "",
