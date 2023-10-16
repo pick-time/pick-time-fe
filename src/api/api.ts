@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useMutation, useQuery } from "react-query";
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 
@@ -9,15 +8,8 @@ import { GiftList } from "types/giftList.type";
  * @param targetId
  * @returns GETGiftListResponse
  */
-export const useGETGiftsAndCoupons = ({ id }: { id: number }) => {
-  return useQuery<GETGiftsAndCouponsResponse>({
-    queryKey: ["result", id],
-    queryFn: () => getGiftsAndCoupons({ targetId: id }),
-    enabled: !!id,
-  });
-};
 
-async function getGiftsAndCoupons({
+export async function getGiftsAndCoupons({
   targetId,
 }: GETGiftListRequest): Promise<GETGiftsAndCouponsResponse> {
   return axios
@@ -46,11 +38,6 @@ export interface GETGiftsAndCouponsResponse {
  * @param02 giftId
  * @returns POSTPickedGiftResponse
  */
-export function usePOSTPickedFinal() {
-  return useMutation(({ targetId, giftId }: POSTPickedGiftRequest) =>
-    postPickedFinal({ targetId, giftId }),
-  );
-}
 
 export async function postPickedFinal(
   params: POSTPickedGiftRequest,
@@ -65,7 +52,7 @@ export async function postPickedFinal(
     .then(response => response.data);
 }
 
-interface POSTPickedGiftRequest {
+export interface POSTPickedGiftRequest {
   targetId: number;
   giftId: number;
 }
@@ -82,19 +69,7 @@ export interface POSTPickedGiftResponse {
  * @returns GETPickedGiftResponse
  */
 
-export const useGETPickedFinal = ({
-  targetId,
-  giftId,
-  isPickedAndSend,
-}: GETPickedGiftQueryRequest) => {
-  return useQuery<GETPickedFinalResponse>({
-    queryKey: ["consumer_result", targetId],
-    queryFn: () => getPickedFinal({ targetId, giftId }),
-    enabled: isPickedAndSend,
-  });
-};
-
-async function getPickedFinal({
+export async function getPickedFinal({
   targetId,
   giftId,
 }: GETPickedFinalRequest): Promise<GETPickedFinalResponse> {
@@ -107,7 +82,7 @@ async function getPickedFinal({
     .then(response => response.data);
 }
 
-interface GETPickedGiftQueryRequest extends GETPickedFinalRequest {
+export interface GETPickedGiftQueryRequest extends GETPickedFinalRequest {
   isPickedAndSend: boolean;
 }
 
@@ -115,6 +90,6 @@ interface GETPickedFinalRequest {
   targetId: number;
   giftId: number;
 }
-interface GETPickedFinalResponse {
+export interface GETPickedFinalResponse {
   targetId: number;
 }
