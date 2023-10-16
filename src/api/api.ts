@@ -9,18 +9,18 @@ import { GiftList } from "types/giftList.type";
  * @param targetId
  * @returns GETGiftListResponse
  */
-export const useGETGiftList = ({ id }: { id: number }) => {
-  return useQuery<GETGiftListResponse>({
+export const useGETGiftsAndCoupons = ({ id }: { id: number }) => {
+  return useQuery<GETGiftsAndCouponsResponse>({
     queryKey: ["result", id],
-    queryFn: () => getGiftList({ targetId: id }),
+    queryFn: () => getGiftsAndCoupons({ targetId: id }),
     enabled: !!id,
   });
 };
-async function getGiftList({
+async function getGiftsAndCoupons({
   targetId,
-}: GETGiftListRequest): Promise<GETGiftListResponse> {
+}: GETGiftListRequest): Promise<GETGiftsAndCouponsResponse> {
   return axios
-    .get<GETGiftListResponse>(
+    .get<GETGiftsAndCouponsResponse>(
       `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
     )
     .then(response => response.data);
@@ -30,7 +30,7 @@ interface GETGiftListRequest {
   targetId: number;
 }
 
-export interface GETGiftListResponse {
+export interface GETGiftsAndCouponsResponse {
   giftTotal: number;
   providerName: string;
   consumerName: string;
@@ -45,13 +45,13 @@ export interface GETGiftListResponse {
  * @param02 giftId
  * @returns POSTPickedGiftResponse
  */
-export function usePOSTPickedGift() {
+export function usePOSTPickedFinal() {
   return useMutation(({ targetId, giftId }: POSTPickedGiftRequest) =>
-    postPickedGift({ targetId, giftId }),
+    postPickedFinal({ targetId, giftId }),
   );
 }
 
-export async function postPickedGift(
+export async function postPickedFinal(
   params: POSTPickedGiftRequest,
 ): Promise<POSTPickedGiftResponse> {
   const { targetId, giftId } = params;
@@ -81,39 +81,39 @@ export interface POSTPickedGiftResponse {
  * @returns GETPickedGiftResponse
  */
 
-export const useGETPickedGift = ({
+export const useGETPickedFinal = ({
   targetId,
   giftId,
   isPickedAndSend,
 }: GETPickedGiftQueryRequest) => {
-  return useQuery<GETPickedGiftResponse>({
+  return useQuery<GETPickedFinalResponse>({
     queryKey: ["consumer_result", targetId],
-    queryFn: () => getPickedGift({ targetId, giftId }),
+    queryFn: () => getPickedFinal({ targetId, giftId }),
     enabled: isPickedAndSend,
   });
 };
 
-async function getPickedGift({
+async function getPickedFinal({
   targetId,
   giftId,
-}: GETPickedGiftRequest): Promise<GETPickedGiftResponse> {
+}: GETPickedFinalRequest): Promise<GETPickedFinalResponse> {
   const params = { giftId };
   return axios
-    .get<GETPickedGiftResponse>(
+    .get<GETPickedFinalResponse>(
       `${process.env.REACT_APP_BASE_URL}/target/${targetId}/pick`,
       { params },
     )
     .then(response => response.data);
 }
 
-interface GETPickedGiftQueryRequest extends GETPickedGiftRequest {
+interface GETPickedGiftQueryRequest extends GETPickedFinalRequest {
   isPickedAndSend: boolean;
 }
 
-interface GETPickedGiftRequest {
+interface GETPickedFinalRequest {
   targetId: number;
   giftId: number;
 }
-interface GETPickedGiftResponse {
+interface GETPickedFinalResponse {
   targetId: number;
 }
