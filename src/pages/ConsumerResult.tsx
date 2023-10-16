@@ -5,15 +5,14 @@ import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
 import KakaoShare from "components/provider/KakaoShare";
-import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
+import useGETFinalResult from "hooks/queries/useGETFinalResult";
 import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 
 function ConsumerResult() {
   const { targetId } = useParams();
-  const { data } = useGetTargetInfo(Number(targetId));
-
+  const { data } = useGETFinalResult(Number(targetId));
   if (!data) return <Loading />;
   return (
     <>
@@ -28,7 +27,11 @@ function ConsumerResult() {
         </ImageWrapper>
         <GiftTitle>
           <p>{data?.finalGift.giftTitle}</p>
-          <Icon name="link-icon" width={23} height={23} />
+          {data?.finalGift.giftUrl && (
+            <a href={data?.finalGift.giftUrl}>
+              <Icon name="link-icon" width={23} height={23} />
+            </a>
+          )}
         </GiftTitle>
         <LinkWrapper>
           <KakaoShare userType="consumer" consumerName={data.consumerName} />

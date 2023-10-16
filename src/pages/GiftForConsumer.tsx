@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useGETGiftsAndCoupons from "hooks/queries/useGETGiftsAndCoupons";
-import useGETPickedFinal from "hooks/queries/useGETPickedFinal";
+import useGETPickedFinal from "hooks/queries/usePOSTPickFinal";
 
 import Button from "components/common/Button";
 import Header from "components/common/Header";

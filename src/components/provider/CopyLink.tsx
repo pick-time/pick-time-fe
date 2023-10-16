@@ -11,12 +11,16 @@ interface CopyLinkProps {
 export default function CopyLink({ children }: CopyLinkProps) {
   // TODO: 배포 URL로 대체
   const baseUrl = "https://pick-time.vercel.app";
+  // const baseUrl = "http://localhost:3000";
   const notify = () => toast("📋️ 클립보드에 복사되었습니다.");
   const { targetId } = useParams();
 
   return (
     <div>
-      <CopyToClipboard text={`${baseUrl}/target/${targetId}`} onCopy={notify}>
+      <CopyToClipboard
+        text={`${baseUrl}/target/${targetId}/gift/final`}
+        onCopy={notify}
+      >
         {children}
       </CopyToClipboard>
       <StyledToastContainer

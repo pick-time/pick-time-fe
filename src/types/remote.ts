@@ -4,11 +4,12 @@ export type GetCardInfo = {
   cardMessage: string;
 };
 
-export type GetTargetInfo = {
+export type GetFinalResult = {
   consumerName: string;
   finalGift: {
     giftTitle: string;
     giftImageUrl: string;
+    giftUrl?: string;
   };
 };
 
