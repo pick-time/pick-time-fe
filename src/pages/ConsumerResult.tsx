@@ -5,14 +5,14 @@ import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
 import KakaoShare from "components/provider/KakaoShare";
-import useGETFinalResult from "hooks/queries/useGETFinalResult";
+import { useGetFinalResult } from "hooks/queries/useResult";
 import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 
 function ConsumerResult() {
   const { targetId } = useParams();
-  const { data } = useGETFinalResult(Number(targetId));
+  const { data } = useGetFinalResult(Number(targetId));
   if (!data) return <Loading />;
   return (
     <>

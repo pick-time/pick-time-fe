@@ -4,7 +4,6 @@ import Intro from "pages/Intro";
 import Gift from "pages/Gift";
 import Card from "pages/Card";
 import GlobalStyle from "style/GlobalStyle";
-import RecoilSample from "pages/RecoilSample";
 import IconLoader from "components/common/IconLoader";
 import styled from "styled-components";
 import Confirm from "pages/Confirm";
@@ -33,7 +32,6 @@ function App() {
           path="/target/:targetId/gift/final"
           element={<ConsumerResult />}
         />
-        <Route path="/recoil-sample" element={<RecoilSample />} />
       </Routes>
     </Root>
   );

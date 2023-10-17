@@ -17,8 +17,7 @@ import {
   GiftTitle,
 } from "./ConsumerResult";
 
-import useGETFinalResult from "hooks/queries/useGETFinalResult";
-import usePOSTPickFinal from "hooks/queries/usePOSTPickFinal";
+import { useGetFinalResult, usePostPickFinal } from "hooks/queries/useResult";
 
 import { pickRandomId } from "utils/randomUtils";
 
@@ -30,13 +29,13 @@ function RandomSelect() {
   const [pickedFinalId, setPickedFinalId] = useState<number>(0);
   const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
 
-  const { refetch } = usePOSTPickFinal({
+  const { refetch } = usePostPickFinal({
     targetId: parseInt(targetId, 10),
     giftId: pickedFinalId,
     isPickedAndSend,
   });
 
-  const { data: randomItem, refetch: getRandomItem } = useGETFinalResult(
+  const { data: randomItem, refetch: getRandomItem } = useGetFinalResult(
     Number(targetId),
   );
 

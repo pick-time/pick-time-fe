@@ -1,21 +1,28 @@
 import axios from "axios";
-import { GetCardInfo, GetFinalResult } from "types/remote";
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 
+export interface GetCardInfoResponse {
+  providerName: string;
+  cardImageUrl: string;
+  cardMessage: string;
+}
+
 // 카드 불러오기
-export const getCardInfo = async (targetId: number): Promise<GetCardInfo> => {
+export const getCardInfo = async (
+  targetId: number,
+): Promise<GetCardInfoResponse> => {
   const response = await axios.get(
     `${process.env.REACT_APP_BASE_URL}/target/${targetId}`,
   );
   return response.data;
 };
 
-interface GETGiftListRequest {
+interface GetResultRequest {
   targetId: number;
 }
 
-export interface GETGiftsAndCouponsResponse {
+export interface GetResultResponse {
   giftTotal: number;
   providerName: string;
   consumerName: string;
@@ -24,21 +31,21 @@ export interface GETGiftsAndCouponsResponse {
 }
 
 // 쿠폰, 선물 목록 불러오기
-export async function getGiftsAndCoupons({
+export async function getResult({
   targetId,
-}: GETGiftListRequest): Promise<GETGiftsAndCouponsResponse> {
+}: GetResultRequest): Promise<GetResultResponse> {
   return axios
-    .get<GETGiftsAndCouponsResponse>(
+    .get<GetResultResponse>(
       `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
     )
     .then(response => response.data);
 }
 
-export interface POSTPickFinalRequest {
+export interface PostPickFinalRequest {
   targetId: number;
   giftId: number;
 }
-export interface POSTPickFinalResponse {
+export interface PostPickFinalResponse {
   targetId: number;
 }
 
@@ -46,20 +53,29 @@ export interface POSTPickFinalResponse {
 export async function postPickFinal({
   targetId,
   giftId,
-}: POSTPickFinalRequest): Promise<POSTPickFinalResponse> {
+}: PostPickFinalRequest): Promise<PostPickFinalResponse> {
   const params = { giftId };
   return axios
-    .get<POSTPickFinalResponse>(
+    .get<PostPickFinalResponse>(
       `${process.env.REACT_APP_BASE_URL}/target/${targetId}/pick`,
       { params },
     )
     .then(response => response.data);
 }
 
+export interface GetFinalResultResponse {
+  consumerName: string;
+  finalGift: {
+    giftTitle: string;
+    giftImageUrl: string;
+    giftUrl?: string;
+  };
+}
+
 // 타겟 최종 결정된 쿠폰 또는 선물 조회
 export const getFinalResult = async (
   targetId: number,
-): Promise<GetFinalResult> => {
+): Promise<GetFinalResultResponse> => {
   const response = await axios.get(
     `${process.env.REACT_APP_BASE_URL}/target/${targetId}/final`,
   );

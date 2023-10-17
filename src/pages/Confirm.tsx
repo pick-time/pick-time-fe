@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GETGiftsAndCouponsResponse } from "api/consumer";
-import useGETGiftsAndCoupons from "hooks/queries/useGETGiftsAndCoupons";
+import { GetResultResponse } from "api/consumer";
+import { useGetResult } from "hooks/queries/useResult";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import ListComponent from "components/common/List";
@@ -11,7 +11,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 
-type User = Pick<GETGiftsAndCouponsResponse, "providerName" | "consumerName">;
+type User = Pick<GetResultResponse, "providerName" | "consumerName">;
 
 function Confirm() {
   const { targetId } = useParams();
@@ -21,7 +21,7 @@ function Confirm() {
     navigate(`/result/${targetId}`);
   };
 
-  const { data, isLoading } = useGETGiftsAndCoupons({
+  const { data, isLoading } = useGetResult({
     id: parseInt(targetId || "", 10),
   });
 

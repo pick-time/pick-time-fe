@@ -1,5 +1,24 @@
 import axios from "axios";
-import { PostTarget } from "types/remote";
+
+export interface PostTargetRequest {
+  providerName: string;
+  consumerName: string;
+}
+
+// 타겟 생성
+export const postTarget = async ({
+  consumerName,
+  providerName,
+}: PostTargetRequest) => {
+  const response = await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/target`,
+    {
+      consumerName,
+      providerName,
+    },
+  );
+  return response.data;
+};
 
 // 선물 조회
 export const getGiftList = async (targetId: number) => {
@@ -33,19 +52,4 @@ export const putGiftItem = async (formData: FormData) => {
       },
     },
   );
-};
-
-// 타겟 생성
-export const postTarget = async ({
-  consumerName,
-  providerName,
-}: PostTarget) => {
-  const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/target`,
-    {
-      consumerName,
-      providerName,
-    },
-  );
-  return response.data;
 };

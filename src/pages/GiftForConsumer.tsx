@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import useGETGiftsAndCoupons from "hooks/queries/useGETGiftsAndCoupons";
-import useGETPickedFinal from "hooks/queries/usePOSTPickFinal";
+import { useGetResult, usePostPickFinal } from "hooks/queries/useResult";
 
 import Button from "components/common/Button";
 import Header from "components/common/Header";
@@ -23,11 +22,11 @@ function GiftForConsumer() {
   const [isPickedAndSend, setIsPickedAndSend] = useState<boolean>(false);
   const [isRandom, setIsRandom] = useState<boolean>(false);
 
-  const { data, isLoading: isGetGiftListLoading } = useGETGiftsAndCoupons({
+  const { data, isLoading: isGetGiftListLoading } = useGetResult({
     id: parseInt(targetId, 10),
   });
 
-  const { refetch, isLoading: isPickedLoading } = useGETPickedFinal({
+  const { refetch, isLoading: isPickedLoading } = usePostPickFinal({
     targetId: parseInt(targetId, 10),
     giftId: pickedFinalId,
     isPickedAndSend,
