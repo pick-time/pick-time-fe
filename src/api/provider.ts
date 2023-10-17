@@ -10,8 +10,8 @@ export interface PostTargetRequest {
 export const postTarget = async ({
   consumerName,
   providerName,
-}: PostTargetRequest): Promise<number> => {
-  const response = await axios.post<number>(
+}: PostTargetRequest) => {
+  const response = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/target`,
     {
       consumerName,
