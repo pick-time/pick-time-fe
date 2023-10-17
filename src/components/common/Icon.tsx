@@ -34,6 +34,7 @@ export type IconName =
   | "empty-heart"
   | "error-gift"
   | "gift-edit"
+  | "left-arrow"
   | "logo-header"
   | "logo-large"
   | "logo-intro-provider"
