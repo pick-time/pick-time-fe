@@ -1,6 +1,5 @@
 import axios from "axios";
-import { CouponList } from "types/couponList.type";
-import { GiftList } from "types/giftList.type";
+import { Result } from "types/result.type";
 
 export interface GetCardInfoResponse {
   providerName: string;
@@ -22,22 +21,12 @@ interface GetResultRequest {
   targetId: number;
 }
 
-export interface GetResultResponse {
-  giftTotal: number;
-  providerName: string;
-  consumerName: string;
-  giftList: GiftList[];
-  couponList?: CouponList[];
-}
-
 // 쿠폰, 선물 목록 불러오기
 export async function getResult({
   targetId,
-}: GetResultRequest): Promise<GetResultResponse> {
+}: GetResultRequest): Promise<Result> {
   return axios
-    .get<GetResultResponse>(
-      `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
-    )
+    .get<Result>(`${process.env.REACT_APP_BASE_URL}/gift/${targetId}`)
     .then(response => response.data);
 }
 

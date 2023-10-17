@@ -3,17 +3,17 @@ import {
   getResult,
   postPickFinal,
   getFinalResult,
-  GetResultResponse,
   PostPickFinalRequest,
   PostPickFinalResponse,
 } from "api/consumer";
+import { Result } from "types/result.type";
 
 export interface GetPickGiftQueryRequest extends PostPickFinalRequest {
   isPickedAndSend: boolean;
 }
 
 export const useGetResult = ({ id }: { id: number }) => {
-  return useQuery<GetResultResponse>({
+  return useQuery<Result>({
     queryKey: ["result", id],
     queryFn: () => getResult({ targetId: id }),
     enabled: !!id,

@@ -12,11 +12,11 @@ export default function ProviderGiftList() {
   const { targetId } = useParams();
   const {
     deleteGift,
-    getGift: { isLoading, data: giftList },
+    getGift: { isLoading, data },
   } = useGift(Number(targetId));
 
   // 시현용
-  const [listData, setListData] = useState<GiftList[]>(giftList);
+  const [listData, setListData] = useState<GiftList[]>([]);
   const [editedGiftId, setEditedGiftId] = useState<number>();
 
   const handleDelete = (giftId: number) => {
@@ -29,11 +29,11 @@ export default function ProviderGiftList() {
   if (isLoading) return <div>loading</div>;
   return (
     <>
-      {giftList && (
+      {data && (
         <List
           // TODO: listData 삭제
           listData={listData}
-          giftList={giftList}
+          giftList={data.giftList}
           // TODO: 실데이터로 교체
           couponList={mockCouponList}
           type="editable"
@@ -41,10 +41,10 @@ export default function ProviderGiftList() {
           onClickEdit={handleEdit}
         />
       )}
-      {editedGiftId && (
+      {data && editedGiftId && (
         <EditGiftModal
           // listData={response}
-          giftList={giftList}
+          giftList={data.giftList}
           editedGiftId={editedGiftId}
           setEditedGiftId={setEditedGiftId}
         />

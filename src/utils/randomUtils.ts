@@ -1,9 +1,9 @@
 import { CouponList } from "types/couponList.type";
 import { GiftList } from "types/giftList.type";
 
-export const getGiftAndCouponIds = (
+export const getResultIds = (
   giftList: GiftList[],
-  couponList?: CouponList[],
+  couponList: CouponList[],
 ) => {
   const giftIds = giftList.map(gift => gift.giftId);
   const couponIds = couponList ? couponList.map(coupon => coupon.couponId) : [];

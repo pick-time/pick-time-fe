@@ -12,7 +12,7 @@ import ConsumerGiftList from "components/consumer/ConsumerGiftList";
 import COLOR from "style/color";
 import styled from "styled-components";
 
-import { getGiftAndCouponIds, pickRandomId } from "utils/randomUtils";
+import { getResultIds, pickRandomId } from "utils/randomUtils";
 
 function GiftForConsumer() {
   const { targetId } = useParams() as { targetId: string };
@@ -35,17 +35,15 @@ function GiftForConsumer() {
   const onClickRandomButton = () => {
     if (!data) return;
     setIsRandom(true);
-    const giftAndCouponIdArray = getGiftAndCouponIds(
-      data.giftList,
-      data.couponList,
-    );
+    const resultIdArray = getResultIds(data.giftList, data.couponList);
 
-    const randomId = pickRandomId(giftAndCouponIdArray);
+    const randomId = pickRandomId(resultIdArray);
+
     setPickedFinalId(randomId);
     setIsRandom(false);
 
     setTimeout(() => {
-      navigate(`/random/${targetId}/gift`, { state: giftAndCouponIdArray });
+      navigate(`/random/${targetId}/gift`, { state: resultIdArray });
     }, 100);
   };
 
