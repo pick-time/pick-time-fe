@@ -5,7 +5,6 @@ import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
 // import giftList from "data/giftData";
 import { useParams } from "react-router-dom";
-import mockCouponList from "data/couponData";
 import useGift from "hooks/queries/useGift";
 
 export default function ProviderGiftList() {
@@ -34,7 +33,7 @@ export default function ProviderGiftList() {
           listData={listData}
           giftList={giftList}
           // TODO: 실데이터로 교체
-          couponList={mockCouponList}
+          couponList={[]}
           type="editable"
           onClickClose={handleDelete}
           onClickEdit={handleEdit}

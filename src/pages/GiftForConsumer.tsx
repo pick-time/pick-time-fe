@@ -13,9 +13,7 @@ import ConsumerGiftList from "components/consumer/ConsumerGiftList";
 import COLOR from "style/color";
 import styled from "styled-components";
 
-import mockConsumerResult, { ConsumerResult } from "data/consumerResultData";
-
-const IS_MOCK = false;
+// import mockConsumerResult, { ConsumerResult } from "data/consumerResultData";
 
 function GiftForConsumer() {
   const { targetId } = useParams() as { targetId: string };
@@ -24,17 +22,8 @@ function GiftForConsumer() {
   // TODO: GET 인지 POST 인지 확인
   // const { mutate, isSuccess } = usePOSTPickedGift();
 
-  // MOCK DATA 처리
-  const {
-    providerName: MOCK_PROVIDER,
-    consumerName: MOCK_CONSUMER,
-    couponList: MOCK_COUPONLIST,
-    giftList: MOCK_GIFTLIST,
-  }: ConsumerResult = mockConsumerResult;
-
   const onClickRandomButton = () => {
-    alert("준비 중인 기능입니다.");
-    // navigate(`/target/${targetId}/gift/random`);
+    navigate(`/target/${targetId}/gift/random`);
   };
 
   const [pickedGiftId, setPickedGiftId] = useState<number>(0);
@@ -71,12 +60,10 @@ function GiftForConsumer() {
         <>
           <TitleWrapper>
             <Title level={1} align="left">
-              {IS_MOCK ? MOCK_PROVIDER : data?.providerName}
+              {data?.providerName}
               님이
               <br />
-              <TitleSpan>
-                {IS_MOCK ? MOCK_CONSUMER : data?.consumerName}
-              </TitleSpan>
+              <TitleSpan>{data?.consumerName}</TitleSpan>
               님을 위해
               <br />
               생각한 선물들이에요!
@@ -84,8 +71,8 @@ function GiftForConsumer() {
           </TitleWrapper>
           <ConsumerGiftList
             onSelectGift={(id: number) => setPickedGiftId(id)}
-            couponList={IS_MOCK ? MOCK_COUPONLIST : data?.couponList}
-            giftList={IS_MOCK ? MOCK_GIFTLIST : data?.giftList}
+            couponList={data?.couponList}
+            giftList={data?.giftList}
           />
         </>
       )}

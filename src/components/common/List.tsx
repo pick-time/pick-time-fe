@@ -4,8 +4,8 @@ import COLOR from "style/color";
 import { GiftList } from "types/giftList.type";
 import { CouponList as TCouponList } from "types/couponList.type";
 import CouponList from "./CouponList";
-import mockCouponList from "data/couponData";
-import giftData from "data/giftData";
+// import mockCouponList from "data/couponData";
+// import giftData from "data/giftData";
 
 interface ListProps {
   listData: GiftList[];
@@ -21,8 +21,8 @@ interface ListProps {
 function List({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   listData,
-  giftList = giftData,
-  couponList = mockCouponList,
+  giftList,
+  couponList,
   type = "likable",
   selectedGiftId,
   onClickClose,
