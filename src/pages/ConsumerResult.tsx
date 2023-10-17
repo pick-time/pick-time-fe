@@ -5,15 +5,14 @@ import Loading from "components/common/Loading";
 import Title from "components/common/Title";
 import CopyLink from "components/provider/CopyLink";
 import KakaoShare from "components/provider/KakaoShare";
-import useGetTargetInfo from "hooks/queries/useGetTargetInfo";
+import { useGetFinalResult } from "hooks/queries/useResult";
 import { useParams } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
 
 function ConsumerResult() {
   const { targetId } = useParams();
-  const { data } = useGetTargetInfo(Number(targetId));
-
+  const { data } = useGetFinalResult(Number(targetId));
   if (!data) return <Loading />;
   return (
     <>
@@ -28,7 +27,11 @@ function ConsumerResult() {
         </ImageWrapper>
         <GiftTitle>
           <p>{data?.finalGift.giftTitle}</p>
-          <Icon name="link-icon" width={23} height={23} />
+          {data?.finalGift.giftUrl && (
+            <a href={data?.finalGift.giftUrl}>
+              <Icon name="link-icon" width={23} height={23} />
+            </a>
+          )}
         </GiftTitle>
         <LinkWrapper>
           <KakaoShare userType="consumer" consumerName={data.consumerName} />
@@ -43,7 +46,7 @@ function ConsumerResult() {
 
 export default ConsumerResult;
 
-const ResultWrapper = styled.div`
+export const ResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,18 +57,18 @@ const ResultWrapper = styled.div`
   height: 100%;
 `;
 
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
   text-align: center;
   margin: 5rem 0 2.5rem 0;
 `;
 
-const StyledImage = styled.img`
+export const StyledImage = styled.img`
   width: 21.2rem;
   height: 21.2rem;
   border-radius: 1rem;
 `;
 
-const GiftTitle = styled.div`
+export const GiftTitle = styled.div`
   display: flex;
   align-items: center;
 

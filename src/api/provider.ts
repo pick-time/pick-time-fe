@@ -1,19 +1,46 @@
 import axios from "axios";
-import { PostTarget } from "types/remote";
+import { Result } from "types/result.type";
+
+export interface PostTargetRequest {
+  providerName: string;
+  consumerName: string;
+}
+
+// 타겟 생성
+export const postTarget = async ({
+  consumerName,
+  providerName,
+}: PostTargetRequest) => {
+  const response = await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/target`,
+    {
+      consumerName,
+      providerName,
+    },
+  );
+  return response.data;
+};
 
 // 선물 조회
-export const getGiftList = async (targetId: number) => {
-  const response = await axios.get(
+export const getGiftList = async (targetId: number): Promise<Result> => {
+  const response = await axios.get<Result>(
     `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
   );
-  return response.data.giftList;
+  return response.data;
 };
 
 // 선물 추가
-export const postGiftItem = async (giftUrl: string, targetId: number) => {
-  await axios.post(`${process.env.REACT_APP_BASE_URL}/gift/${targetId}`, {
-    giftUrl,
-  });
+export const postGiftItem = async (
+  giftUrl: string,
+  targetId: number,
+): Promise<Result> => {
+  const response = await axios.post<Result>(
+    `${process.env.REACT_APP_BASE_URL}/gift/${targetId}`,
+    {
+      giftUrl,
+    },
+  );
+  return response.data;
 };
 
 // 선물 삭제
@@ -22,29 +49,15 @@ export const deleteGiftItem = async (giftId: number) => {
 };
 
 // 선물 수정
-export const putGiftItem = async (formData: FormData) => {
+export const putGiftItem = async (formData: FormData): Promise<Result> => {
   const giftId = formData.get("giftId");
-  await axios.put(
+  const response = await axios.put<Result>(
     `${process.env.REACT_APP_BASE_URL}/gift/${giftId}`,
     formData,
     {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    },
-  );
-};
-
-// 타겟 생성
-export const postTarget = async ({
-  consumerName,
-  providerName,
-}: PostTarget) => {
-  const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/target`,
-    {
-      consumerName,
-      providerName,
     },
   );
   return response.data;
