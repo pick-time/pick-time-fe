@@ -35,7 +35,7 @@ const CardWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4rem 2.6rem 4rem 2.6rem;
+  margin: 4rem 0rem;
   border: 1px dashed #d3c9e7;
   border-radius: 10px;
 `;

@@ -26,8 +26,8 @@ export default ModalFrameCoupon;
 
 const ModalDim = styled.div`
   position: absolute;
-  z-index: 1;
-  top: 0;
+  z-index: 2;
+  top: -2rem;
   left: 0;
   background-color: #00000066;
   display: flex;
@@ -35,7 +35,7 @@ const ModalDim = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 110%;
 `;
 const Wrapper = styled.div`
   position: absolute;
