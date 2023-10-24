@@ -48,7 +48,7 @@ function ProviderResult() {
       />
       <LinkWrapper>
         <KakaoShare userType="provider" />
-        <CopyLink>
+        <CopyLink isProvider>
           <Button text="URL" color={COLOR.NAVY} width="half" />
         </CopyLink>
       </LinkWrapper>

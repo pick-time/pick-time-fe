@@ -6,19 +6,20 @@ import styled from "styled-components";
 
 interface CopyLinkProps {
   children: React.ReactNode;
+  isProvider?: boolean;
 }
 
-export default function CopyLink({ children }: CopyLinkProps) {
+export default function CopyLink({ children, isProvider }: CopyLinkProps) {
   const baseUrl = "https://pick-time.vercel.app";
   const notify = () => toast("📋️ 클립보드에 복사되었습니다.");
   const { targetId } = useParams();
+  const copyUrl = isProvider
+    ? `${baseUrl}/target/${targetId}`
+    : `${baseUrl}/target/${targetId}/gift/final`;
 
   return (
     <div>
-      <CopyToClipboard
-        text={`${baseUrl}/target/${targetId}/gift/final`}
-        onCopy={notify}
-      >
+      <CopyToClipboard text={copyUrl} onCopy={notify}>
         {children}
       </CopyToClipboard>
       <StyledToastContainer
