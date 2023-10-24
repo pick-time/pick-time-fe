@@ -41,6 +41,8 @@ const LogoWrapper = styled.header`
   padding: 1rem 12rem;
   background: ${COLOR.WHITE};
   z-index: 1;
+  position: fixed;
+  top: 0px;
 `;
 
 const IconButton = styled.button`

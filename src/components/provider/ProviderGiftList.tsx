@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import List from "components/common/List";
-import { GiftList } from "types/giftList.type";
 import EditGiftModal from "./EditGiftModal";
-// import giftList from "data/giftData";
 import { useParams } from "react-router-dom";
 import useGift from "hooks/queries/useGift";
+import styled from "styled-components";
 
 export default function ProviderGiftList() {
   const { targetId } = useParams();
@@ -27,13 +26,15 @@ export default function ProviderGiftList() {
   return (
     <>
       {data && (
-        <List
-          giftList={data.giftList}
-          couponList={data.couponList}
-          type="editable"
-          onClickClose={handleDelete}
-          onClickEdit={handleEdit}
-        />
+        <ListWrapper>
+          <List
+            giftList={data.giftList}
+            couponList={data.couponList}
+            type="editable"
+            onClickClose={handleDelete}
+            onClickEdit={handleEdit}
+          />
+        </ListWrapper>
       )}
       {data && editedGiftId && (
         <EditGiftModal
@@ -45,3 +46,7 @@ export default function ProviderGiftList() {
     </>
   );
 }
+
+const ListWrapper = styled.div`
+  padding-bottom: 20rem;
+`;
