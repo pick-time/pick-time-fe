@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useGetResult } from "hooks/queries/useResult";
-import { Result } from "types/result.type";
 import Button from "components/common/Button";
 import Header from "components/common/Header";
 import ListComponent from "components/common/List";
@@ -10,8 +9,6 @@ import Title from "components/common/Title";
 import { useParams, useNavigate } from "react-router-dom";
 import COLOR from "style/color";
 import styled from "styled-components";
-
-type User = Pick<Result, "providerName" | "consumerName">;
 
 function Confirm() {
   const { targetId } = useParams();
@@ -42,6 +39,7 @@ function Confirm() {
             </Title>
           </TitleWrapper>
           <ListComponent giftList={data?.giftList} type="default" />
+          <ListComponent couponList={data?.couponList} type="default" />
         </>
       )}
       <ButtonWrapper>
