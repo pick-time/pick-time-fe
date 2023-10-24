@@ -30,11 +30,8 @@ export default function ProviderGiftList() {
     <>
       {data && (
         <List
-          // TODO: listData 삭제
-          listData={listData}
           giftList={data.giftList}
-          // TODO: 실데이터로 교체
-          couponList={[]}
+          couponList={data.couponList}
           type="editable"
           onClickClose={handleDelete}
           onClickEdit={handleEdit}

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import ModalFrameCoupon from "components/common/ModalFrameCoupon";
 import Text from "components/common/Text";
 import styled from "styled-components";
@@ -52,13 +51,25 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
   // TODO: mutate로 custom hook 분리 예정
   const onClickSubmit = async (png: string) => {
     const formData = new FormData();
-    formData.append("file", png);
+    const randomId = (): string => {
+      const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+      return uint32.toString(16);
+    };
+    await fetch(png)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], `custom-coupon-${randomId()}.png`, {
+          type: "image/png",
+        });
+        formData.append("file", file);
+      });
+
     try {
       if (targetId) {
         const params = new URLSearchParams({ targetId }).toString();
         await axios.post(
           `${process.env.REACT_APP_BASE_URL}/coupon?${params}`,
-          { formData },
+          formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -91,10 +102,12 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
 
   const onClickImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
       const imageUrl = URL.createObjectURL(file);
+
       setBackImageCustomURL(imageUrl); // 이미지 화면에 렌더링 하기
       setInputInfo({ ...inputInfo, file }); // 전역 상태에 저장
     }
@@ -127,7 +140,7 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
         {BASIC_IMAGE_GRADIENT.map((basic, idx) => {
           return (
             <BasicImage
-              key={idx}
+              key={BASIC_IMAGE_GRADIENT[idx]}
               background={basic}
               onClick={() => setBackImageURL(basic)}
             />

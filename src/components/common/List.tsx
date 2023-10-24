@@ -8,7 +8,6 @@ import CouponList from "./CouponList";
 // import giftData from "data/giftData";
 
 interface ListProps {
-  listData: GiftList[];
   giftList?: GiftList[];
   couponList?: TCouponList[];
   type?: "default" | "editable" | "likable";
@@ -20,7 +19,6 @@ interface ListProps {
 
 function List({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  listData,
   giftList,
   couponList,
   type = "likable",

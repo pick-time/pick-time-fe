@@ -41,7 +41,7 @@ function Confirm() {
               고르신 선물 확인해 주세요!
             </Title>
           </TitleWrapper>
-          <ListComponent listData={data?.giftList} type="default" />
+          <ListComponent giftList={data?.giftList} type="default" />
         </>
       )}
       <ButtonWrapper>
