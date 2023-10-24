@@ -13,8 +13,8 @@ import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { useCallback, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import Loading from "components/common/Loading";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import useCoupon from "hooks/queries/useCoupon";
 
 const BASIC_IMAGE_GRADIENT = [
   "linear-gradient(133deg, #52ccff 0%, #5448e8 100%)",
@@ -47,8 +47,8 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
   const onChangeCouponMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCouponMessage(e.target.value);
   };
+  const { addCoupon } = useCoupon(Number(targetId));
 
-  // TODO: mutate로 custom hook 분리 예정
   const onClickSubmit = async (png: string) => {
     const formData = new FormData();
     const randomId = (): string => {
@@ -64,23 +64,7 @@ function CreateCouponModal({ setCloseCouponModal }: CreateCouponModalProps) {
         formData.append("file", file);
       });
 
-    try {
-      if (targetId) {
-        const params = new URLSearchParams({ targetId }).toString();
-        await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/coupon?${params}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              charset: "utf-8",
-            },
-          },
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    addCoupon.mutate({ couponForm: formData, targetId: Number(targetId) });
   };
 
   const onClickCouponToPNG = useCallback(async () => {

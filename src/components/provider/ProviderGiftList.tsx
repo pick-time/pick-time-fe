@@ -14,8 +14,6 @@ export default function ProviderGiftList() {
     getGift: { isLoading, data },
   } = useGift(Number(targetId));
 
-  // 시현용
-  const [listData, setListData] = useState<GiftList[]>([]);
   const [editedGiftId, setEditedGiftId] = useState<number>();
 
   const handleDelete = (giftId: number) => {
@@ -39,7 +37,6 @@ export default function ProviderGiftList() {
       )}
       {data && editedGiftId && (
         <EditGiftModal
-          // listData={response}
           giftList={data.giftList}
           editedGiftId={editedGiftId}
           setEditedGiftId={setEditedGiftId}
