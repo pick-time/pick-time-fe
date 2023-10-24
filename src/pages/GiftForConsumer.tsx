@@ -41,7 +41,7 @@ function GiftForConsumer() {
 
     setPickedFinalId(randomId);
     setIsRandom(false);
-
+    
     navigate(`/random/${targetId}/gift`, { state: resultIdArray });
   };
 
