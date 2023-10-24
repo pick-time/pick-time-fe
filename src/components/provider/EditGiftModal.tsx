@@ -60,7 +60,6 @@ export default function EditGiftModal({
       setEditedImg(event.target.files[0]);
     }
   };
-  // console.log(editedImg);
 
   // 선물 수정 폼 제출
   const handleEditForm = (event: React.FormEvent) => {
