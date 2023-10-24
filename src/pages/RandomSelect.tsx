@@ -45,6 +45,7 @@ function RandomSelect() {
   };
 
   useEffect(() => {
+    if (pickedFinalId === 0) return;
     refetch().then(() => getRandomItem());
   }, [pickedFinalId]);
 

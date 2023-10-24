@@ -41,10 +41,8 @@ function GiftForConsumer() {
 
     setPickedFinalId(randomId);
     setIsRandom(false);
-
-    setTimeout(() => {
-      navigate(`/random/${targetId}/gift`, { state: resultIdArray });
-    }, 100);
+    
+    navigate(`/random/${targetId}/gift`, { state: resultIdArray });
   };
 
   const onClickPickButton = () => {
