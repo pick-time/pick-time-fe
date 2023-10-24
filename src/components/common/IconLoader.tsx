@@ -628,9 +628,9 @@ const IconLoader = () => (
       <symbol id="left-arrow" width="24" height="24" fill="none">
         <path
           fill="#000"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M16.707 3.293a1 1 0 0 1 0 1.414L9.414 12l7.293 7.293a1 1 0 0 1-1.414 1.414l-8-8a1 1 0 0 1 0-1.414l8-8a1 1 0 0 1 1.414 0Z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         />
       </symbol>
     </defs>
