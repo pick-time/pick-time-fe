@@ -14,14 +14,20 @@
 <br />
 
 <div align="center">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/103870198/248772571-6a9ee427-93c4-4258-8f07-0f595115bc34.png"  width="241">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/103870198/248773889-526fd2e3-13cc-4820-af83-3c29b441e38f.png" width="241">
-    <br />
-    <img src="https://github.com/pick-time/pick-time-fe/assets/103870198/573cbe95-7967-4c12-84d9-4907d4d19531" width="241">
-    <img src="https://github.com/pick-time/pick-time-fe/assets/103870198/63746ab6-dc0c-482b-bab8-30fb11a723b0" width="241">
-    <br />
-    <img src=https://github.com/pick-time/pick-time-fe/assets/103870198/dad95725-2c3a-4993-82fa-7ab4b27429d0 width="241">
-    <img src="https://github.com/pick-time/pick-time-fe/assets/103870198/2dc2d984-24bc-4b6b-961e-8f9d365467af" width="241">
+
+  <h2>주는 사람 플로우</h2>
+
+| 처음                                                                                                                     | 메시지 카드 생성                                                                                                           | 선물 추가                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| ![주는 사람 처음](https://user-images.githubusercontent.com/92101831/278256910-95816ca6-e1c1-4d63-9fdb-3c874eca877f.gif) | ![메시지 카드 생성](https://user-images.githubusercontent.com/92101831/278256994-636ee995-f568-4a6c-865b-ad14c6605e3f.gif) | ![선물 추가](https://user-images.githubusercontent.com/92101831/278257038-9855feac-0cb9-4d21-b1a9-835a320e09f4.gif) |
+| 쿠폰 추가                                                                                                                | 선물 목록 확인                                                                                                             |                                                                                                                     |
+| ![쿠폰 추가](https://user-images.githubusercontent.com/92101831/278257560-ac1b6973-8734-45da-8e2a-05dc754b6076.gif)      | ![선물 목록 확인](https://user-images.githubusercontent.com/92101831/278272162-887e56a9-50fb-4779-afda-e863216ab445.gif)   |                                                                                                                     |
+
+  <h2>받는 사람 플로우</h2>
+
+| 받는 사람 처음                                                                                                           | 받는 사람 선물 선택                                                                                                           | 받는 사람 랜덤                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| ![받는 사람 처음](https://user-images.githubusercontent.com/92101831/278274708-b87112b6-a54a-4db7-b569-f70a78f42e77.gif) | ![받는 사람 선물 선택](https://user-images.githubusercontent.com/92101831/278274806-d71e8cba-5025-4132-a627-4c3c06cdd706.gif) | ![받는 사람 랜덤](https://user-images.githubusercontent.com/92101831/278274896-1d21f8cc-a654-4928-ab24-cb56b5a7b230.gif) |
 
 </div>
 
