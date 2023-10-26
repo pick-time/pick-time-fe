@@ -1,5 +1,8 @@
-import React from "react";
+import ConsumerIntro from "components/consumer/ConsumerIntro";
+import ProviderIntro from "components/provider/ProviderIntro";
+import { useLocation } from "react-router-dom";
 
 export default function Intro() {
-  return <h1>Intro Page</h1>;
+  const location = useLocation();
+  return location.pathname === "/" ? <ProviderIntro /> : <ConsumerIntro />;
 }

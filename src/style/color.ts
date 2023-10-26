@@ -1,0 +1,12 @@
+const COLOR = {
+  PINK: "#E362A3",
+  PURPLE: "#584392",
+  NAVY: "#24105E",
+  WHITE: "#FFFFFF",
+  PLACEHOLDER_PURPLE: "#C3BBDB",
+  SUB_GRAY: "#A3A3A3",
+  GRAY: "#D7D7D7",
+  BUTTON_LIGHT_PURPLE: "#F9F5FF",
+};
+
+export default COLOR;
